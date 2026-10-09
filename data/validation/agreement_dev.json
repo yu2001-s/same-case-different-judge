@@ -1,0 +1,32 @@
+{
+ "n": 60,
+ "fields": {
+  "Breath-alcohol level": 1.0,
+  "Prison term (months)": 1.0,
+  "Detention (days)": 1.0,
+  "Additional fine (NT$)": 1.0,
+  "Fine-conversion rate": 1.0,
+  "Probation (years)": 1.0,
+  "Prior drunk-driving case": 1.0,
+  "Repeat offender (累犯)": 1.0,
+  "Crash in this incident": 0.9833333333333333,
+  "Vehicle type": 0.95,
+  "Judge": 1.0
+ },
+ "by_court_n": {
+  "臺灣桃園地方法院": 18,
+  "臺灣高雄地方法院": 18,
+  "臺灣臺中地方法院": 17,
+  "臺灣新北地方法院": 7
+ },
+ "misses": {
+  "Crash in this incident": [
+   "doc49.txt"
+  ],
+  "Vehicle type": [
+   "doc07.txt",
+   "doc47.txt",
+   "doc59.txt"
+  ]
+ }
+}

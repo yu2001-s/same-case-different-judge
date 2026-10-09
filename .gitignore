@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+# raw judgment pages contain defendants' names: never commit them
+data/raw/
+*.db
+micro/
+# judge pseudonym key (real names); regenerate locally with code/analysis/analyze.py
+*judge_key_PRIVATE*
+
+# credentials never belong in the repo
+*.env
+.env*

@@ -1,0 +1,206 @@
+  <section class="stack-lg" aria-labelledby="h-facts">
+    <div class="eyebrow"><span class="zh">事實</span><span>Facts</span></div>
+    <h2 id="h-facts">Why drunk driving is a fair test</h2>
+    <div class="stack col">
+      <p>Driving with breath alcohol of 0.25 mg/L or more (刑法第185條之3第1項第1款) is the most common criminal judgment in Taiwan's district courts: the official microdata list {{n_nat_fmt}} single-judge prison sentences in 2025 alone for impaired driving under this paragraph (alcohol and drugs combined). Most are summary judgments (簡易判決) written by one judge on the papers, and the facts that should drive the sentence are written into every judgment: the measured alcohol level, prior drunk-driving cases, whether there was a crash, and the vehicle.</p>
+      <p>Cases are handed to judges by each court's advance assignment rules (分案), which the Constitutional Court requires to be general and abstract{{cite:jy-interp665-2009}}. Within a court, case type and period, which judge receives a case is therefore close to a lottery, with known exceptions such as related cases going to the same judge. If sentences still differ by judge after the legal facts are accounted for, the difference comes from the judge.</p>
+      <p>We downloaded every 公共危險 judgment issued in 2025 by six district courts (Taipei, New Taipei, Taoyuan, Taichung, Tainan, Kaohsiung), extracted the facts and the sentence from each text, and kept single-count alcohol cases decided by one identifiable judge: <b>{{n_six_fmt}} judgments by {{n_six_judges}} judges</b>, {{date_min}} to {{date_max}}.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">The law does most of the work</span><span class="s">Mean prison term by measured breath alcohol, first offenders vs defendants with a prior drunk-driving case. Six courts, 2025.</span></figcaption>
+      <div class="chart" id="c-bac" data-table="t-bac" data-label="Line chart: sentences rise with breath alcohol and are longer with a prior record"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-bac"></div></details>
+    </figure>
+    <div class="stack col">
+      <p>Sentences rise steadily with alcohol level and jump for repeat offenders, as the statute and sentencing practice intend. Case facts alone explain {{r2_legal}} of the variation in sentence length. The question is what happens to the rest.</p>
+      <details><summary>How the sample was built</summary><div class="tablewrap"><table><thead><tr><th>Step</th><th>Judgments</th></tr></thead><tbody>{{funnel_rows}}</tbody></table></div></details>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-judge">
+    <div class="eyebrow"><span class="zh">理由一</span><span>Reasoning · the judge</span></div>
+    <h2 id="h-judge">Which judge you draw changes the sentence</h2>
+    <figure>
+      <figcaption><span class="t">Same typical case, predicted sentence by judge</span><span class="s">Each dot is one judge with {{judge_min_n}}+ cases. Typical case: {{std_desc}}. Vertical tick: court average. Months.</span></figcaption>
+      <div class="chart" id="c-judges" data-table="t-judges" data-label="Strip plot of predicted sentences for the same case across judges in six courts"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-judges"></div></details>
+    </figure>
+    <div class="stack col">
+      <p>For the same typical first offence, the judge at the lenient 10th percentile is predicted to give {{p10_days}} days relative to colleagues in the same court, and the judge at the 90th percentile {{p90_days}} days: a gap of about <b>{{gap_days}} days</b>. The most lenient and harshest judges in the sample sit at {{min_days}} and {{max_days}} days. Adding judge identity to a model that already holds case facts and assignment pool fixed is highly significant (F = {{f_judge}}, p {{f_judge_p}}), and a random-effects model puts the judge standard deviation at about {{judge_sd}} days.</p>
+      <p>Two checks separate real judge styles from chance.</p>
+    </div>
+    <div class="grid2">
+      <figure>
+        <figcaption><span class="t">Leniency is a stable trait</span><span class="s">Each judge's cases split at random into two halves. Judge effect in half A vs half B, days. Mean correlation over 200 random splits: {{split_r}} (90% range {{split_lo}}–{{split_hi}}).</span></figcaption>
+        <div class="chart" id="c-split" data-table="t-split" data-label="Scatter of judge effects in two random halves of their cases"></div>
+        <details><summary>Table view</summary><div class="tablewrap" id="t-split"></div></details>
+      </figure>
+      <figure>
+        <figcaption><span class="t">Chance cannot produce this much variation</span><span class="s">Between-judge variance when judge labels are shuffled within each assignment pool ({{n_perm}} shuffles), against the real data.</span></figcaption>
+        <div class="chart" id="c-perm" data-table="t-perm" data-label="Histogram of shuffled-data variance with the observed value far to the right"></div>
+        <details><summary>Table view</summary><div class="tablewrap" id="t-perm"></div></details>
+      </figure>
+    </div>
+    <figure>
+      <figcaption><span class="t">Where the variation in sentences comes from</span><span class="s">Share of the variance in sentence length. The judge share uses the noise-corrected variance component, not the raw fit of judge dummies.</span></figcaption>
+      <div class="chart short" id="c-var" data-table="t-var" data-label="Stacked bar splitting sentence variation into case facts, court, judge and unexplained"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-var"></div></details>
+    </figure>
+    <div class="stack col">
+      <p><b>Is assignment really random?</b> Not entirely. Within the same pool, case facts are spread across judges somewhat unevenly (table below): repeat offenders and crash cases cluster with some judges. Part of this is likely real (assignment rules send a defendant's related cases to the judge who already has one) and part may come from how fully different judges describe a defendant's record or an accident in the text. This is why every model controls for those facts. Three checks suggest uneven case mix does not explain the judge differences. The sentence predicted from case facts alone varies across judges by about {{mix_sd}} days, well under the {{judge_sd}} days by which judges differ in sentencing the same facts. The judge differences are the same with detailed or minimal controls ({{cc_full}} vs {{cc_min}} days), and narrowing pools to single months gives the same answer ({{mp_sd}} days).</p>
+      <div class="tablewrap"><table><thead><tr><th>Case fact (balance across judges)</th><th>F (judges, within pool)</th><th>p</th></tr></thead><tbody>{{bal_rows}}</tbody></table></div>
+      <details><summary>Robustness: the judge effect under other specifications</summary><div class="tablewrap"><table><thead><tr><th>Specification</th><th>Cases</th><th>Judges</th><th>F for judge</th><th>p</th></tr></thead><tbody>{{rob_rows}}</tbody></table></div></details>
+      <details><summary>Typical-case prediction by court</summary><div class="tablewrap"><table><thead><tr><th>Court</th><th>Predicted months</th></tr></thead><tbody>{{std_court_rows}}</tbody></table></div></details>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-addons">
+    <div class="eyebrow"><span class="zh">理由二</span><span>Reasoning · the add-ons</span></div>
+    <h2 id="h-addons">The biggest gaps are in fines and probation</h2>
+    <div class="stack col">
+      <p>Prison terms for drunk driving cluster at two to four months and are almost always convertible to a fine (易科罰金) at NT$1,000 a day, so the term itself leaves limited room. Two other choices are left to the judge: whether to add a fine on top of the prison term (併科罰金) and whether to suspend the sentence (緩刑). In the six-court sample {{share_fine}} of sentences carry an extra fine and {{share_prob}} are suspended.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Will you also be fined? Depends on the judge</span><span class="s">Share of each judge's cases with an extra fine, adjusted for case facts and assignment pool. Judges with {{judge_min_n}}+ cases. Vertical tick: court average.</span></figcaption>
+      <div class="chart" id="c-fine" data-table="t-fine" data-label="Strip plot of extra-fine rates by judge within each court"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-fine"></div></details>
+    </figure>
+    <p class="col">Adjusted for case facts, judges at the 10th and 90th percentile add a fine in about {{fine_p10}} and {{fine_p90}} of their cases (F = {{fine_F}}). Probation is granted in {{prob_base}} of cases overall; nationally {{nat_prob_never}} of judges with 30 or more cases never granted it. Because the add-ons are where judges differ most, they are where consistency rules or guidance would change the most outcomes.</p>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-national">
+    <div class="eyebrow"><span class="zh">理由三</span><span>Reasoning · nationwide</span></div>
+    <h2 id="h-national">The pattern holds in every district court</h2>
+    <div class="stack col">
+      <p>The Judicial Yuan publishes case-level microdata on every terminated case with the judges' names, the sentence, probation and repeat-offender status{{cite:jy-stat-codebook-2024}}. These records lack alcohol levels and crash details, so the national models control only for repeat-offender status and the coded aggravating and mitigating reasons. In the six-court data the judge standard deviation is {{cc_full}} days with the detailed controls and {{cc_min}} days with only the controls the microdata carry, so the national figures are unlikely to be driven by the missing facts.</p>
+      <p>Across {{n_nat_fmt}} cases decided by {{n_nat_judges}} judges in {{nat_courts}} courts, the judge accounts for {{nat_icc}} of residual variation (standard deviation about {{nat_sd}} days). Among the {{nat_big}} judges with 30+ cases, the 10th–90th percentile gap is about {{nat_gap}} days on an average sentence of {{nat_mean_mo}} months. Real data show {{nat_perm_ratio}} times the judge variation of shuffled data, and judge rankings again replicate across random halves (r = {{nat_split}}).</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Spread of judge effects inside each court</span><span class="s">Judge effect in days relative to the national pool model, judges with 30+ cases, courts with at least three such judges. Bar: middle half of judges; line: most lenient to harshest. Sorted by spread.</span></figcaption>
+      <div class="chart" id="c-nat-range" data-table="t-nat-range" data-label="Range plot of judge effects by district court"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-nat-range"></div></details>
+    </figure>
+    <figure>
+      <figcaption><span class="t">Where you are tried also matters</span><span class="s">Predicted prison term for a non-repeat offender with no coded aggravating or mitigating reasons, by court (courts with 200+ cases). Months.</span></figcaption>
+      <div class="chart" id="c-nat-court" data-table="t-nat-court" data-label="Bar chart of adjusted mean sentence by court"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-nat-court"></div></details>
+    </figure>
+    <div class="stack col">
+      <p class="note">Court differences mix local sentencing culture with differences in case mix that these controls cannot see (for example, average alcohol levels), so they are a lead to investigate, not a ranking. Within-court judge comparisons do not have this problem because assignment is random within a pool. Predicted terms range from {{nat_court_lo_v}} months ({{nat_court_lo}}) to {{nat_court_hi_v}} months ({{nat_court_hi}}).</p>
+      <details><summary>How the national sample was built</summary><div class="tablewrap"><table><thead><tr><th>Step</th><th>Cases</th></tr></thead><tbody>{{nat_funnel_rows}}</tbody></table></div></details>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-timing">
+    <div class="eyebrow"><span class="zh">理由四</span><span>Reasoning · circumstances</span></div>
+    <h2 id="h-timing">The calendar barely moves sentences</h2>
+    <div class="stack col">
+      <p>The best-known claim about judges' circumstances is the Israeli parole study in which favourable decisions fell from about 65% to near zero before each meal break{{cite:danziger2011}}. It has not held up well: case order was not random{{cite:weinshallmargel2011}}, rational scheduling can produce the same curve{{cite:glockner2016}}, a re-analysis rejected the depletion mechanism{{cite:daljord2019}}, and a large US bail study found only a small pre-meal dip with no recovery after meals{{cite:shroff2022}}. Taiwanese judgments carry only the decision date, and summary judgments are written on the papers, so the time-of-day question cannot be tested with published data. What can be tested is the calendar.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Calendar effects on the sentence, same judge</span><span class="s">Days added to the prison term, estimated within judge with case facts held fixed. Dot: estimate; line: 95% interval. Six courts, 2025.</span></figcaption>
+      <div class="chart" id="c-timing" data-table="t-timing" data-label="Coefficient plot of timing effects, all close to zero"></div>
+      <details><summary>Table view</summary><div class="tablewrap" id="t-timing"></div></details>
+    </figure>
+    <div class="stack col">
+      <p>{{timing_sig_cap}} of the {{timing_n}} calendar factors survives correction for multiple testing (q &lt; 0.05). Judgments signed on Tuesday and Wednesday run about {{timing_max}} days longer than Monday ones before correction, a difference of about 2% that is easily produced by chance across eight tests. This matches the international pattern that dramatic extraneous-factor effects tend to shrink on re-analysis: the daylight-saving "sleepy judge" result{{cite:cho2017,spamann2018dst}} and the temperature effect on asylum decisions{{cite:heyes2019,spamann2022temp}} both weakened or reversed, and Australian data on 2.8 million cases found near-zero temperature effects{{cite:evans2020}}. Effects that have held up are subtler: sequence effects such as the gambler's fallacy{{cite:chen2016gambler}} and anchoring on numeric demands{{cite:englich2006,bystranowski2021}}. In Taiwan, an NTU thesis found more verdicts and slightly shorter sentences at month-end, when pending-case counts are reported{{cite:tsai2022}}. With one year of data we cannot confirm that here, which is a reason to test it on the full 2013–2026 microdata.</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-identity">
+    <div class="eyebrow"><span class="zh">理由五</span><span>Reasoning · the defendant</span></div>
+    <h2 id="h-identity">Who the defendant is: first evidence</h2>
+    <div class="stack col">
+      <p>Fairness is also about whether the same facts are treated alike across defendants. Case numbers with the 原 prefix (原交簡) route Indigenous defendants' cases to Indigenous-affairs divisions, which makes one identity group visible in the data. In the six-court sample ({{ind_n}} such cases), Indigenous defendants had a prior drunk-driving record more often ({{ind_prior}} vs {{ind_prior_other}}), and after case facts, court and quarter are held fixed their sentences differ by {{ind_coef}} days (95% interval {{ind_lo}} to {{ind_hi}}). Nationally ({{ind_nat_n}} cases, fewer controls) the difference is {{ind_nat_coef}} days ({{ind_nat_lo}} to {{ind_nat_hi}}).</p>
+      <p>Identity and judge can also interact. In Hualien, all 153 drunk-driving judgments that reduced sentences on grounds of Indigenous culture were written by a single judge{{cite:fan_lin2025_culturaldefense}}. Foreign defendants are the fastest-growing group in the courts, from 2,848 at first instance in 2021 to 7,575 in 2025, many of them in drunk-driving cases{{cite:jy_foreign_defendant_stats}}.</p>
+      <p class="note">These comparisons cannot separate defendant identity from the specialised divisions that hear these cases, and they rest on one offence. Other groups the research plan targets (migrant workers and other foreign nationals, defendants with legal aid or public defenders, women) are not reliably visible in this pilot's data.</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-lit">
+    <div class="eyebrow"><span class="zh">文獻</span><span>What the research says</span></div>
+    <h2 id="h-lit">What is already known</h2>
+    <div class="stack col">
+      <h3>The judge lottery is the most robust finding internationally</h3>
+      <p>Large differences between judges hearing comparable, randomly assigned cases are documented in US federal sentencing{{cite:anderson1999,yang2014}}, asylum adjudication{{cite:refugeeroulette2007}} and state criminal courts{{cite:abrams2012}}. Disparities grew when US guidelines became advisory{{cite:yang2014}}, and they are found in civil-law career judiciaries too: Czech judges converge with experience{{cite:drapal2023}}, and centralised training alone did not produce consistency in Poland{{cite:uhl2026}}.</p>
+      <h3>Judge identity matters in narrower ways</h3>
+      <p>Careful designs find judge gender affects outcomes in only a few identity-salient case types{{cite:boyd2010}}, and reviews conclude ideology matters more than demographics{{cite:harrissen2019}}. In-group bias shows up in some settings{{cite:shayo2011,grossman2016}}, reverses in others{{cite:depew2017}}, and is a precise zero in five million Indian cases{{cite:ash2025india}}. Political affiliation interacts with defendant race in US sentencing{{cite:cohen2019}}, prior careers as public defenders shape outcomes{{cite:harrissen2025pd}}, and in career judiciaries promotion incentives are a debated channel{{cite:ramseyer2001,fukumoto2015}}. Guidelines can shrink identity effects: in Korea, the influence of having a woman on a sex-crime panel disappeared after sentencing guidelines took effect{{cite:kicj2015_park}}.</p>
+      <h3>Taiwan: thin but growing evidence</h3>
+      <p>Most Taiwanese evidence comes from a small Academia Sinica and NCKU network and from master's theses. Appellate reversal depends on ties between appellate and trial judges{{cite:lin_chang2025_networking,wu_lin_chang2026}}; the Supreme Court favours government litigants at the leave stage{{cite:chen_huang_lin2015}}; non-pecuniary damages track plaintiffs' demands and parties' status{{cite:chang_eisenberg_ho_wells2015,chang_ho_hsu2016,chang2023askmore}}; and the type of defence counsel changes outcomes{{cite:huang_chen_lin2010_counsel}}. A thesis on 2019 gun cases found, in a correlational analysis, that male judges gave about 1.3 months more than female judges{{cite:tseng2021thesis}}; judges offset a 2007 commutation law by raising sentences for eligible thefts by about 25%{{cite:huang2023_commutation}}; and a machine-learning study of 336 capital cases (2013–2024) found prima facie evidence that like cases were not consistently treated alike{{cite:ho2025capital}}. Constitutional Court studies disagree on whether justices vote ideologically{{cite:garoupa_grembi_lin2011,su_ho_lin2018}}. Official statistics show district-court probation rates from 11% to 83% of eligible defendants, partly a recording artifact{{cite:jy_yearbook2025_t147_probation_by_court}}. Before the judicial-independence reforms of the 1990s, case assignment and promotion were levers of political control{{cite:wang2006_tpsr}}. We found no published Taiwanese study that uses random case assignment to measure judge-level sentencing disparity, which is the gap this project fills.</p>
+      <h3>Public trust</h3>
+      <p>In the Judicial Yuan's own survey, trust in judges reached 59.8% in 2025, up from 35.8% in 2016, but only 54% agree that most judges decide independently, and 81% of people reluctant to go to court say they might not get a fair ruling{{cite:jy2025_public_survey}}. Support for lay participation grew out of dissatisfaction with professional judges{{cite:huanglin2013_jels}}, and the 2023 citizen-judge system has so far been evaluated mainly through participant surveys{{cite:jy2025_layjudge_eval}}.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim</th><th>Status</th><th>What happened</th></tr></thead>
+        <tbody>
+          <tr><td>Hungry judges: parole grants fall before meal breaks{{cite:danziger2011}}</td><td><span class="pill fell">Contested</span></td><td>Non-random case order, rational scheduling and an implausibly large effect{{cite:weinshallmargel2011,glockner2016,daljord2019,chatziathanasiou2022}}</td></tr>
+          <tr><td>Sleepy judges: harsher sentences after daylight-saving change{{cite:cho2017}}</td><td><span class="pill fell">Did not replicate</span></td><td>Model-dependent and absent in 2004–2016 data{{cite:spamann2018dst}}</td></tr>
+          <tr><td>Hot days reduce asylum grants{{cite:heyes2019}}</td><td><span class="pill fell">Disputed</span></td><td>Data errors; estimate shrinks and reverses in a longer sample{{cite:spamann2022temp}}; near-zero in Australia{{cite:evans2020}}</td></tr>
+          <tr><td>Football losses make juvenile judges harsher{{cite:eren2018}}</td><td><span class="pill mixed">Single study</span></td><td>Not independently replicated</td></tr>
+          <tr><td>Gambler's fallacy in sequential decisions{{cite:chen2016gambler}}</td><td><span class="pill held">Held up</span></td><td>Small effects across asylum, lending and baseball</td></tr>
+          <tr><td>Anchoring on numeric demands{{cite:englich2006}}</td><td><span class="pill held">Held up</span></td><td>Meta-analysis across countries, with some publication bias{{cite:bystranowski2021}}; prosecutors' demands anchor Korean sentences{{cite:kimchae2017}}</td></tr>
+          <tr><td>Judge lottery: large between-judge disparity{{cite:anderson1999,refugeeroulette2007}}</td><td><span class="pill held">Held up</span></td><td>Replicated across countries and case types; confirmed in this pilot</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-plan">
+    <div class="eyebrow"><span class="zh">計畫</span><span>Research plan</span></div>
+    <h2 id="h-plan">From pilot to a full study</h2>
+    <div class="rq col">
+      <div><b>RQ1</b><span>How large is the judge lottery across offences, courts and years? Measure noise-corrected between-judge variance in sentence length, conviction, probation, fine add-ons and detention for the main high-volume offences (drunk driving, fraud, theft, drug possession, traffic injury, assault), 2013–2026.</span></div>
+      <div><b>RQ2</b><span>Which judge characteristics predict leniency? Seniority, training cohort (期別), entry route (exam vs lawyer or prosecutor), court level history, and gender where it can be established from official sources, with effects interpreted as "being assigned such a judge".</span></div>
+      <div><b>RQ3</b><span>Are some defendants treated differently, and does it depend on the judge? Indigenous defendants, foreign nationals and migrant workers, legal aid and public-defender clients, and gender, using judge × defendant interactions within assignment pools.</span></div>
+      <div><b>RQ4</b><span>Do circumstances move decisions? Month-end reporting pressure, holiday and typhoon-day calendars, caseload shocks, high-profile media cases and sentencing-tool releases, with pre-registered hypotheses and strong null priors.</span></div>
+      <div><b>RQ5</b><span>Does inconsistency have consequences? Whether outlier judges are reversed more on appeal (accounting for appellate ties), and whether random leniency changes reoffending.</span></div>
+      <div><b>RQ6</b><span>Did reforms reduce disparity? Sentencing-trend guidance (2018), the AI sentencing information system (2023) and citizen judges (2023).</span></div>
+    </div>
+    <div class="stack col">
+      <h3>Design</h3>
+      <p>The backbone is random assignment: compare judges only within the pool of cases a court distributes by its rules (court × case type × period), test that case facts are balanced across judges, and report noise-corrected disparity measures{{cite:kline2020}} with judge identities anonymised. Use judge-stringency instruments only for downstream questions, with tests of their assumptions{{cite:frandsen2023,chyn2025}}. Rank judges only with rank confidence sets{{cite:mogstad2024ranks,gu2023}}. Pre-register outcomes and hypotheses, explore on 2013–2020 and confirm on 2021–2026, and correct for multiple testing{{cite:anderson2008,romano2005}}.</p>
+      <h3>Data</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Source</th><th>Access</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>終結案件資料 terminated-case microdata, 2013–2026 (司法院資料開放平臺)</td><td>Open, no login (tested)</td><td>Judges' names, outcomes, sentence, probation, repeat-offender status, counsel type, coded reasons, judgment ID</td></tr>
+          <tr><td>裁判書 full texts: FJUD web pages; bulk monthly archives and the judgment API</td><td>Web pages open (tested); bulk files need a free member account</td><td>Case facts (alcohol level, injuries, priors, settlement), reasoning text</td></tr>
+          <tr><td>事實型量刑資訊系統 sentencing information system</td><td>Open API (aggregates)</td><td>Ready-made codebook of legally relevant factors; benchmark distributions</td></tr>
+          <tr><td>司法院人事審議委員會 decisions; 法官事務分配; 考選部 lists</td><td>Open pages; some court sites block foreign access</td><td>Judge career events, cohorts, division assignments, assignment pools</td></tr>
+          <tr><td>涉外案件 statistics; 法律扶助 data</td><td>Open aggregates</td><td>Benchmarks for foreign-national and legal-aid analyses</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="phases col">
+      <div class="phase"><span class="when">Phase 0 · done</span><span>Pilot on 2025 drunk driving: six courts with full text, all courts with microdata, parser validated against blind coding and official records.</span></div>
+      <div class="phase"><span class="when">Phase 1 · 1–2 months</span><span>Load all microdata 2013–2026; map assignment pools per court; replicate RQ1 for six offences; write and register the pre-analysis plan.</span></div>
+      <div class="phase"><span class="when">Phase 2 · 2–4 months</span><span>Collect full texts for the selected offences (member account for bulk files, run from Taiwan); extract case facts with validated parsers; build the judge career panel from personnel decisions.</span></div>
+      <div class="phase"><span class="when">Phase 3 · 4–6 months</span><span>Confirmatory analyses for RQ2–RQ4 on the held-out years; robustness and rank confidence sets.</span></div>
+      <div class="phase"><span class="when">Phase 4 · 6–9 months</span><span>Consequences and reforms (RQ5–RQ6); write-up for a Taiwanese law review and an international empirical-legal-studies journal; share anonymised data and code.</span></div>
+    </div>
+    <div class="stack col">
+      <h3>Ethics</h3>
+      <p>Taiwan's Court Organization Act makes judgments, including judges' names, public{{cite:court-org-act-83}}, and research use of published personal data has a basis in the Personal Data Protection Act{{cite:pdpa-6-19-20}}. France criminalised judge-level analytics in 2019, a move scholars criticised as limiting research{{cite:france2019art33,langford2019}}. This project reports judges as anonymous codes and system-level measures, does not store defendants' names, and treats any single judge's estimate as uncertain. The aim is to show where the system needs consistency, not to name individual judges.</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-appx">
+    <div class="eyebrow"><span class="zh">附錄</span><span>Appendix</span></div>
+    <h2 id="h-appx">Methods, checks and limits</h2>
+    <div class="stack col">
+      <h3>Models</h3>
+      <p>Outcome: prison term in days (有期徒刑 months × 30 plus 拘役 days). Controls: breath-alcohol band and level, number of prior drunk-driving cases (0–3+), repeat-offender finding (累犯), crash, injury mention, vehicle type, self-report (自首), Art. 59 mitigation, and stated education and economic status. Assignment pool: court × case-type prefix (字別, which also identifies the summary-court location) × quarter. The judge share is the REML variance of judge intercepts on residuals from the pool-and-facts model; standard errors are clustered by judge. Permutation tests shuffle judges within pools. Timing models include judge fixed effects, and p-values are adjusted with Benjamini–Hochberg.</p>
+      <h3>Is the extraction right?</h3>
+      <p>Two independent checks. First, randomly drawn judgments were coded blind by separate reviewers: {{agr_dev_n}} were used to refine the extraction rules, then {{agr_n}} fresh judgments from all six courts, never used for tuning, measured accuracy. The table shows agreement on that held-out set. Second, {{mc_n}} parsed judgments were matched to the Judicial Yuan's own microdata by judgment ID: the prison term matches in {{mc_prison}}, probation in {{mc_prob}}, the extra fine in {{mc_fine}}, repeat-offender status in {{mc_rec}} and the judge in {{mc_judge}} of cases.</p>
+      <div class="tablewrap"><table><thead><tr><th>Field (blind coding, n = {{agr_n}})</th><th>Agreement</th></tr></thead><tbody>{{agr_rows}}</tbody></table></div>
+      <h3>Limits</h3>
+      <p>One offence and one year. Alcohol cases decided by summary procedure are the most standardised in the system, so other offences may show more or less judge variation. Assignment pools are inferred from case-type prefixes rather than each court's written assignment rules, which should be collected. Prosecutors almost never state a requested sentence in these cases, so anchoring cannot be tested here. Decisions may be affected by case facts that judgments do not record. Judge effects for individual judges are estimated with error, and the report does not rank or name judges.</p>
+      <h3>Literature search</h3>
+      <p>Seven parallel searches (English and Traditional Chinese) produced candidate sources; each was then checked by an independent reviewer against the publisher or repository record. Only confirmed sources (or sources with corrected details) are cited. {{n_refs}} are cited here; the full verified bibliography is in the project repository.</p>
+    </div>
+    <div class="stack">
+      <h3>References</h3>
+      <ol class="refs">{{refs_html}}</ol>
+    </div>
+  </section>

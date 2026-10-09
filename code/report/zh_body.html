@@ -1,0 +1,154 @@
+  <header class="top">
+    <div class="eyebrow"><span class="seal" aria-hidden="true">研</span><span>白話版研究報告 · 2026 年 10 月 9 日</span></div>
+    <h1>同一件案子，換一位法官，結果會一樣嗎？</h1>
+    <p class="lede">法律說，相同的案子應該得到相同的處理。我們用司法院公開的資料，看了 2013 到 2026 年全國地方法院 {{n_total}} 件由一位法官獨任審理的刑事案件，加上 2,283 件選舉犯罪判決，想知道判決結果有多少是取決於「抽到哪位法官」、「被告是誰」，以及政治。</p>
+    <div class="meta"><span>資料來源：司法院資料開放平臺（終結案件資料、裁判書）、中選會候選人資料</span><span>這是給一般讀者的簡明版；完整英文版含所有圖表、方法與具名法官表</span></div>
+  </header>
+
+  <section class="stack-lg" aria-labelledby="h-key">
+    <div class="eyebrow"><span class="zh">主文</span><span>重點</span></div>
+    <h2 id="h-key">先講結論</h2>
+    <div class="holding">
+      <div class="tile"><span class="v">{{fr_gap}} 天</span><span class="l">詐欺案隨機抽兩位同法院法官，對類似案件的刑期平均相差的天數（平均刑期約 {{fr_mean}} 天）</span></div>
+      <div class="tile"><span class="v">{{fr_fine_icc}}</span><span class="l">詐欺案「要不要併科罰金」的差異中，可歸因於法官本人的比例</span></div>
+      <div class="tile"><span class="v">{{app_surv_sd_lo}}–{{app_surv_sd_hi}}</span><span class="l">法官之間的刑期差距，經過上訴後仍然留下來的比例</span></div>
+      <div class="tile"><span class="v">{{mov_r}}</span><span class="l">法官調到別的法院後，寬嚴程度與原本的相關係數：風格跟著人走</span></div>
+    </div>
+    <ol class="findings col">
+      <li><span><b>有罪無罪幾乎不看法官，判多重很看法官。</b>這類案件幾乎都判有罪，不同法官的定罪率最多只差約 {{conv_sd_hi}} 個百分點。但刑期長短、給不給緩刑、要不要另外併科罰金，同一法院的法官之間有穩定、明顯的差別。</span></li>
+      <li><span><b>這不是運氣，是法官個人的風格。</b>把一位法官的案件隨機分成兩半，兩半的寬嚴程度高度一致；這種風格持續多年，法官調到別的法院也大致不變。</span></li>
+      <li><span><b>量刑輔助工具沒有讓差距變小。</b>2018 年的量刑趨勢建議系統之後，看不出可靠的改善；2023 年 AI 量刑資訊系統上線後，法官之間的差距反而相對變大（同時期酒駕、詐欺的刑罰也加重了，所以不能直接怪系統）。</span></li>
+      <li><span><b>上訴也修正不了多少。</b>只有約 {{app_rate}} 的案件被上訴，二審之後大部分的法官差距仍然存在。</span></li>
+      <li><span><b>不是新手法官的問題。</b>剛上任三年內的法官，和資深法官判得差不多。</span></li>
+      <li><span><b>被告是誰，有些影響。</b>外籍被告的酒駕刑期，即使考慮酒測值和前科，仍比類似的本國被告短約 {{pid_full_abs}}；女性被告在竊盜、傷害案的刑期明顯較短。</span></li>
+      <li><span><b>羈押中能不能交保，也看法官。</b>同一法院同一年，不同法官准許具保停止羈押的機率，差距可達十幾個百分點。</span></li>
+      <li><span><b>政治：沒有看到檢方特別追殺在野黨，但有一個值得注意的落差。</b>國民黨或民進黨相關被告的定罪率沒有可偵測的差別；2016 年政黨輪替後，國民黨相關案件的比例也沒有增加。不過，與「當時在野黨」相關的被告，獲得緩刑的機率低約 {{opp_prob_abs}} 個百分點。</span></li>
+    </ol>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-how">
+    <div class="eyebrow"><span class="zh">事實</span><span>怎麼研究的</span></div>
+    <h2 id="h-how">為什麼可以拿法官來比較？</h2>
+    <div class="col stack">
+      <p>地方法院的案件是依照事先訂好的規則輪分或抽籤（分案），不是法官自己挑，也不是被告能選。所以在<b>同一法院、同一種案件、同一季</b>裡，抽到 A 法官的被告和抽到 B 法官的被告，整體來說是差不多的一群人。如果兩位法官的判決長期系統性不同，差別就來自法官本人。</p>
+      <p>我們還扣掉了資料裡記載的案情因素，例如累犯、未遂、共犯、自白、自首、刑法第 59 條酌減、有沒有律師、觸犯的具體條文。我們也用統計方法排除「案件少的法官看起來比較極端」這種純屬運氣的影響。</p>
+      <p class="note">打個比方：同一間學校的老師隨機分到差不多的學生，如果某位老師給分一直比別人高，那就是老師的給分習慣，而不是學生比較厲害。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f1">
+    <div class="eyebrow"><span class="zh">理由一</span><span>抽到哪位法官</span></div>
+    <h2 id="h-f1">換一位法官，刑期差多少？</h2>
+    <div class="col stack">
+      <p>下圖是：在同一法院隨機抽兩位法官，處理類似案件時，刑期平均會差幾天。以酒駕為例，平均刑期約 {{dui_mean}} 天，兩位法官平均差 {{dui_gap}} 天；詐欺平均刑期約 {{fr_mean}} 天，差 {{fr_gap}} 天。換算下來，差距大約是一般刑期的 {{gap_pct_lo}}% 到 {{gap_pct_hi}}%。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">隨機抽兩位同法院法官，類似案件的刑期平均差幾天</span><span class="s">2013–2026 年，已扣除案情因素與法院、時期的差異。括號內是差距佔該罪名平均刑期的百分比；滑鼠移到長條上可看平均刑期。</span></figcaption>
+      <div class="chart" id="z-gap" data-table="zt-gap" data-label="各罪名兩位法官刑期差距"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-gap"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>緩刑和罰金更看法官。</b>酒駕案要不要給緩刑，有 {{dui_prob_icc}} 的差異可歸因於法官；要不要在徒刑之外再併科罰金，更高達 {{dui_fine_icc}}（罰金資料 2024 年起才有記載）。詐欺案很少併科罰金（約 {{fr_fine_mean}}），但這件事幾乎完全看法官：大部分法官幾乎不用，少數法官則常常使用。</p>
+      <p><b>具名法官表。</b>判決書依法公開並載明法官姓名，所以完整英文版列出了 2022 年以來案件數達 100 件以上的法官，和同法院其他法官相比的結果，並附上信賴區間與排名範圍。例如酒駕案共 {{nm_dui_judges}} 位法官符合條件，其中 {{nm_dui_hi}} 位明顯較重、{{nm_dui_lo}} 位明顯較輕。這些判決都在法定刑度內，差別不代表違法或失職，只反映「誰來判」對結果的影響。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f2">
+    <div class="eyebrow"><span class="zh">理由二</span><span>法官是誰</span></div>
+    <h2 id="h-f2">寬嚴是法官個人的長期風格</h2>
+    <div class="col stack">
+      <p><b>不是運氣：</b>把每位法官的案件隨機分成兩半，兩半算出來的寬嚴程度高度一致（酒駕案相關係數 {{dui_split}}，1 代表完全一致）。</p>
+      <p><b>持續多年：</b>同一位法官前後四年的寬嚴程度相關係數約 {{p4_lo}}–{{p4_hi}}，相隔八年仍有 {{p8_lo}}–{{p8_hi}}。</p>
+      <p><b>跟著人走：</b>有 {{mov_n}} 位法官調到別的法院。他們在舊法院比同事重或輕，到了新法院大致還是一樣（相關係數 {{mov_r}}）。這表示差別主要來自法官本人，而不是各法院的「地方慣例」。</p>
+      <p><b>不是新手的問題：</b>上任三年內的法官，和五年以上的資深法官相比，判刑水準相差最多約 {{exp_lvl_max}}%，彼此之間的差異程度也差不多。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">同一位法官，換了法院之後</span><span class="s">每個點是一位調動過的法官：橫軸是在舊法院比同事重（右）或輕（左），縱軸是在新法院的情形。點越接近斜線，代表風格越一致。</span></figcaption>
+      <div class="chart" id="z-movers" data-table="zt-movers" data-label="法官調動前後的寬嚴程度"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-movers"></div></details>
+    </figure>
+  </section>
+
+  <section class="module" aria-labelledby="h-f3">
+    <div class="eyebrow"><span class="zh">理由三</span><span>制度有沒有修正</span></div>
+    <h2 id="h-f3">量刑系統和上訴，都沒有讓差距明顯變小</h2>
+    <div class="col stack">
+      <p>司法院在 2018 年 12 月推出「量刑趨勢建議系統」（涵蓋酒駕、詐欺、竊盜等），2023 年 2 月推出「AI 量刑資訊系統」（再加入傷害、毒品等）。如果這些工具有效，有涵蓋的罪名，法官之間的差距應該比沒涵蓋的罪名縮得更多。</p>
+      <p>結果：2018 年之後，有涵蓋的罪名差距相對縮小約 {{d18_abs}}，但只有三種罪名、統計上不可靠。2023 年之後，有涵蓋的罪名差距反而相對擴大 {{d23}}。同一時期酒駕和詐欺的刑罰都加重了（詐欺平均刑期從 2013 年的 {{fr_mean_2013}} 天升到 2025 年的 {{fr_mean_2025}} 天），法官適應新法的速度不一，所以不能說是系統造成的。可以確定的只有一點：系統上線後，差距沒有變小。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">法官之間的刑期差距，逐年變化</span><span class="s">數值越大，代表同法院法官之間判得越不一致（以刑期的百分比表示）。虛線是兩套量刑系統上線的時間。</span></figcaption>
+      <div class="chart" id="z-trend" data-table="zt-trend" data-label="法官差距逐年變化"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-trend"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>上訴：</b>我們追蹤了 {{app_n}} 件一審判決有沒有被上訴、二審怎麼判。只有 {{app_rate}} 被上訴；判得重的法官，被告上訴的機率稍高；判得輕的法官，檢察官上訴的機率稍高。但因為上訴的案件很少、二審多數維持原判，法官之間的差距在二審後仍留下 {{app_surv_sd_lo}}–{{app_surv_sd_hi}}。以酒駕來說，只有 {{app_dui_rate}} 的案件被上訴，差距幾乎原封不動。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f4">
+    <div class="eyebrow"><span class="zh">理由四</span><span>被告是誰</span></div>
+    <h2 id="h-f4">外籍、女性、原住民、有沒有律師</h2>
+    <div class="col stack">
+      <p>政府資料沒有記錄被告的性別和國籍，所以我們讀取了 {{tx_n}} 份判決全文（{{tx_months}}）。判決以外文拼寫姓名或寫明外國國籍者，視為外籍；性別優先採用起訴書上寫的性別，沒有寫的再用名字推估（經查核正確率約 98%）。以下都是和同一法院、同類案件、案情類似的被告相比。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">和類似的被告相比，刑期差多少</span><span class="s">負數代表刑期較短。橫線是 95% 信賴區間：橫線沒有碰到 0，代表差別在統計上可以確定。</span></figcaption>
+      <div class="chart" id="z-identity" data-table="zt-identity" data-label="被告身分與刑期差距"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-identity"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>外籍被告：</b>酒駕刑期比類似的本國被告短約 {{fd_abs}}。部分原因是外籍被告很少有酒駕前科，而全國資料沒有記錄酒測值和前科。我們用另一份有這些資料的六法院 2025 年樣本重算，差距縮小到約 {{pid_full_abs}}，仍然存在，但也可能還有我們看不到的案情差異。</p>
+      <p><b>女性被告：</b>刑期普遍較短，竊盜案約短 {{thw_abs}}。不過資料沒有記錄竊取金額，女性的竊盜案可能本來就比較輕微。</p>
+      <p><b>原住民族專庭：</b>和一般案件相比差別很小，有些罪名稍重、有些稍輕（酒駕 {{ind_dui}}、施用毒品 {{ind_drug}}）。</p>
+      <p><b>律師：</b>大多數被告沒有律師。有公設辯護人或法律扶助律師的竊盜被告刑期較短（{{pd_th}}、{{la_th}}），但誰有律師本來就和案件有關，不能直接說是律師的效果。</p>
+    </div>
+    <h3>羈押中聲請交保</h3>
+    <div class="col stack">
+      <p>審判中被羈押的被告，可以聲請具保停止羈押。2013 到 2026 年共有 {{bail_n}} 件這類裁定，准許率約 {{bail_rate}}（從 2013 年的 {{bail_2013}} 升到 2025 年的 {{bail_2025}}）。同一法院同一年裡，最嚴格的一成法官和最寬鬆的一成法官，准許機率分別比平均低 {{bail_p10_abs}} 個百分點、高 {{bail_p90_abs}} 個百分點。因為聲請不是隨機的（被告可以一再聲請），這個數字是上限。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f5">
+    <div class="eyebrow"><span class="zh">理由五</span><span>政治</span></div>
+    <h2 id="h-f5">選舉犯罪案件，看不看政黨？</h2>
+    <div class="col stack">
+      <p>檢察官隸屬法務部，政黨輪替會改變由誰主導檢察體系。我們收集了 2013 到 2026 年全部 2,283 件地方法院選舉犯罪判決（買票、妨害投票等），從判決內容找出「這次犯罪是要幫哪位候選人」，再對照中選會資料查出候選人的政黨。共有 {{pol_cases}} 件判決、{{pol_n}} 位被告可以清楚對應；其中多數是村里長、鄉鎮代表等無黨籍候選人的選舉。</p>
+      <p>國外研究的判斷方法是：如果檢方刻意針對在野黨、起訴證據較弱的案子，在野黨相關被告應該較常被判無罪、刑期較輕。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">各政黨在被起訴的選舉犯罪案件中的比例，和在候選人中的比例</span><span class="s">只看有政黨競爭的選舉（議員、縣市長、鄉鎮市長、立委、代表）。2016 年以前的選舉由國民黨政府時期偵辦，2018 年以後由民進黨政府時期偵辦。</span></figcaption>
+      <div class="chart" id="z-party" data-table="zt-party" data-label="政黨案件比例與候選人比例"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-party"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>起訴：</b>國民黨相關案件在國民黨執政時期約佔 {{kmt_case_k}}，民進黨執政時期約佔 {{kmt_case_d}}，大致跟國民黨當選人的比例相當或更低。輪替後並沒有更多國民黨相關案件被起訴。</p>
+      <p><b>定罪與刑期：</b>兩黨相關被告的定罪率沒有可偵測的差別。民進黨相關被告的刑期在兩個時期都比較短（約少 {{kd_prison_abs}} 個月），但這跟著「政黨」走，而不是跟著「誰執政」走，比較可能反映兩黨案件本身的差異。</p>
+      <p><b>值得注意的一點：緩刑。</b>與「當時在野黨」相關的被告，獲得緩刑的機率低約 {{opp_prob_abs}} 個百分點。國民黨執政時，國民黨相關被告的緩刑率約 {{prob_rule_k}}，民進黨相關約 {{prob_opp_k}}；民進黨執政時，民進黨相關約 {{prob_rule_d}}，國民黨相關約 {{prob_opp_d}}。這個差別在統計上相當穩定，但案件數不多，也可能是我們沒能控制的案情差異，需要等 2024、2026 年選舉的案件判決後再驗證。</p>
+      <p class="note">要注意：不起訴、緩起訴的案件不會進到法院資料，所以看不到檢察官「沒起訴誰」。這裡的政黨是指犯罪所要幫助的候選人的政黨，不是被告本人的黨籍。貪污案件沒有納入。</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-limit">
+    <div class="eyebrow"><span class="zh">但書</span><span>限制</span></div>
+    <h2 id="h-limit">這份研究不能說明什麼</h2>
+    <div class="col stack">
+      <p><b>差異不等於錯誤。</b>刑法第 57 條要求法官依個案情節量刑，本來就會有差異。這份研究回答的是「差異有多大」，至於多大算太大，需要社會、司法院和立法院來判斷。</p>
+      <p><b>分案接近隨機，但不完全。</b>相關案件會分給同一位法官，資料也沒有記錄所有案情（例如酒測值、竊盜金額）。我們用六個法院有完整案情的 2025 年酒駕判決檢查過：補上這些案情後，法官之間的差距並沒有變小。</p>
+      <p><b>推估的資料有誤差。</b>被告性別有一部分是用名字推估的；外籍身分的判定規則沒有官方資料可以核對。</p>
+      <p><b>沒做到的部分。</b>法官的期別、進用管道、性別，開放資料裡沒有，所以沒有分析；貪污案件、檢察官不起訴的決定、行政法院也都還沒納入。</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-gloss">
+    <div class="eyebrow"><span class="zh">附錄</span><span>名詞說明</span></div>
+    <h2 id="h-gloss">看懂這份報告的幾個詞</h2>
+    <div class="col stack">
+      <p><b>法官因素佔的比例：</b>把案情、法院、時期能解釋的部分扣掉以後，剩下的刑期差異裡，有多少是因為「抽到哪位法官」。</p>
+      <p><b>兩位法官平均差距：</b>在同一法院隨機抽兩位法官判同一類案件，刑期平均相差多少天。</p>
+      <p><b>相關係數：</b>介於 0 到 1 之間（也可以是負的），越接近 1，代表兩組數字越一致。</p>
+      <p><b>信賴區間：</b>估計值合理的範圍。範圍沒有包含 0，代表差別在統計上可以確定不是巧合。</p>
+      <p><b>p 值：</b>如果其實沒有差別，看到這麼大差別的機率。通常小於 0.05 就視為有差別。</p>
+      <p>完整英文版（含所有圖表、研究方法、具名法官表與參考文獻）：<a href="https://claude.ai/artifact/GezyRfdw7n6jJooaNFn44j">Same Case, Different Judge</a>。</p>
+    </div>
+  </section>

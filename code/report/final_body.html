@@ -1,0 +1,229 @@
+  <header class="top">
+    <div class="eyebrow"><span class="seal" aria-hidden="true">研</span><span>Research report · {{report_date}}</span></div>
+    <h1>Same Case, Different Judge</h1>
+    <p class="lede">Do criminal judgments in Taiwan follow the law and the facts, or do they also depend on who the judge is, who the defendant is, and politics? This report follows {{n_total}} first-instance criminal cases decided by single judges in all district courts from 2013 to 2026, plus 2,283 election-crime judgments, to measure how much the outcome depends on things the law says should not matter.</p>
+    <div class="meta"><span>Data: Judicial Yuan open terminated-case microdata (終結案件資料), the judgment database (裁判書) and Central Election Commission candidate records</span><span>Judges are named only where the safeguards in §1.3 are met</span></div>
+    <nav class="toc" aria-label="Contents"><a href="#h-holding">Summary</a><a href="#m1">1 · The judge lottery</a><a href="#m2">2 · Who the judge is</a><a href="#m3">3 · Who the defendant is</a><a href="#m4">4 · Politics</a><a href="#m5">5 · Drunk-driving deep dive</a><a href="#limits">Limits</a><a href="#methods">Methods</a></nav>
+  </header>
+
+  <section class="stack-lg" aria-labelledby="h-holding">
+    <div class="eyebrow"><span class="zh">主文</span><span>Holding</span></div>
+    <h2 id="h-holding">What we found</h2>
+    <div class="holding">
+      <div class="tile"><span class="v">{{icc_lo}}–{{icc_hi}}</span><span class="l">of the variation in prison terms that the recorded case facts do not explain is tied to which judge happened to be assigned, depending on the offence</span></div>
+      <div class="tile"><span class="v">{{fr_gap}} days</span><span class="l">expected gap in a fraud sentence between two randomly drawn judges of the same court, for comparable cases (average sentence {{fr_mean}} days)</span></div>
+      <div class="tile"><span class="v">{{app_surv_sd_lo}}–{{app_surv_sd_hi}}</span><span class="l">of the typical judge-to-judge gap in prison terms survives the appeal stage, depending on the offence</span></div>
+      <div class="tile"><span class="v">{{bail_p10}} / {{bail_p90}} pts</span><span class="l">chance of release on bail before verdict with a strict vs a lenient presiding judge (10th vs 90th percentile, relative to the same court and year; an upper bound)</span></div>
+    </div>
+    <ol class="findings col">
+      <li><span><b>Conviction depends little on the judge; punishment depends on it a lot.</b> Almost everyone in these single-judge cases is convicted, and conviction rates differ between judges by at most {{conv_sd_hi}} percentage points (one standard deviation) in any high-volume offence. But how long the sentence is, whether it is suspended (probation) and whether a fine is added differ systematically between judges of the same court who receive comparable cases by lottery.</span></li>
+      <li><span><b>The differences are real and follow the judge.</b> A judge's leniency measured on one random half of her or his cases predicts the other half (split-half correlation {{dui_split}} for drunk driving), so it is not chance. It persists for years and carries over when a judge moves to another court (correlation {{mov_r}} across {{mov_n}} judges who moved), so it is not just the court's local practice.</span></li>
+      <li><span><b>Sentencing tools have not visibly narrowed the gaps.</b> After the 2018 sentencing-trend guidance, the spread between judges in covered offences fell about {{d18_abs}} relative to other offences, but with only three covered offences this is not statistically distinguishable from zero (p = {{d18_p}}). After the 2023 AI sentencing system it <i>rose</i> relative to uncovered offences ({{d23}}, p = {{d23_p}}); tougher fraud and drunk-driving laws arrived at the same time, so this cannot be attributed to the tool.</span></li>
+      <li><span><b>Appeals correct little of the lottery.</b> Only {{app_rate}} of these cases are appealed. Defendants of harsher judges appeal a little more and prosecutors appeal lenient judges a little more, but after the second instance {{app_surv_sd_lo}}–{{app_surv_sd_hi}} of the typical judge-to-judge gap remains.</span></li>
+      <li><span><b>Experience does not explain it.</b> Judges in their first three years sentence within {{exp_lvl_max}}% of judges with five or more years in every offence, and their spread is similar in most offences. A judge's style is lasting: correlations of {{p4_lo}}–{{p4_hi}} between consecutive four-year periods.</span></li>
+      <li><span><b>Who the defendant is matters at the margins.</b> In a six-court 2025 sample where alcohol level, prior offences and vehicle are known, foreign nationals received drunk-driving sentences about {{pid_full_abs}} shorter than comparable Taiwanese defendants; women receive shorter sentences, especially for theft and assault. Gaps for cases heard in Indigenous divisions are small and mixed in direction.</span></li>
+      <li><span><b>Release from detention also depends on who decides.</b> Of {{bail_n}} trial-stage motions for release from detention (聲請具保停止羈押), {{bail_rate}} were granted. Within the same court and year the chance varies by about {{bail_tau}} percentage points (one standard deviation) between presiding judges; because motions are not randomly filed, this is an upper bound.</span></li>
+      <li><span><b>Party and power in election-crime trials: no sign of targeted prosecution, but a probation gap.</b> Among {{pol_n}} vote-buying and other election-offence defendants linked to a candidate, conviction rates show no detectable party difference, and the KMT-linked share of prosecutions did not rise after the DPP took power in 2016. DPP-linked defendants received shorter prison terms than KMT- or independent-linked ones in elections under both governments ({{kd_prison_g0}} and {{kd_prison_g1}} months, KMT minus DPP), which follows the party label rather than who held power. But defendants linked to the party <i>out of power</i> were less likely to have their prison terms suspended: {{opp_prob}} percentage points (p = {{opp_prob_p}}; {{opp_prob_adj}} after correcting for three outcomes), {{opp_prob_s}} points with stricter matching. This is the clearest political signal in the data and deserves follow-up.</span></li>
+    </ol>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-data">
+    <div class="eyebrow"><span class="zh">事實</span><span>Data and approach</span></div>
+    <h2 id="h-data">How you can measure a judge</h2>
+    <div class="col stack">
+      <p>Taiwanese district courts assign incoming cases to judges by a numbered rotation or lottery (分案), not by choice. Within the same court, case type and quarter, a defendant who drew judge A is therefore comparable to one who drew judge B. Differences between judges' outcomes in these <b>assignment pools</b> can be read as the effect of the judge, the same design used for US federal sentencing and asylum courts{{cite:anderson1999,refugeeroulette2007}}.</p>
+      <p>We use the Judicial Yuan's open <b>terminated-case microdata</b>: every criminal case closed from January 2013 to July 2026, with the judge's name, the charge, the sentence, probation, fines, aggravating and mitigating factors recorded by the court, and how any appeal ended ({{n_def_rows}} defendant records). For a clean comparison we keep first-instance cases decided by a single judge, with one defendant charge, and remove plea bargains and juvenile cases. That leaves {{n_total}} cases across {{n_offences}} common offences.</p>
+      <p>For each outcome we remove pool averages and the case factors recorded in the data (recidivism, attempt, accomplice role, confession, self-surrender, §59 mitigation, simplified procedure, counsel type, exact statutory sub-provision) and then estimate how much of what is left is tied to the judge. The estimate is <b>noise-corrected</b>: a judge with few cases will look extreme by chance, and a variance-components estimator subtracts an estimate of that chance component{{cite:kline2020}}. Some of these factors (§59 reductions, simplified procedure) are themselves the judge's choices; dropping them changes the judge's share of prison-term variation by at most {{nodisc_max}} percentage points. Full methods are in the appendix.</p>
+    </div>
+  </section>
+
+  <section class="module" id="m1" aria-labelledby="h-m1">
+    <div class="eyebrow"><span class="zh">理由一</span><span>Module 1</span></div>
+    <h2 id="h-m1"><span class="num">1</span>The judge lottery, offence by offence</h2>
+    <div class="col stack">
+      <p>Across the nine high-volume offences, the judge accounts for {{icc_lo}} to {{icc_hi}} of the unexplained variation in prison terms. In everyday terms: two judges drawn at random from the same court would, on average, sentence a comparable case differently by {{gap_pct_lo}}–{{gap_pct_hi}}% of the typical sentence (more in the smaller offences in the table below). For drunk driving that is {{dui_gap}} days on an average of {{dui_mean}}; for theft {{th_gap}} days on {{th_mean}}; for fraud {{fr_gap}} days on {{fr_mean}}.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Expected sentence gap between two randomly drawn judges, same court, comparable case</span><span class="s">Days of prison or detention, after legal factors and assignment pool; in brackets, the gap as a share of the offence's average sentence. Hover for the average sentence and reliability.</span></figcaption>
+      <div class="chart" id="c-gap" data-table="t-gap" data-label="Expected sentence gap between two random judges by offence"></div>
+      <details><summary>Show table</summary><div class="tablewrap" id="t-gap"></div></details>
+    </figure>
+    <div class="col stack">
+      <p>Prison length is not the only lever. Whether a sentence is suspended and whether a fine is added on top are even more judge-dependent. In drunk-driving cases the judge accounts for {{dui_prob_icc}} of the variation in probation and {{dui_fine_icc}} of the variation in extra fines (fines are recorded in the microdata only from 2024, so fine results cover 2024–2026; {{dui_fine_mean}} of drunk-driving prison sentences carried one). In fraud the extra fine is rare ({{fr_fine_mean}} of cases) but highly judge-driven ({{fr_fine_icc}}): most judges almost never add one, while a small minority add one regularly.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">How much each decision depends on the judge</span><span class="s">Share of the variation not explained by legal factors and assignment pool that is tied to the judge (noise-corrected). Split-half: correlation of a judge's estimated leniency between two random halves of her or his cases (judges with 40+ cases); 1 = perfectly stable.</span></figcaption>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Offence</th><th>Cases</th><th>Average sentence (days)</th><th>Two-judge gap, days (% of average)</th><th>Judge share: prison length</th><th>Split-half</th><th>Judge share: probation</th><th>Judge share: extra fine (2024–26)</th><th>Judge share: conviction</th></tr></thead>
+        <tbody>{{off_table}}</tbody>
+      </table></div>
+    </figure>
+
+    <h3 id="named">1.3 Named judges</h3>
+    <div class="col stack">
+      <p>Court judgments in Taiwan are public and carry the judge's name (法院組織法 §83). We therefore show how each judge's recent decisions compare with other judges <i>of the same court</i> deciding comparable cases. To avoid unfair labels the table follows strict rules: only cases from {{nm_start}} onward; only judges with at least {{nm_min}} such cases; every estimate is shrunk toward the court average in proportion to its uncertainty; every estimate carries a 95% interval and a 90% range for the judge's rank among the court's listed judges. A judge is marked as <i>higher</i> or <i>lower</i> only when the whole 95% interval lies on one side of the court average <b>and</b> the rank range lies entirely in the top or bottom fifth of the court, in courts with at least five listed judges. Extra-fine rows use 2024–2026 cases only.</p>
+      <p>For drunk driving, {{nm_dui_judges}} judges qualify; {{nm_dui_hi}} are clearly above and {{nm_dui_lo}} clearly below their court's average. A difference is not misconduct: all of these sentences are within the legal range. The table shows how much the person who happens to decide a case shapes its result.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Judges compared with their own court</span><span class="s">Difference from the average judge of the same court for comparable cases ({{nm_start}}–2026; extra fines 2024–2026). Days of prison, or percentage points for probation and extra-fine rates. Dot = estimate, line = 95% interval; rank = 90% range among the court's listed judges. Click a column heading to sort.</span></figcaption>
+      <div class="controls">
+        <label>Decision<select id="nm-job"></select></label>
+        <label>Court<select id="nm-court"></select></label>
+        <label>Judge name<input type="search" id="nm-q" placeholder="e.g. 王"></label>
+        <span class="chk"><input type="checkbox" id="nm-flag"><label for="nm-flag" style="display:inline">Only clearly higher / lower</label></span>
+      </div>
+      <div class="count" id="nm-count" aria-live="polite"></div>
+      <div class="jt" id="nm-table"></div>
+    </figure>
+
+    <h3>1.4 Did sentencing tools reduce the lottery?</h3>
+    <div class="col stack">
+      <p>The Judicial Yuan launched a sentencing-trend recommendation system on 21 December 2018 for drunk driving, fraud and theft (and sexual, robbery, homicide and firearms offences){{cite:jy2018_trend}}, and an AI sentencing information system on 6 February 2023 that added assault and drug offences{{cite:jy2023_ai}}. If these tools work, judge-to-judge gaps should shrink in covered offences relative to uncovered ones. We measure the gap in proportional terms (percentage spread of sentences between judges), so that rising average sentences do not inflate it.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Judge-to-judge spread in prison terms, by year</span><span class="s">Noise-corrected between-judge standard deviation of log prison length, as a percentage; average across offences present in every year, with fixed weights, so changes in the offence mix do not move the lines (covered: {{trend_cov}}; not covered: {{trend_unc}}). Dashed lines: launch of the two sentencing tools.</span></figcaption>
+      <div class="chart" id="c-trend" data-table="t-trend" data-label="Judge spread by year, covered vs uncovered offences"></div>
+      <details><summary>Show table</summary><div class="tablewrap" id="t-trend"></div></details>
+    </figure>
+    <div class="col stack">
+      <p>Holding the offence mix fixed, spread in covered offences went from {{d18_cov_pre}}% to {{d18_cov_post}}% around 2018 while it went from {{d18_unc_pre}}% to {{d18_unc_post}}% in uncovered offences. The difference-in-differences (with offence and year fixed effects) is {{d18}}: a relative narrowing, but with only three covered offences it is not statistically distinguishable from zero (exact randomisation p = {{d18_p}} over {{n_perm18}} relabellings; {{d18_loo_lo}} to {{d18_loo_hi}} when any one covered offence is dropped). Around 2023, spread in covered offences went from {{d23_cov_pre}}% to {{d23_cov_post}}% and in uncovered ones from {{d23_unc_pre}}% to {{d23_unc_post}}%: a relative increase of {{d23}} (p = {{d23_p}}). It stays between {{d23_loo_lo}} and {{d23_loo_hi}} when any one covered offence is dropped, though without drunk driving it is no longer significant (p = {{d23_loo_dui_p}}).</p>
+      <p class="note">This is not proof that the AI system <i>caused</i> more disparity. 2023–2025 also brought heavier drunk-driving penalties and a crackdown on fraud (a new Fraud Crime Hazard Prevention Act in 2024; average fraud sentences in our data rose from {{fr_mean_2013}} days in 2013 to {{fr_mean_2025}} in 2025), and judges may adapt to new laws at different speeds; spread also rose in drug use. What the data do show is that the 2023 tool was not followed by narrower judge differences.</p>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Reform</th><th>Outcome</th><th>Covered offences</th><th>Spread, covered (before → after)</th><th>Spread, uncovered</th><th>Relative change</th><th>p (randomisation)</th></tr></thead>
+      <tbody>{{did_table}}</tbody>
+    </table></div>
+
+    <h3>1.5 Do appeals correct outlier judges?</h3>
+    <div class="col stack">
+      <p>We took {{app_n}} single-defendant first-instance prison sentences decided by the end of 2024 and linked them to any appeal (district appellate panels for summary cases, the High Court otherwise) through the appeal's record of the original case; {{app_rate}} were appealed. If appeals corrected the lottery, the spread between first-instance judges should shrink once second-instance changes are applied. For the high-volume offences it hardly does: appeals remove {{app_dui_removed}} of the between-judge variance for drunk driving (where only {{app_dui_rate}} of cases are appealed), {{app_drug_removed}} for drug use and {{app_th_removed}} for theft, and at most {{app_removed_hi}} (money mules). In terms of the typical gap in days, {{app_surv_sd_lo}}–{{app_surv_sd_hi}} remains.</p>
+    </div>
+    <div class="grid2">
+      <figure>
+        <figcaption><span class="t">Share of judge differences removed by appeals</span><span class="s">Reduction in between-judge variance of prison terms from first instance to the second-instance outcome.</span></figcaption>
+        <div class="chart" id="c-appeal" data-table="t-appeal" data-label="Share of judge differences removed by appeals"></div>
+        <details><summary>Show table</summary><div class="tablewrap" id="t-appeal"></div></details>
+      </figure>
+      <figure>
+        <figcaption><span class="t">Who appeals, by how harsh the first judge was</span><span class="s">Negligent-injury cases ({{app_ni_rate}} appealed). x: the judge's leniency measured on her or his other cases (days vs court average). Each point is a tenth of cases.</span></figcaption>
+        <div class="chart" id="c-appeal-bins" data-table="t-appeal-bins" data-label="Appeal rates by judge harshness"></div>
+        <details><summary>Show table</summary><div class="tablewrap" id="t-appeal-bins"></div></details>
+      </figure>
+    </div>
+    <div class="col"><p>Appeals respond to the lottery, but weakly: in negligent-injury cases, every 10 days of extra harshness in the first judge raises the chance that the defendant appeals by {{app_ni_def10}} points and lowers the chance that the prosecutor appeals by {{app_ni_pros10}} points. Because so few cases are appealed and appellate courts usually confirm, most of the lottery passes into final judgments (the Supreme Court stage is not linked here).</p></div>
+  </section>
+
+  <section class="module" id="m2" aria-labelledby="h-m2">
+    <div class="eyebrow"><span class="zh">理由二</span><span>Module 2</span></div>
+    <h2 id="h-m2"><span class="num">2</span>Who the judge is</h2>
+    <div class="col stack">
+      <p>We built a career record for every judge from all case types in the microdata (civil, family, criminal, administrative), so that “experience” means years deciding cases anywhere, not only in criminal divisions. Judges whose first appearance is in 2015 or later are new to the bench in our window.</p>
+      <p><b>Experience.</b> Judges in their first three years sentence at about the same level as judges with five or more years: differences are at most {{exp_lvl_max}}% in any offence, and {{exp_sig_n}} of {{exp_n_off}} offences show a statistically detectable difference ({{exp_sig_list}}). Their spread is similar in most offences (drunk driving {{exp_dui_nov}}% vs {{exp_dui_exp}}%), though higher in fraud ({{exp_fr_nov}}% vs {{exp_fr_exp}}%); we did not estimate uncertainty for this comparison. Unlike Czech evidence that disparities shrink with experience{{cite:drapal2023}}, the lottery here is not mainly a problem of beginners.</p>
+      <p><b>Stability.</b> A judge's relative harshness is lasting. Comparing the same judges in the same court across consecutive four-year periods gives correlations of {{p4_lo}}–{{p4_hi}} (after correcting for sampling noise), and {{p8_lo}}–{{p8_hi}} across eight years. Harshness partly carries across offences: a judge's ranking in one offence correlates {{cross_lo}}–{{cross_hi}} with her or his ranking in another.</p>
+      <p><b>It travels.</b> The strongest evidence that this is about the person, not the court, comes from {{mov_n}} judges who moved between courts. Their harshness relative to colleagues in the old court predicts their harshness relative to colleagues in the new court (correlation {{mov_r}} after noise correction; {{mov_raw}} raw).</p>
+    </div>
+    <div class="grid2">
+      <figure>
+        <figcaption><span class="t">Same judge, two courts</span><span class="s">Each dot is a judge who moved: harshness relative to colleagues before (x) and after (y) the move, in standard units pooled across offences.</span></figcaption>
+        <div class="chart" id="c-movers" data-table="t-movers" data-label="Judge harshness before and after moving courts"></div>
+        <details><summary>Show table</summary><div class="tablewrap" id="t-movers"></div></details>
+      </figure>
+      <figure>
+        <figcaption><span class="t">Novice vs experienced judges: spread of sentences</span><span class="s">Noise-corrected between-judge spread of prison terms (%), judges in their first three years vs judges with five or more years.</span></figcaption>
+        <div class="chart" id="c-exp" data-table="t-exp" data-label="Spread among novice and experienced judges"></div>
+        <details><summary>Show table</summary><div class="tablewrap" id="t-exp"></div></details>
+      </figure>
+    </div>
+    <p class="note col">Judges' gender, training cohort and earlier careers (for example, lawyers who became judges) are not in the open data. We did not infer judges' gender, so that no individual judge is labelled by an estimate.</p>
+  </section>
+
+  <section class="module" id="m3" aria-labelledby="h-m3">
+    <div class="eyebrow"><span class="zh">理由三</span><span>Module 3</span></div>
+    <h2 id="h-m3"><span class="num">3</span>Who the defendant is</h2>
+    <div class="col stack">
+      <p>The microdata do not record a defendant's sex, age or nationality, so we matched {{tx_n}} single-defendant judgments from {{tx_months}} to their full text. A defendant is a <b>foreign national</b> when the judgment gives the name in Latin script or states a foreign nationality next to the word 被告 ({{tx_foreign}} cases; mainland China, Hong Kong and Macau are kept separate). This rule was not checked against an official record. <b>Gender</b> is the sex stated in the prosecutor's charging document where the text gives it ({{tx_rec_share}} of cases), otherwise inferred from the given name with a model trained on {{ng_train}} election candidates with recorded sex; checked against the sex written in {{ng_n}} drunk-driving charging documents, the name model is right {{ng_acc}} of the time for the {{ng_cov}} of names it classifies. Results are reported only in aggregate.</p>
+      <p>All comparisons are within the same assignment pool and with the same legal controls as above, so they compare defendants who drew the same set of judges.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Sentence gaps by who the defendant is</span><span class="s">Percentage difference in prison length versus comparable defendants in the same court pool (95% interval). Foreign / woman: {{tx_months}}. Indigenous division: cases heard in 原住民專庭, 2013–2026, compared with ordinary cases of the same court, case type and year.</span></figcaption>
+      <div class="chart" id="c-identity" data-table="t-identity" data-label="Sentence gaps by defendant characteristics"></div>
+      <details><summary>Show table</summary><div class="tablewrap" id="t-identity"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>Foreign nationals</b>' drunk-driving sentences differ by {{fd}} from those of comparable Taiwanese defendants (95% interval {{fd_lo}} to {{fd_hi}}) and their probation rate differs by {{fdp}} points. Part of this is that the microdata lack two key facts: alcohol level and earlier drunk-driving convictions, which foreign defendants rarely have. Our 2025 six-court sample has both, so we re-estimated there: the gap is {{pid_raw}} without them, {{pid_bac}} with them, and {{pid_full}} (95% interval {{pid_full_lo}} to {{pid_full_hi}}) after also adding vehicle, injury, education and self-described economic circumstances ({{pid_foreign_n}} foreign defendants). About {{pid_expl}} of the raw gap is explained by these facts; a gap of about {{pid_full_abs}} remains, which could still reflect facts we do not observe. Money-mule defendants who are foreign also receive shorter sentences ({{mm_f}}).</p>
+      <p><b>Women</b> receive shorter sentences than men in comparable cases: {{fw}} for drunk driving (in the six-court sample with full facts, {{pid_w_full}}), {{thw}} for theft, where their chance of a custodial rather than a fine-only sentence differs by {{thwp}} points. Part of the theft gap may reflect smaller thefts, since the value taken is not recorded. A similar gap is found in France{{cite:philippe2020}}.</p>
+      <p><b>Indigenous divisions.</b> Cases heard in Indigenous divisions get sentences close to ordinary cases, with small differences in both directions: {{ind_dui}} for drunk driving, {{ind_drug}} for drug use and {{ind_assault}} for assault (the latter two clearly different from zero). Among {{ind_jn}} judges who decide both kinds of drunk-driving case, the gap differs modestly between judges (SD about {{ind_jsd}}%, a point estimate). In Hualien, culture-based sentence reductions in drunk-driving cases have been traced to a single judge{{cite:fan_lin2025_culturaldefense}}.</p>
+      <p><b>Lawyers.</b> Most defendants in these cases have no lawyer. Where they do, defendants with a public defender or legal-aid lawyer receive shorter theft sentences ({{pd_th}} and {{la_th}}) and those with retained counsel slightly longer ({{rt_th}}). These comparisons are not random: who gets a lawyer depends on the case.</p>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Offence</th><th>Public defender</th><th>Legal aid</th><th>Retained lawyer</th><th>Share with any lawyer</th></tr></thead>
+      <tbody>{{cou_table}}</tbody>
+    </table></div>
+
+    <h3>3.2 Detention before verdict</h3>
+    <div class="col stack">
+      <p>Defendants detained during trial can ask the trial court to release them on bail (聲請具保停止羈押). We found {{bail_n}} such rulings in district courts from 2013 to 2026. {{bail_rate}} were granted, rising from {{bail_2013}} in 2013 to {{bail_2025}} in 2025. {{bail_panel}} of rulings are by three-judge panels, which we attribute to the first-listed (usually presiding) judge. Within the same court and year, the chance of release varies between presiding judges by about {{bail_tau}} percentage points (one standard deviation, noise-corrected; judge share {{bail_icc}}; the between-judge variance is {{bail_perm}}× what random reshuffling of the same rulings produces). Among {{bail_j30}} judges with 30 or more rulings, shrunken estimates put the strictest tenth at {{bail_p10}} points and the most lenient tenth at {{bail_p90}} points relative to their court-year average.</p>
+      <p class="note">Motions are decided by the judge or panel holding the randomly assigned case, but the number and strength of motions is not random (detained defendants can apply repeatedly), and comparisons are only within court and year, so these figures are an upper bound on the judge effect.</p>
+    </div>
+  </section>
+
+  <section class="module" id="m4" aria-labelledby="h-m4">
+    <div class="eyebrow"><span class="zh">理由四</span><span>Module 4</span></div>
+    <h2 id="h-m4"><span class="num">4</span>Politics: does the candidate's party matter in election-crime trials?</h2>
+    <div class="col stack">
+      <p>Before the 1990s, case assignment and promotion were tools of political control over Taiwan's courts{{cite:wang2006_tpsr}}, and vote buying was a core campaign technique{{cite:wangkurzman2007_ipsr}}. Today prosecutors belong to the Ministry of Justice, so a change of government changes who directs them. We collected all {{pol_all}} district-court judgments in election-offence cases (公職人員選舉罷免法, 總統副總統選舉罷免法, 妨害投票) from 2013 to 2026, identified the candidate each offence was meant to help by matching names in the judgment against the Central Election Commission's candidate lists for the same election and county, and recorded the candidate's party. {{pol_cases}} judgments with {{pol_n}} defendants could be linked unambiguously; most village-chief and township races involve independents. For {{pol_fallback}} of linked judgments the microdata do not name the election, and we searched elections in the three years before the judgment; results excluding them are reported below.</p>
+      <p>We ask two questions taken from research on partisan prosecutions{{cite:gordon2009}}: (1) is each party's share of prosecutions in line with its share of candidates, and did that change after the DPP took over the executive in May 2016? (2) Do conviction and sentence differ by party once court, election, office and case size are held constant? If prosecutors pursued opposition politicians with weaker cases, opposition-linked defendants would be acquitted more and sentenced more lightly.</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">Share of prosecuted election-crime cases vs share of candidates</span><span class="s">Partisan races only (councils, mayors, legislature, township representatives), candidate shares weighted to the office mix of the cases. Elections up to 2016 were investigated under a KMT government, later ones under a DPP government.</span></figcaption>
+      <div class="chart" id="c-party" data-table="t-party" data-label="Case share vs candidate share by party and government"></div>
+      <details><summary>Show table</summary><div class="tablewrap" id="t-party"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>Prosecution intensity.</b> KMT-linked cases made up {{kmt_case_k}} of partisan-race cases from elections under the KMT government (KMT share of candidates {{kmt_cand_k}}, of winners {{kmt_elec_k}}) and {{kmt_case_d}} under the DPP government (candidates {{kmt_cand_d}}, winners {{kmt_elec_d}}). DPP-linked cases were {{dpp_case_k}} and {{dpp_case_d}} (candidates {{dpp_cand_k}} and {{dpp_cand_d}}, winners {{dpp_elec_k}} and {{dpp_elec_d}}). Under the KMT government, KMT-linked cases matched the KMT's share of winners; under the DPP government they fell below it. DPP-linked cases were below the DPP's share of candidates and winners in both periods. Nothing here suggests that the new government's prosecutors brought more cases against the opposition.</p>
+      <p><b>Trial outcomes.</b> Conviction rates show no detectable difference between KMT- and DPP-linked defendants ({{kd_conv}} points, 95% interval {{kd_conv_lo}} to {{kd_conv_hi}}). Prison terms (the longest sentence on an election count) do differ: KMT-linked defendants received {{kd_prison_abs}} months more than DPP-linked ones (p = {{kd_prison_p}}), and DPP-linked defendants {{dpp_ind_prison}} months relative to independents (p = {{dpp_ind_p}}). The KMT–DPP gap is similar under both governments ({{kd_prison_g0}} months for elections under the KMT government, {{kd_prison_g1}} under the DPP government; difference p = {{kd_prison_int_p}}), so it follows the party label, not who held power, and likely reflects differences between the parties' cases.</p>
+      <p><b>The opposition test.</b> Comparing defendants linked to the party <i>out of power</i> with those linked to the party in power, with court, election and case controls ({{opp_cases}} judgments): conviction {{opp_conv}} points (p = {{opp_conv_p}}) and prison {{opp_prison}} months (p = {{opp_prison_p}}) show no difference, so the weaker-cases-against-the-opposition pattern Gordon's test looks for does not appear. Probation does differ: opposition-linked defendants were {{opp_prob_abs}} points less likely to receive it (p = {{opp_prob_p}}, {{opp_prob_adj}} after a Bonferroni correction for three outcomes). The gap is {{opp_prob_s}} points (p = {{opp_prob_s_p}}; corrected {{opp_prob_s_adj}}) with stricter name matching and {{opp_prob_k}} points (p = {{opp_prob_k_p}}; corrected {{opp_prob_k_adj}}) when links without a recorded election are excluded. In raw rates, defendants linked to the governing party received probation more often in both periods: {{prob_rule_k}} (KMT-linked) vs {{prob_opp_k}} (DPP-linked) under the KMT government, and {{prob_rule_d}} (DPP-linked) vs {{prob_opp_d}} (KMT-linked) under the DPP government; the change for KMT-linked defendants after 2016 is {{kmt_post_prob}} points (p = {{kmt_post_prob_p}}).</p>
+      <p class="note">How to read this: probation is decided by judges, often after prosecutors' sentencing arguments, and we cannot see either side's reasons. The comparison rests on few judgments, the party variable is the candidate's (not the defendant's), and the two periods differ in which elections and courts produced cases. The pattern is consistent with political favour on one margin, but also with differences between the two parties' cases that the controls miss. It should be re-tested on cases from the 2024 and 2026 elections and on prosecutors' sentencing requests.</p>
+      <p><b>Appeals.</b> When appealed, first-instance judgments were overturned in whole or part at similar rates: {{ap_kmt}} for KMT-linked, {{ap_dpp}} for DPP-linked and {{ap_ind}} for independent-linked cases.</p>
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Government at election</th><th>Candidate's party</th><th>Defendants</th><th>Judgments</th><th>Convicted</th><th>Longest election-count prison term if convicted (months)</th><th>Probation if convicted</th></tr></thead>
+      <tbody>{{pol_table}}</tbody>
+    </table></div>
+    <p class="note col">What this cannot show: decisions not to prosecute (不起訴) are not in court data, so prosecutors' choices before charging are only visible through which cases reach court. Party is that of the candidate the offence was meant to help, not the defendant's own membership. Corruption trials of politicians are not covered.</p>
+  </section>
+
+  <section class="module" id="m5" aria-labelledby="h-m5">
+    <div class="eyebrow"><span class="zh">附論</span><span>Deep dive</span></div>
+    <h2 id="h-m5"><span class="num">5</span>Drunk driving with the full case file</h2>
+    <div class="col stack">
+      <p>The microdata miss some facts that matter for sentencing, so we machine-coded {{pil_n}} full 2025 drunk-driving judgments from six district courts (the parser was checked against about 100 hand-coded judgments and against the court microdata) for breath-alcohol level, prior drunk-driving convictions, crashes, injuries, vehicle, and the defendant's stated education and economic circumstances. Adding these facts leaves the judge spread unchanged (about {{pil_sd}} days); because the facts explain much of the rest, the judge's share of the remaining variation in prison terms is {{pil_icc}}. (A national 2025 prison-only sample with only the microdata's factors gives {{nat_icc}} over {{nat_n}} cases; both are higher than the drunk-driving share in the table above, which covers 2013–2026 and all custodial sentences.) A lenient and a strict judge (10th vs 90th percentile) differ by {{pil_gap}} days for the same typical first offence. The observed between-judge variance is {{pil_perm}}× what shuffling judges within pools produces, and judges' estimated leniency on one half of their cases predicts the other half (r = {{pil_split}}). Case facts are not perfectly balanced across judges (related cases go to the same judge), but the facts that differ explain only about {{pil_mix}} days of judge-to-judge spread.</p>
+      <p>We also tested the claims that judges are swayed by the day: weekday, month-end case-closing pressure, the day before holidays and unusually heavy days. {{pil_timing}} timing factors had a detectable effect after correcting for multiple tests, in line with the many failed replications of the “hungry judge” effect{{cite:danziger2011,weinshall2011,glockner2016}}.</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" id="limits" aria-labelledby="h-limits">
+    <div class="eyebrow"><span class="zh">但書</span><span>Limits</span></div>
+    <h2 id="h-limits">What this does and does not show</h2>
+    <div class="col stack">
+      <p><b>Assignment is random, but not perfectly.</b> Related cases go to the same judge, and some courts route specialised cases to designated divisions. We compare judges only within pools of the same court, case type and quarter and control for recorded case facts. In the six-court sample, case facts do differ significantly across judges, but adding them leaves the judge spread unchanged. Remaining case-mix differences would inflate judge estimates; working the other way, our estimator understates the judge share somewhat (removing pool averages also removes part of each judge's own effect, by roughly a fifth to two-fifths in simulations), and some controls are judges' own choices (though dropping them hardly matters). The court-moving result is the strongest evidence that the effect belongs to the judge.</p>
+      <p><b>Recorded facts are incomplete.</b> The microdata lack alcohol level, damage amounts and prior non-recidivist convictions; the drunk-driving deep dive shows the judge share survives when such facts are added.</p>
+      <p><b>Variation is not error.</b> Taiwanese law gives judges wide ranges and asks them to weigh individual circumstances (刑法 §57). Some judge-to-judge variation is the price of individualised justice. The question this report answers is how large it is; whether it is too large is for the public, the Judicial Yuan and the legislature.</p>
+      <p><b>Inferred attributes.</b> Gender inferred from names was about 98% accurate in two checks (covering about 80% of names); foreign nationality could not be validated. Random misclassification would shrink gaps toward zero, but systematic errors or the names left unclassified could bias them either way.</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" id="methods" aria-labelledby="h-methods">
+    <div class="eyebrow"><span class="zh">附錄</span><span>Appendix</span></div>
+    <h2 id="h-methods">Methods and data</h2>
+    <div class="col stack">
+      <p><b>Sources.</b> (1) Judicial Yuan open data, terminated-case microdata (終結案件資料, category 001), January 2013 – July 2026, 75 archives, parsed into {{n_def_rows}} defendant records and their charges; Big5 and UTF-8 versions reconciled, and judge names the Big5 files could not encode recovered from judgment signatures. (2) Bulk judgment texts (裁判書, category 051), {{tx_months}}, for defendant nationality, names and stated sex. (3) 2,283 election-offence judgments from the public judgment search (FJUD). (4) Central Election Commission candidate files, 2012–2024 elections. (5) For the deep dive, 10,861 machine-coded 2025 drunk-driving judgments from six district courts.</p>
+      <p><b>Judge effects.</b> For each offence and outcome we demean within assignment pools (court × case word × quarter), regress on recorded legal factors, and estimate the between-judge variance with a one-way ANOVA (method-of-moments) estimator, which subtracts an estimate of each judge's sampling noise (simpler than, but in the spirit of, leave-out estimators). Judge share = between-judge variance ÷ total residual variance. The two-random-judge gap is 2τ/√π. Split-half reliability averages 20 random splits of each judge's cases. Named-judge estimates are empirical-Bayes posterior means with posterior SDs; rank ranges are 90% marginal posterior ranges from 2,000 draws within each court, treating the variance components as known (simpler than the rank confidence sets in the literature{{cite:mogstad2024ranks,gu2023}}). A robustness version without the §59, simplified-procedure and exemption controls is in the result files.</p>
+      <p><b>Reforms.</b> Spread per offence and year on log prison length; difference-in-differences with offence and year fixed effects, case-weighted; exact randomisation inference over which offences are labelled covered. Money-mule cases tied to fraud are excluded (coverage ambiguous).</p>
+      <p><b>Appeals.</b> Single-defendant first-instance prison sentences decided up to 2024 (to allow time for appeal), judges with 30+ such cases, pools with at least two judges; appeals linked through the appeal record's original-case fields; remanded cases dropped. A judge's stringency is the leave-one-out mean residual of her or his other cases. The share removed is 1 − τ²(final)/τ²(first instance); the share of the typical gap that remains is τ(final)/τ(first instance).</p>
+      <p><b>Politics.</b> Beneficiary candidate = the candidate of the matching election, office and county whose name appears most often next to campaign words (候選人, 支持, 當選 …); cases aimed at making a candidate lose, and judgments where candidates of different parties tie, are excluded. Regressions with court, election-year and office fixed effects, number of counts and co-defendants, and whether the candidate was a defendant; standard errors clustered by judgment.</p>
+      <p><b>Reproducibility.</b> All code, aggregate results and documentation are in the project repository. Raw judgment texts, which contain defendants' names, are not published.</p>
+    </div>
+    <h3>References</h3>
+    <ol class="refs">{{refs_html}}</ol>
+  </section>

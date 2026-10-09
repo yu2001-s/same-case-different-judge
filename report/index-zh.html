@@ -1,0 +1,731 @@
+<title>同案不同法官</title>
+<meta name="description" content="白話版：台灣刑事判決有多少取決於法官、被告與政治。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout concept: the report is set out like a Taiwanese judgment (主文 holding, 事實 facts, 理由 reasoning, 附錄 appendix),
+   one reading column with charts allowed to run a little wider. */
+:root {
+  --bg: #f6f7f5;        /* page plane: cool paper */
+  --surface: #fcfcfb;   /* chart / card surface */
+  --ink: #15171a;
+  --muted: #5d6066;
+  --rule: #dfe1dc;
+  --grid: #e6e7e2;
+  --axis: #bfc1ba;
+  --accent: #1c5cab;    /* court-document blue, shared with series 1 */
+  --seal: #a8322a;      /* seal red, used once */
+  --s1: #2a78d6;  --s2: #eb6834;  --s3: #1baf7a;
+  --neutral-mark: #b9bbb4;
+  --stack-legal: #2a78d6; --stack-pool: #86b6ef; --stack-judge: #eb6834; --stack-rest: #e3e4df;
+  --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+  --font-body: "Noto Sans TC", system-ui, -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
+  --measure: 68ch;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1011; --surface: #1a1a19; --ink: #f1f1ee; --muted: #a6a8a2; --rule: #2e2f2d; --grid: #2a2b29; --axis: #4a4b47;
+    --accent: #6da7ec; --seal: #e07067; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --neutral-mark: #5b5d58;
+    --stack-legal: #3987e5; --stack-pool: #1c5cab; --stack-judge: #d95926; --stack-rest: #383835; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1011; --surface: #1a1a19; --ink: #f1f1ee; --muted: #a6a8a2; --rule: #2e2f2d; --grid: #2a2b29; --axis: #4a4b47;
+  --accent: #6da7ec; --seal: #e07067; --s1: #3987e5; --s2: #d95926; --s3: #199e70; --neutral-mark: #5b5d58;
+  --stack-legal: #3987e5; --stack-pool: #1c5cab; --stack-judge: #d95926; --stack-rest: #383835; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.7 var(--font-body); margin: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 80px; display: grid; gap: 56px; }
+.col { max-width: var(--measure); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.25; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: grid; gap: 16px; }
+.stack-lg { display: grid; gap: 28px; }
+.eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: flex; gap: 10px; align-items: baseline; }
+.eyebrow .zh { letter-spacing: 0.3em; font-family: var(--font-display); font-size: 0.95rem; color: var(--ink); }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 62ch; }
+.meta { font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.seal { display: inline-grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--seal); color: var(--seal);
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; line-height: 1; border-radius: 4px; transform: rotate(-4deg); }
+header.top { display: grid; gap: 18px; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
+.holding { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.tile .v { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.tile .l { font-size: 0.9rem; color: var(--muted); }
+.findings { display: grid; gap: 12px; counter-reset: f; padding: 0; margin: 0; list-style: none; }
+.findings li { display: grid; grid-template-columns: 2.2em 1fr; gap: 8px; }
+.findings li::before { counter-increment: f; content: counter(f, cjk-ideographic); font-family: var(--font-display); color: var(--accent); font-weight: 700; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 18px 12px; display: grid; gap: 10px; min-width: 0; }
+figcaption { display: grid; gap: 4px; }
+figcaption .t { font-weight: 700; font-size: 1rem; }
+figcaption .s { font-size: 0.88rem; color: var(--muted); }
+.chart { width: 100%; min-height: 120px; }
+.chart.short { min-height: 0; }
+.chart svg { display: block; overflow: visible; font: 12px var(--font-body); }
+.chart .lab { font-size: 12.5px; }
+.chart .small { font-size: 11.5px; }
+.chart .num, .axis text { font-variant-numeric: tabular-nums; }
+.hit { cursor: default; outline: none; }
+.hit:hover, .hit:focus { filter: brightness(1.12); stroke-width: 3; }
+details { font-size: 0.85rem; color: var(--muted); }
+details summary { cursor: pointer; width: fit-content; }
+details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tablewrap { overflow-x: auto; margin-top: 8px; }
+table { border-collapse: collapse; font-size: 0.85rem; font-variant-numeric: tabular-nums; min-width: 100%; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 700; color: var(--ink); }
+td { color: var(--ink); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.note { font-size: 0.88rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 12px; }
+.pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.pill.held { color: var(--ink); border-color: var(--s3); }
+.pill.fell { color: var(--ink); border-color: var(--s2); }
+.pill.mixed { color: var(--ink); border-color: var(--neutral-mark); }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ol.refs { overflow-wrap: anywhere; padding-left: 1.6em; display: grid; gap: 6px; font-size: 0.86rem; color: var(--muted); }
+ol.refs li { padding-left: 4px; }
+ol.refs .ver { font-size: 0.72rem; color: var(--muted); }
+.phases { display: grid; gap: 14px; }
+.phase { display: grid; grid-template-columns: 7.5em 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--rule); }
+.phase .when { font-weight: 700; color: var(--accent); font-size: 0.9rem; }
+.rq { display: grid; gap: 10px; }
+.rq > div { display: grid; grid-template-columns: 3.2em 1fr; gap: 10px; }
+.rq b { color: var(--accent); }
+sup.c { font-size: 0.7em; }
+sup.c a { text-decoration: none; }
+.viz-tip { position: fixed; z-index: 10; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 8px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: grid; gap: 2px; max-width: 260px; }
+.tip-row { display: flex; gap: 8px; align-items: baseline; }
+.tip-row strong { font-variant-numeric: tabular-nums; }
+.tip-row span { color: var(--muted); }
+@media (max-width: 560px) {
+  .wrap { padding-inline: 16px; gap: 44px; }
+  .phase { grid-template-columns: 1fr; gap: 4px; }
+  .tile .v { font-size: 1.7rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.82rem; color: var(--muted); padding: 2px 0 0; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+.zh-s { font-size: 0.78rem; color: var(--muted); }
+.muted { color: var(--muted); }
+.module { display: grid; gap: 22px; }
+.module > h2 .num { color: var(--accent); margin-right: 10px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; }
+.controls label { display: grid; gap: 4px; font-size: 0.8rem; color: var(--muted); }
+.controls select, .controls input[type=search] { font: inherit; font-size: 0.9rem; color: var(--ink); background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 6px 8px; min-height: 36px; max-width: 100%; }
+.controls .chk { display: flex; gap: 6px; align-items: center; font-size: 0.85rem; color: var(--ink); min-height: 36px; }
+.controls select:focus-visible, .controls input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.jt { max-height: 560px; overflow: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+.jt table { min-width: 640px; }
+.jt th { position: sticky; top: 0; background: var(--surface); z-index: 1; cursor: pointer; white-space: nowrap; }
+.jt td.bar { width: 34%; min-width: 180px; }
+.jt .eff { position: relative; height: 16px; }
+.jt .eff .axis0 { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--axis); }
+.jt .eff .ci { position: absolute; top: 7px; height: 2px; background: var(--neutral-mark); border-radius: 2px; }
+.jt .eff .pt { position: absolute; top: 3px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--s1); border: 2px solid var(--surface); }
+.jt tr.hi .eff .pt { background: var(--s2); }
+.jt tr.lo .eff .pt { background: var(--s3); }
+.badge { font-size: 0.72rem; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--rule); white-space: nowrap; }
+.badge.hi { border-color: var(--s2); } .badge.lo { border-color: var(--s3); }
+.count { font-size: 0.82rem; color: var(--muted); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.kpis .tile .v { font-size: 1.6rem; }
+.wrap > *, .module > *, .stack-lg > *, .stack > *, .grid2 > * { min-width: 0; }
+.jt td.court { white-space: nowrap; }
+figure > * { min-width: 0; }
+.controls label { min-width: 0; max-width: 100%; }
+.controls select { width: 100%; text-overflow: ellipsis; }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.88rem; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow"><span class="seal" aria-hidden="true">研</span><span>白話版研究報告 · 2026 年 10 月 9 日</span></div>
+    <h1>同一件案子，換一位法官，結果會一樣嗎？</h1>
+    <p class="lede">法律說，相同的案子應該得到相同的處理。我們用司法院公開的資料，看了 2013 到 2026 年全國地方法院 1,560,890 件由一位法官獨任審理的刑事案件，加上 2,283 件選舉犯罪判決，想知道判決結果有多少是取決於「抽到哪位法官」、「被告是誰」，以及政治。</p>
+    <div class="meta"><span>資料來源：司法院資料開放平臺（終結案件資料、裁判書）、中選會候選人資料</span><span>這是給一般讀者的簡明版；完整英文版含所有圖表、方法與具名法官表</span></div>
+  </header>
+
+  <section class="stack-lg" aria-labelledby="h-key">
+    <div class="eyebrow"><span class="zh">主文</span><span>重點</span></div>
+    <h2 id="h-key">先講結論</h2>
+    <div class="holding">
+      <div class="tile"><span class="v">38 天</span><span class="l">詐欺案隨機抽兩位同法院法官，對類似案件的刑期平均相差的天數（平均刑期約 333 天）</span></div>
+      <div class="tile"><span class="v">40%</span><span class="l">詐欺案「要不要併科罰金」的差異中，可歸因於法官本人的比例</span></div>
+      <div class="tile"><span class="v">77%–99%</span><span class="l">法官之間的刑期差距，經過上訴後仍然留下來的比例</span></div>
+      <div class="tile"><span class="v">0.53</span><span class="l">法官調到別的法院後，寬嚴程度與原本的相關係數：風格跟著人走</span></div>
+    </div>
+    <ol class="findings col">
+      <li><span><b>有罪無罪幾乎不看法官，判多重很看法官。</b>這類案件幾乎都判有罪，不同法官的定罪率最多只差約 2.2 個百分點。但刑期長短、給不給緩刑、要不要另外併科罰金，同一法院的法官之間有穩定、明顯的差別。</span></li>
+      <li><span><b>這不是運氣，是法官個人的風格。</b>把一位法官的案件隨機分成兩半，兩半的寬嚴程度高度一致；這種風格持續多年，法官調到別的法院也大致不變。</span></li>
+      <li><span><b>量刑輔助工具沒有讓差距變小。</b>2018 年的量刑趨勢建議系統之後，看不出可靠的改善；2023 年 AI 量刑資訊系統上線後，法官之間的差距反而相對變大（同時期酒駕、詐欺的刑罰也加重了，所以不能直接怪系統）。</span></li>
+      <li><span><b>上訴也修正不了多少。</b>只有約 5.9% 的案件被上訴，二審之後大部分的法官差距仍然存在。</span></li>
+      <li><span><b>不是新手法官的問題。</b>剛上任三年內的法官，和資深法官判得差不多。</span></li>
+      <li><span><b>被告是誰，有些影響。</b>外籍被告的酒駕刑期，即使考慮酒測值和前科，仍比類似的本國被告短約 11%；女性被告在竊盜、傷害案的刑期明顯較短。</span></li>
+      <li><span><b>羈押中能不能交保，也看法官。</b>同一法院同一年，不同法官准許具保停止羈押的機率，差距可達十幾個百分點。</span></li>
+      <li><span><b>政治：沒有看到檢方特別追殺在野黨，但有一個值得注意的落差。</b>國民黨或民進黨相關被告的定罪率沒有可偵測的差別；2016 年政黨輪替後，國民黨相關案件的比例也沒有增加。不過，與「當時在野黨」相關的被告，獲得緩刑的機率低約 12 個百分點。</span></li>
+    </ol>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-how">
+    <div class="eyebrow"><span class="zh">事實</span><span>怎麼研究的</span></div>
+    <h2 id="h-how">為什麼可以拿法官來比較？</h2>
+    <div class="col stack">
+      <p>地方法院的案件是依照事先訂好的規則輪分或抽籤（分案），不是法官自己挑，也不是被告能選。所以在<b>同一法院、同一種案件、同一季</b>裡，抽到 A 法官的被告和抽到 B 法官的被告，整體來說是差不多的一群人。如果兩位法官的判決長期系統性不同，差別就來自法官本人。</p>
+      <p>我們還扣掉了資料裡記載的案情因素，例如累犯、未遂、共犯、自白、自首、刑法第 59 條酌減、有沒有律師、觸犯的具體條文。我們也用統計方法排除「案件少的法官看起來比較極端」這種純屬運氣的影響。</p>
+      <p class="note">打個比方：同一間學校的老師隨機分到差不多的學生，如果某位老師給分一直比別人高，那就是老師的給分習慣，而不是學生比較厲害。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f1">
+    <div class="eyebrow"><span class="zh">理由一</span><span>抽到哪位法官</span></div>
+    <h2 id="h-f1">換一位法官，刑期差多少？</h2>
+    <div class="col stack">
+      <p>下圖是：在同一法院隨機抽兩位法官，處理類似案件時，刑期平均會差幾天。以酒駕為例，平均刑期約 101 天，兩位法官平均差 8.6 天；詐欺平均刑期約 333 天，差 38 天。換算下來，差距大約是一般刑期的 8% 到 21%。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">隨機抽兩位同法院法官，類似案件的刑期平均差幾天</span><span class="s">2013–2026 年，已扣除案情因素與法院、時期的差異。括號內是差距佔該罪名平均刑期的百分比；滑鼠移到長條上可看平均刑期。</span></figcaption>
+      <div class="chart" id="z-gap" data-table="zt-gap" data-label="各罪名兩位法官刑期差距"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-gap"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>緩刑和罰金更看法官。</b>酒駕案要不要給緩刑，有 12% 的差異可歸因於法官；要不要在徒刑之外再併科罰金，更高達 26%（罰金資料 2024 年起才有記載）。詐欺案很少併科罰金（約 4.6%），但這件事幾乎完全看法官：大部分法官幾乎不用，少數法官則常常使用。</p>
+      <p><b>具名法官表。</b>判決書依法公開並載明法官姓名，所以完整英文版列出了 2022 年以來案件數達 100 件以上的法官，和同法院其他法官相比的結果，並附上信賴區間與排名範圍。例如酒駕案共 442 位法官符合條件，其中 41 位明顯較重、41 位明顯較輕。這些判決都在法定刑度內，差別不代表違法或失職，只反映「誰來判」對結果的影響。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f2">
+    <div class="eyebrow"><span class="zh">理由二</span><span>法官是誰</span></div>
+    <h2 id="h-f2">寬嚴是法官個人的長期風格</h2>
+    <div class="col stack">
+      <p><b>不是運氣：</b>把每位法官的案件隨機分成兩半，兩半算出來的寬嚴程度高度一致（酒駕案相關係數 0.85，1 代表完全一致）。</p>
+      <p><b>持續多年：</b>同一位法官前後四年的寬嚴程度相關係數約 0.53–0.78，相隔八年仍有 0.35–0.65。</p>
+      <p><b>跟著人走：</b>有 270 位法官調到別的法院。他們在舊法院比同事重或輕，到了新法院大致還是一樣（相關係數 0.53）。這表示差別主要來自法官本人，而不是各法院的「地方慣例」。</p>
+      <p><b>不是新手的問題：</b>上任三年內的法官，和五年以上的資深法官相比，判刑水準相差最多約 4.2%，彼此之間的差異程度也差不多。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">同一位法官，換了法院之後</span><span class="s">每個點是一位調動過的法官：橫軸是在舊法院比同事重（右）或輕（左），縱軸是在新法院的情形。點越接近斜線，代表風格越一致。</span></figcaption>
+      <div class="chart" id="z-movers" data-table="zt-movers" data-label="法官調動前後的寬嚴程度"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-movers"></div></details>
+    </figure>
+  </section>
+
+  <section class="module" aria-labelledby="h-f3">
+    <div class="eyebrow"><span class="zh">理由三</span><span>制度有沒有修正</span></div>
+    <h2 id="h-f3">量刑系統和上訴，都沒有讓差距明顯變小</h2>
+    <div class="col stack">
+      <p>司法院在 2018 年 12 月推出「量刑趨勢建議系統」（涵蓋酒駕、詐欺、竊盜等），2023 年 2 月推出「AI 量刑資訊系統」（再加入傷害、毒品等）。如果這些工具有效，有涵蓋的罪名，法官之間的差距應該比沒涵蓋的罪名縮得更多。</p>
+      <p>結果：2018 年之後，有涵蓋的罪名差距相對縮小約 14%，但只有三種罪名、統計上不可靠。2023 年之後，有涵蓋的罪名差距反而相對擴大 +27%。同一時期酒駕和詐欺的刑罰都加重了（詐欺平均刑期從 2013 年的 129 天升到 2025 年的 405 天），法官適應新法的速度不一，所以不能說是系統造成的。可以確定的只有一點：系統上線後，差距沒有變小。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">法官之間的刑期差距，逐年變化</span><span class="s">數值越大，代表同法院法官之間判得越不一致（以刑期的百分比表示）。虛線是兩套量刑系統上線的時間。</span></figcaption>
+      <div class="chart" id="z-trend" data-table="zt-trend" data-label="法官差距逐年變化"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-trend"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>上訴：</b>我們追蹤了 965,434 件一審判決有沒有被上訴、二審怎麼判。只有 5.9% 被上訴；判得重的法官，被告上訴的機率稍高；判得輕的法官，檢察官上訴的機率稍高。但因為上訴的案件很少、二審多數維持原判，法官之間的差距在二審後仍留下 77%–99%。以酒駕來說，只有 2.2% 的案件被上訴，差距幾乎原封不動。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f4">
+    <div class="eyebrow"><span class="zh">理由四</span><span>被告是誰</span></div>
+    <h2 id="h-f4">外籍、女性、原住民、有沒有律師</h2>
+    <div class="col stack">
+      <p>政府資料沒有記錄被告的性別和國籍，所以我們讀取了 298,832 份判決全文（2024 年 1 月至 2026 年 7 月）。判決以外文拼寫姓名或寫明外國國籍者，視為外籍；性別優先採用起訴書上寫的性別，沒有寫的再用名字推估（經查核正確率約 98%）。以下都是和同一法院、同類案件、案情類似的被告相比。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">和類似的被告相比，刑期差多少</span><span class="s">負數代表刑期較短。橫線是 95% 信賴區間：橫線沒有碰到 0，代表差別在統計上可以確定。</span></figcaption>
+      <div class="chart" id="z-identity" data-table="zt-identity" data-label="被告身分與刑期差距"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-identity"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>外籍被告：</b>酒駕刑期比類似的本國被告短約 19%。部分原因是外籍被告很少有酒駕前科，而全國資料沒有記錄酒測值和前科。我們用另一份有這些資料的六法院 2025 年樣本重算，差距縮小到約 11%，仍然存在，但也可能還有我們看不到的案情差異。</p>
+      <p><b>女性被告：</b>刑期普遍較短，竊盜案約短 27%。不過資料沒有記錄竊取金額，女性的竊盜案可能本來就比較輕微。</p>
+      <p><b>原住民族專庭：</b>和一般案件相比差別很小，有些罪名稍重、有些稍輕（酒駕 +1.6%、施用毒品 −5.0%）。</p>
+      <p><b>律師：</b>大多數被告沒有律師。有公設辯護人或法律扶助律師的竊盜被告刑期較短（−12%、−17%），但誰有律師本來就和案件有關，不能直接說是律師的效果。</p>
+    </div>
+    <h3>羈押中聲請交保</h3>
+    <div class="col stack">
+      <p>審判中被羈押的被告，可以聲請具保停止羈押。2013 到 2026 年共有 23,123 件這類裁定，准許率約 23%（從 2013 年的 17% 升到 2025 年的 29%）。同一法院同一年裡，最嚴格的一成法官和最寬鬆的一成法官，准許機率分別比平均低 14 個百分點、高 16 個百分點。因為聲請不是隨機的（被告可以一再聲請），這個數字是上限。</p>
+    </div>
+  </section>
+
+  <section class="module" aria-labelledby="h-f5">
+    <div class="eyebrow"><span class="zh">理由五</span><span>政治</span></div>
+    <h2 id="h-f5">選舉犯罪案件，看不看政黨？</h2>
+    <div class="col stack">
+      <p>檢察官隸屬法務部，政黨輪替會改變由誰主導檢察體系。我們收集了 2013 到 2026 年全部 2,283 件地方法院選舉犯罪判決（買票、妨害投票等），從判決內容找出「這次犯罪是要幫哪位候選人」，再對照中選會資料查出候選人的政黨。共有 1,476 件判決、4,223 位被告可以清楚對應；其中多數是村里長、鄉鎮代表等無黨籍候選人的選舉。</p>
+      <p>國外研究的判斷方法是：如果檢方刻意針對在野黨、起訴證據較弱的案子，在野黨相關被告應該較常被判無罪、刑期較輕。</p>
+    </div>
+    <figure>
+      <figcaption><span class="t">各政黨在被起訴的選舉犯罪案件中的比例，和在候選人中的比例</span><span class="s">只看有政黨競爭的選舉（議員、縣市長、鄉鎮市長、立委、代表）。2016 年以前的選舉由國民黨政府時期偵辦，2018 年以後由民進黨政府時期偵辦。</span></figcaption>
+      <div class="chart" id="z-party" data-table="zt-party" data-label="政黨案件比例與候選人比例"></div>
+      <details><summary>顯示表格</summary><div class="tablewrap" id="zt-party"></div></details>
+    </figure>
+    <div class="col stack">
+      <p><b>起訴：</b>國民黨相關案件在國民黨執政時期約佔 37%，民進黨執政時期約佔 22%，大致跟國民黨當選人的比例相當或更低。輪替後並沒有更多國民黨相關案件被起訴。</p>
+      <p><b>定罪與刑期：</b>兩黨相關被告的定罪率沒有可偵測的差別。民進黨相關被告的刑期在兩個時期都比較短（約少 3.8 個月），但這跟著「政黨」走，而不是跟著「誰執政」走，比較可能反映兩黨案件本身的差異。</p>
+      <p><b>值得注意的一點：緩刑。</b>與「當時在野黨」相關的被告，獲得緩刑的機率低約 12 個百分點。國民黨執政時，國民黨相關被告的緩刑率約 80%，民進黨相關約 63%；民進黨執政時，民進黨相關約 81%，國民黨相關約 71%。這個差別在統計上相當穩定，但案件數不多，也可能是我們沒能控制的案情差異，需要等 2024、2026 年選舉的案件判決後再驗證。</p>
+      <p class="note">要注意：不起訴、緩起訴的案件不會進到法院資料，所以看不到檢察官「沒起訴誰」。這裡的政黨是指犯罪所要幫助的候選人的政黨，不是被告本人的黨籍。貪污案件沒有納入。</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-limit">
+    <div class="eyebrow"><span class="zh">但書</span><span>限制</span></div>
+    <h2 id="h-limit">這份研究不能說明什麼</h2>
+    <div class="col stack">
+      <p><b>差異不等於錯誤。</b>刑法第 57 條要求法官依個案情節量刑，本來就會有差異。這份研究回答的是「差異有多大」，至於多大算太大，需要社會、司法院和立法院來判斷。</p>
+      <p><b>分案接近隨機，但不完全。</b>相關案件會分給同一位法官，資料也沒有記錄所有案情（例如酒測值、竊盜金額）。我們用六個法院有完整案情的 2025 年酒駕判決檢查過：補上這些案情後，法官之間的差距並沒有變小。</p>
+      <p><b>推估的資料有誤差。</b>被告性別有一部分是用名字推估的；外籍身分的判定規則沒有官方資料可以核對。</p>
+      <p><b>沒做到的部分。</b>法官的期別、進用管道、性別，開放資料裡沒有，所以沒有分析；貪污案件、檢察官不起訴的決定、行政法院也都還沒納入。</p>
+    </div>
+  </section>
+
+  <section class="stack-lg" aria-labelledby="h-gloss">
+    <div class="eyebrow"><span class="zh">附錄</span><span>名詞說明</span></div>
+    <h2 id="h-gloss">看懂這份報告的幾個詞</h2>
+    <div class="col stack">
+      <p><b>法官因素佔的比例：</b>把案情、法院、時期能解釋的部分扣掉以後，剩下的刑期差異裡，有多少是因為「抽到哪位法官」。</p>
+      <p><b>兩位法官平均差距：</b>在同一法院隨機抽兩位法官判同一類案件，刑期平均相差多少天。</p>
+      <p><b>相關係數：</b>介於 0 到 1 之間（也可以是負的），越接近 1，代表兩組數字越一致。</p>
+      <p><b>信賴區間：</b>估計值合理的範圍。範圍沒有包含 0，代表差別在統計上可以確定不是巧合。</p>
+      <p><b>p 值：</b>如果其實沒有差別，看到這麼大差別的機率。通常小於 0.05 就視為有差別。</p>
+      <p>完整英文版（含所有圖表、研究方法、具名法官表與參考文獻）：<a href="https://claude.ai/artifact/GezyRfdw7n6jJooaNFn44j">Same Case, Different Judge</a>。</p>
+    </div>
+  </section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+/* Charts for the "Same Case, Different Judge" report. Plain SVG via d3 (scales/axes only).
+   Every chart: thin marks, hairline grid, hover tooltip (textContent only), keyboard focus, and a table twin. */
+(function () {
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const tip = document.createElement('div');
+  tip.className = 'viz-tip'; tip.setAttribute('role', 'status'); tip.hidden = true;
+  document.body.appendChild(tip);
+
+  function showTip(evt, lines) {
+    tip.replaceChildren();
+    lines.forEach(([value, label], i) => {
+      const row = document.createElement('div'); row.className = i === 0 ? 'tip-row tip-main' : 'tip-row';
+      const v = document.createElement('strong'); v.textContent = value;
+      const l = document.createElement('span'); l.textContent = label;
+      row.append(v, l); tip.append(row);
+    });
+    tip.hidden = false;
+    const r = tip.getBoundingClientRect();
+    let x, y;
+    if (evt.clientX !== undefined && evt.type.startsWith('pointer')) { x = evt.clientX + 14; y = evt.clientY + 14; }
+    else { const b = evt.target.getBoundingClientRect(); x = b.right + 8; y = b.top; }
+    if (x + r.width > window.innerWidth - 8) x = Math.max(8, x - r.width - 28);
+    if (y + r.height > window.innerHeight - 8) y = Math.max(8, y - r.height - 28);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.hidden = true; }
+  function bindTip(sel, linesFn) {
+    sel.attr('tabindex', 0)
+      .on('pointermove', (e, d) => showTip(e, linesFn(d)))
+      .on('pointerleave', hideTip)
+      .on('focus', (e, d) => showTip(e, linesFn(d)))
+      .on('blur', hideTip);
+  }
+
+  function frame(el, height, margin) {
+    el.replaceChildren();
+    const width = Math.max(300, el.clientWidth || 640);
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('width', '100%')
+      .attr('role', 'img').attr('aria-label', el.dataset.label || '');
+    const g = svg.append('g').attr('transform', `translate(${margin.l},${margin.t})`);
+    return { svg, g, w: width - margin.l - margin.r, h: height - margin.t - margin.b, width };
+  }
+  function grid(g, x, h, ticks, fmt) {
+    const ax = g.append('g').attr('class', 'axis').attr('transform', `translate(0,${h})`)
+      .call(d3.axisBottom(x).ticks(ticks).tickSize(-h).tickFormat(fmt));
+    ax.select('.domain').remove();
+    ax.selectAll('line').attr('stroke', css('--grid'));
+    ax.selectAll('text').attr('fill', css('--muted')).attr('dy', '1.1em');
+    return ax;
+  }
+  function ygrid(g, y, w, ticks, fmt) {
+    const ax = g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(ticks).tickSize(-w).tickFormat(fmt));
+    ax.select('.domain').remove();
+    ax.selectAll('line').attr('stroke', css('--grid'));
+    ax.selectAll('text').attr('fill', css('--muted')).attr('dx', '-0.4em');
+    return ax;
+  }
+  function table(el, headers, rows) {
+    const host = document.getElementById(el.dataset.table);
+    if (!host) return;
+    host.replaceChildren();
+    const t = document.createElement('table'); const thead = t.createTHead(); const hr = thead.insertRow();
+    headers.forEach(h => { const th = document.createElement('th'); th.textContent = h; hr.append(th); });
+    const tb = t.createTBody();
+    rows.forEach(r => { const tr = tb.insertRow(); r.forEach(c => { const td = tr.insertCell(); td.textContent = c; }); });
+    host.append(t);
+  }
+  const m1 = (d) => (d / 30).toFixed(2);
+  const pct = (v) => (v * 100).toFixed(0) + '%';
+
+  /* Strip plot: one row per group (court), one dot per judge. */
+  function strip(el, rows, o) {
+    const groups = o.groups || [...new Set(rows.map(r => r[o.group]))];
+    const rowH = 46, margin = { t: 8, r: 24, b: 34, l: Math.min(118, (el.clientWidth || 600) * 0.28) };
+    const { g, w, h } = frame(el, groups.length * rowH + margin.t + margin.b, margin);
+    const ext = d3.extent(rows, r => r[o.value]);
+    const pad = (ext[1] - ext[0]) * 0.06 || 1;
+    const x = d3.scaleLinear().domain(o.domain || [ext[0] - pad, ext[1] + pad]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(groups).range([0, h]).padding(0.2);
+    grid(g, x, h, Math.max(3, Math.floor(w / 90)), o.fmt);
+    g.append('g').selectAll('text').data(groups).join('text')
+      .attr('x', -10).attr('y', d => y(d) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .attr('fill', css('--ink')).attr('class', 'lab').text(d => d);
+    g.append('g').selectAll('line').data(groups).join('line')
+      .attr('x1', 0).attr('x2', w).attr('y1', d => y(d) + y.bandwidth() / 2).attr('y2', d => y(d) + y.bandwidth() / 2)
+      .attr('stroke', css('--grid'));
+    if (o.mark) {
+      g.append('g').selectAll('line').data(groups.filter(gr => o.mark[gr] !== undefined)).join('line')
+        .attr('x1', d => x(o.mark[d])).attr('x2', d => x(o.mark[d])).attr('y1', d => y(d) + 2).attr('y2', d => y(d) + y.bandwidth() - 2)
+        .attr('stroke', css('--ink')).attr('stroke-width', 2);
+    }
+    const jitter = (i) => ((i * 7919) % 11 - 5) / 5 * (y.bandwidth() * 0.22);
+    const dots = g.append('g').selectAll('circle').data(rows).join('circle')
+      .attr('cx', r => x(r[o.value])).attr('cy', (r, i) => y(r[o.group]) + y.bandwidth() / 2 + jitter(i))
+      .attr('r', 5).attr('fill', css('--s1')).attr('fill-opacity', 0.85).attr('stroke', css('--surface')).attr('stroke-width', 2)
+      .attr('class', 'hit');
+    bindTip(dots, o.tip);
+    table(el, o.tableHead, o.tableRows(rows));
+  }
+
+  /* Multi-series line over an ordinal x (with markers). */
+  function lines(el, series, o) {
+    const margin = { t: 16, r: 110, b: 40, l: 48 };
+    const { g, w, h } = frame(el, 300, margin);
+    const x = d3.scalePoint().domain(o.x).range([0, w]).padding(0.3);
+    const all = series.flatMap(s => s.values.map(v => v.y));
+    const y = d3.scaleLinear().domain([0, d3.max(all) * 1.12]).range([h, 0]).nice();
+    ygrid(g, y, w, 5, o.yfmt);
+    const xa = g.append('g').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x).tickSize(0).tickFormat(t => w < 460 ? String(t).split('-')[0].replace('+', '') + '+' : t));
+    xa.select('.domain').attr('stroke', css('--axis'));
+    xa.selectAll('text').attr('fill', css('--muted')).attr('dy', '1.3em');
+    series.forEach((s, si) => {
+      const col = css(s.color);
+      g.append('path').datum(s.values).attr('fill', 'none').attr('stroke', col).attr('stroke-width', 2)
+        .attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round')
+        .attr('d', d3.line().x(v => x(v.x)).y(v => y(v.y)));
+      const pts = g.append('g').selectAll('circle').data(s.values).join('circle')
+        .attr('cx', v => x(v.x)).attr('cy', v => y(v.y)).attr('r', 4.5).attr('fill', col)
+        .attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+      bindTip(pts, v => [[o.yfmt(v.y), s.name], [v.x + ' mg/L', 'breath alcohol'], [v.n + ' cases', '']]);
+      const last = s.values[s.values.length - 1];
+      g.append('text').attr('x', x(last.x) + 10).attr('y', y(last.y)).attr('dy', '0.35em').attr('fill', css('--ink'))
+        .attr('class', 'lab').text(s.name);
+    });
+    table(el, o.tableHead, o.tableRows(series));
+  }
+
+  /* Scatter with a 45-degree reference line. */
+  function scatter(el, pts, o) {
+    const margin = { t: 12, r: 16, b: 46, l: 54 };
+    const size = Math.min(el.clientWidth || 480, 520);
+    const { g, w, h } = frame(el, size, margin);
+    const ext = d3.extent(pts.flatMap(p => [p.a, p.b])); const pad = (ext[1] - ext[0]) * 0.08;
+    const x = d3.scaleLinear().domain([ext[0] - pad, ext[1] + pad]).range([0, w]).nice();
+    const y = d3.scaleLinear().domain(x.domain()).range([h, 0]);
+    grid(g, x, h, 5, o.fmt); ygrid(g, y, w, 5, o.fmt);
+    g.append('line').attr('x1', x(x.domain()[0])).attr('y1', y(x.domain()[0])).attr('x2', x(x.domain()[1])).attr('y2', y(x.domain()[1]))
+      .attr('stroke', css('--axis')).attr('stroke-width', 1.5);
+    g.append('text').attr('x', w - 4).attr('y', h + 38).attr('text-anchor', 'end').attr('fill', css('--muted')).attr('class', 'small').text(o.xlab);
+    g.append('text').attr('transform', 'rotate(-90)').attr('x', 0).attr('y', -42).attr('text-anchor', 'end').attr('fill', css('--muted')).attr('class', 'small').text(o.ylab);
+    const dots = g.append('g').selectAll('circle').data(pts).join('circle')
+      .attr('cx', p => x(p.a)).attr('cy', p => y(p.b)).attr('r', 4.5).attr('fill', css('--s1')).attr('fill-opacity', 0.8)
+      .attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+    bindTip(dots, o.tip);
+    table(el, o.tableHead, o.tableRows(pts));
+  }
+
+  /* Histogram of a null distribution with the observed value marked. */
+  function nullHist(el, hist, edges, observed, o) {
+    const margin = { t: 28, r: 20, b: 40, l: 44 };
+    const { g, w, h } = frame(el, 240, margin);
+    const bins = hist.map((c, i) => ({ c, x0: edges[i], x1: edges[i + 1] }));
+    const x = d3.scaleLinear().domain([0, Math.max(observed * 1.08, edges[edges.length - 1])]).range([0, w]).nice();
+    const y = d3.scaleLinear().domain([0, d3.max(hist)]).range([h, 0]).nice();
+    grid(g, x, h, 5, o.fmt);
+    const bars = g.append('g').selectAll('rect').data(bins).join('rect')
+      .attr('x', b => x(b.x0) + 1).attr('width', b => Math.max(1, x(b.x1) - x(b.x0) - 2))
+      .attr('y', b => y(b.c)).attr('height', b => h - y(b.c)).attr('fill', css('--neutral-mark')).attr('rx', 2).attr('class', 'hit');
+    bindTip(bars, b => [[b.c + ' shuffles', ''], [o.fmt(b.x0) + '–' + o.fmt(b.x1), 'between-judge variance']]);
+    g.append('line').attr('x1', x(observed)).attr('x2', x(observed)).attr('y1', -6).attr('y2', h).attr('stroke', css('--s2')).attr('stroke-width', 2);
+    g.append('circle').attr('cx', x(observed)).attr('cy', -6).attr('r', 5).attr('fill', css('--s2')).attr('stroke', css('--surface')).attr('stroke-width', 2);
+    g.append('text').attr('x', x(observed) - 8).attr('y', -12).attr('text-anchor', 'end').attr('fill', css('--ink')).attr('class', 'lab').text(o.obsLabel);
+    table(el, ['Shuffled-data variance (bin)', 'Count of shuffles'], bins.map(b => [o.fmt(b.x0) + '–' + o.fmt(b.x1), String(b.c)]).concat([['Observed', o.fmt(observed)]]));
+  }
+
+  /* Coefficient plot around zero. */
+  function coefs(el, rows, o) {
+    const margin = { t: 10, r: 24, b: 40, l: Math.min(250, (el.clientWidth || 600) * 0.42) };
+    const { g, w, h } = frame(el, rows.length * 38 + 50, margin);
+    const lim = d3.max(rows, r => Math.max(Math.abs(r.lo), Math.abs(r.hi))) * 1.1;
+    const x = d3.scaleLinear().domain([-lim, lim]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(rows.map(r => r.term)).range([0, h - 10]).padding(0.3);
+    grid(g, x, h - 10, 5, o.fmt);
+    g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', h - 10).attr('stroke', css('--axis')).attr('stroke-width', 1.5);
+    g.append('g').selectAll('text').data(rows).join('text').attr('x', -10).attr('y', r => y(r.term) + y.bandwidth() / 2)
+      .attr('dy', '0.35em').attr('text-anchor', 'end').attr('fill', css('--ink')).attr('class', 'lab').text(r => r.term);
+    g.append('g').selectAll('line').data(rows).join('line').attr('x1', r => x(r.lo)).attr('x2', r => x(r.hi))
+      .attr('y1', r => y(r.term) + y.bandwidth() / 2).attr('y2', r => y(r.term) + y.bandwidth() / 2)
+      .attr('stroke', css('--s1')).attr('stroke-width', 2).attr('stroke-linecap', 'round');
+    const pts = g.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.coef)).attr('cy', r => y(r.term) + y.bandwidth() / 2)
+      .attr('r', 5).attr('fill', css('--s1')).attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+    bindTip(pts, r => [[o.fmt(r.coef), r.term], ['95% CI ' + o.fmt(r.lo) + ' to ' + o.fmt(r.hi), ''], ['q = ' + r.q.toFixed(2), 'after multiple-testing correction']]);
+    table(el, o.tableHead, rows.map(r => [r.term, o.fmt(r.coef), o.fmt(r.lo) + ' to ' + o.fmt(r.hi), r.p.toFixed(3), r.q.toFixed(2)]));
+  }
+
+  /* Range plot: per court, min-max whisker, IQR bar, median tick. */
+  function ranges(el, rows, o) {
+    const margin = { t: 8, r: 24, b: 40, l: Math.min(118, (el.clientWidth || 600) * 0.28) };
+    const { g, w, h } = frame(el, rows.length * 30 + 52, margin);
+    const lim = d3.max(rows, r => Math.max(Math.abs(r.min), Math.abs(r.max))) * 1.05;
+    const x = d3.scaleLinear().domain([-lim, lim]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(rows.map(r => r.court)).range([0, h - 12]).padding(0.35);
+    grid(g, x, h - 12, 6, o.fmt);
+    g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', h - 12).attr('stroke', css('--axis'));
+    g.append('g').selectAll('text').data(rows).join('text').attr('x', -10).attr('y', r => y(r.court) + y.bandwidth() / 2)
+      .attr('dy', '0.35em').attr('text-anchor', 'end').attr('fill', css('--ink')).attr('class', 'lab').text(r => r.court);
+    const cy = r => y(r.court) + y.bandwidth() / 2;
+    g.append('g').selectAll('line').data(rows).join('line').attr('x1', r => x(r.min)).attr('x2', r => x(r.max)).attr('y1', cy).attr('y2', cy)
+      .attr('stroke', css('--neutral-mark')).attr('stroke-width', 2);
+    const bars = g.append('g').selectAll('rect').data(rows).join('rect').attr('x', r => x(r.p25)).attr('width', r => Math.max(2, x(r.p75) - x(r.p25)))
+      .attr('y', r => cy(r) - 6).attr('height', 12).attr('rx', 4).attr('fill', css('--s1')).attr('class', 'hit');
+    g.append('g').selectAll('line.med').data(rows).join('line').attr('x1', r => x(r.median)).attr('x2', r => x(r.median))
+      .attr('y1', r => cy(r) - 8).attr('y2', r => cy(r) + 8).attr('stroke', css('--surface')).attr('stroke-width', 2);
+    bindTip(bars, r => [[o.fmt(r.min) + ' to ' + o.fmt(r.max), r.court + ': range of judge effects'], ['middle half ' + o.fmt(r.p25) + ' to ' + o.fmt(r.p75), ''], [r.judges + ' judges · ' + r.cases + ' cases', '']]);
+    table(el, ['Court', 'Judges (30+ cases)', 'Cases', 'Most lenient', '25th pct', 'Median', '75th pct', 'Harshest'],
+      rows.map(r => [r.court, r.judges, r.cases, o.fmt(r.min), o.fmt(r.p25), o.fmt(r.median), o.fmt(r.p75), o.fmt(r.max)]));
+  }
+
+  /* Horizontal bars (one series), value at the tip. */
+  function hbars(el, rows, o) {
+    const margin = { t: 6, r: o.right || 64, b: 30, l: Math.min(o.left || 118, (el.clientWidth || 600) * 0.4) };
+    const { g, w, h } = frame(el, rows.length * 28 + 40, margin);
+    const x = d3.scaleLinear().domain(o.domain || [0, d3.max(rows, r => r.v) * 1.05]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(rows.map(r => r.k)).range([0, h]).padding(0.3);
+    grid(g, x, h, 5, o.fmt);
+    g.append('g').selectAll('text').data(rows).join('text').attr('x', -10).attr('y', r => y(r.k) + y.bandwidth() / 2)
+      .attr('dy', '0.35em').attr('text-anchor', 'end').attr('fill', css('--ink')).attr('class', 'lab').text(r => r.k);
+    const x0 = x(o.domain ? o.domain[0] : 0);
+    const bars = g.append('g').selectAll('path').data(rows).join('path')
+      .attr('d', r => { const bw = Math.min(y.bandwidth(), 24), yy = y(r.k) + (y.bandwidth() - bw) / 2, xe = x(r.v), rr = Math.min(4, (xe - x0) / 2);
+        return `M${x0},${yy}H${xe - rr}Q${xe},${yy} ${xe},${yy + rr}V${yy + bw - rr}Q${xe},${yy + bw} ${xe - rr},${yy + bw}H${x0}Z`; })
+      .attr('fill', r => r.hl ? css('--s2') : css('--s1')).attr('class', 'hit');
+    g.append('g').selectAll('text.v').data(rows).join('text').attr('x', r => x(r.v) + 6).attr('y', r => y(r.k) + y.bandwidth() / 2)
+      .attr('dy', '0.35em').attr('fill', css('--muted')).attr('class', 'small num').text(r => r.label || o.fmt(r.v));
+    bindTip(bars, r => [[r.label || o.fmt(r.v), r.k], [r.note || '', '']]);
+    table(el, o.tableHead, rows.map(r => [r.k, r.label || o.fmt(r.v), r.note || '']));
+  }
+
+  /* Stacked 100% bar (variance decomposition). */
+  function stack(el, parts, o) {
+    const margin = { t: 6, r: 8, b: 6, l: 8 };
+    const { g, w } = frame(el, 64, margin);
+    let acc = 0;
+    const x = d3.scaleLinear().domain([0, 1]).range([0, w]);
+    const segs = parts.map(p => { const s = { ...p, x0: acc, x1: acc + p.v }; acc += p.v; return s; });
+    const rects = g.selectAll('rect').data(segs).join('rect').attr('x', s => x(s.x0) + (s.x0 > 0 ? 1 : 0)).attr('width', s => Math.max(1, x(s.x1) - x(s.x0) - (s.x0 > 0 ? 2 : 0)))
+      .attr('y', 4).attr('height', 40).attr('rx', 4).attr('fill', s => css(s.color)).attr('class', 'hit');
+    bindTip(rects, s => [[pct(s.v), s.k], [s.note || '', '']]);
+    g.selectAll('text').data(segs.filter(s => x(s.x1) - x(s.x0) > 70)).join('text').attr('x', s => x(s.x0) + 10).attr('y', 29)
+      .attr('fill', s => s.light ? css('--ink') : '#ffffff').attr('class', 'lab').text(s => pct(s.v));
+    table(el, ['Component', 'Share of sentence variation'], segs.map(s => [s.k, pct(s.v)]));
+  }
+
+  window.Viz = { strip, lines, scatter, nullHist, coefs, ranges, hbars, stack, m1, pct };
+})();
+
+/* Extra chart types for the combined report (same conventions as charts.js: thin marks, hairline grid,
+   tooltip + keyboard focus, and a table twin). Depends on window.Viz from charts.js for shared helpers. */
+(function () {
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const tip = document.querySelector('.viz-tip');
+  function showTip(evt, lines) {
+    tip.replaceChildren();
+    lines.forEach(([value, label], i) => {
+      const row = document.createElement('div'); row.className = i === 0 ? 'tip-row tip-main' : 'tip-row';
+      const v = document.createElement('strong'); v.textContent = value;
+      const l = document.createElement('span'); l.textContent = label;
+      row.append(v, l); tip.append(row);
+    });
+    tip.hidden = false;
+    const r = tip.getBoundingClientRect();
+    let x, y;
+    if (evt.clientX !== undefined && evt.type.startsWith('pointer')) { x = evt.clientX + 14; y = evt.clientY + 14; }
+    else { const b = evt.target.getBoundingClientRect(); x = b.right + 8; y = b.top; }
+    if (x + r.width > window.innerWidth - 8) x = Math.max(8, x - r.width - 28);
+    if (y + r.height > window.innerHeight - 8) y = Math.max(8, y - r.height - 28);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  const hideTip = () => { tip.hidden = true; };
+  function bindTip(sel, fn) {
+    sel.attr('tabindex', 0).on('pointermove', (e, d) => showTip(e, fn(d))).on('pointerleave', hideTip)
+      .on('focus', (e, d) => showTip(e, fn(d))).on('blur', hideTip);
+  }
+  function frame(el, height, margin) {
+    el.replaceChildren();
+    const width = Math.max(300, el.clientWidth || 640);
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('width', '100%')
+      .attr('role', 'img').attr('aria-label', el.dataset.label || '');
+    const g = svg.append('g').attr('transform', `translate(${margin.l},${margin.t})`);
+    return { svg, g, w: width - margin.l - margin.r, h: height - margin.t - margin.b, width };
+  }
+  function xgrid(g, x, h, ticks, fmt) {
+    const ax = g.append('g').attr('class', 'axis').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x).ticks(ticks).tickSize(-h).tickFormat(fmt));
+    ax.select('.domain').remove(); ax.selectAll('line').attr('stroke', css('--grid')); ax.selectAll('text').attr('fill', css('--muted')).attr('dy', '1.1em');
+  }
+  function ygrid(g, y, w, ticks, fmt) {
+    const ax = g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(ticks).tickSize(-w).tickFormat(fmt));
+    ax.select('.domain').remove(); ax.selectAll('line').attr('stroke', css('--grid')); ax.selectAll('text').attr('fill', css('--muted')).attr('dx', '-0.4em');
+  }
+  function table(el, headers, rows) {
+    const host = document.getElementById(el.dataset.table);
+    if (!host) return;
+    host.replaceChildren();
+    const t = document.createElement('table'); const hr = t.createTHead().insertRow();
+    headers.forEach(h => { const th = document.createElement('th'); th.textContent = h; hr.append(th); });
+    const tb = t.createTBody();
+    rows.forEach(r => { const tr = tb.insertRow(); r.forEach(c => { const td = tr.insertCell(); td.textContent = c; }); });
+    host.append(t);
+  }
+
+  /* Time series on a numeric x, several series, optional vertical event markers, direct end labels. */
+  function tlines(el, series, o) {
+    const narrow = (el.clientWidth || 600) < 520;
+    const margin = { t: 26, r: narrow ? 16 : 130, b: 40, l: 50 };
+    const { g, w, h } = frame(el, o.height || 300, margin);
+    const xs = series.flatMap(s => s.values.map(v => v.x));
+    const x = d3.scaleLinear().domain(o.xdomain || d3.extent(xs)).range([0, w]);
+    const ys = series.flatMap(s => s.values.map(v => v.y));
+    const y = d3.scaleLinear().domain(o.ydomain || [Math.min(0, d3.min(ys)), d3.max(ys) * 1.12]).range([h, 0]).nice();
+    ygrid(g, y, w, 5, o.yfmt);
+    const xa = g.append('g').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x).ticks(Math.min(xs.length, Math.floor(w / 60))).tickSize(0).tickFormat(o.xfmt || d3.format('d')));
+    xa.select('.domain').attr('stroke', css('--axis')); xa.selectAll('text').attr('fill', css('--muted')).attr('dy', '1.3em');
+    (o.events || []).forEach(ev => {
+      g.append('line').attr('x1', x(ev.x)).attr('x2', x(ev.x)).attr('y1', -8).attr('y2', h).attr('stroke', css('--axis')).attr('stroke-dasharray', '3 3');
+      g.append('text').attr('x', x(ev.x) + 4).attr('y', -12).attr('fill', css('--muted')).attr('class', 'small').text(ev.label);
+    });
+    if (o.zero) g.append('line').attr('x1', 0).attr('x2', w).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', css('--axis'));
+    series.forEach(s => {
+      const col = css(s.color);
+      g.append('path').datum(s.values).attr('fill', 'none').attr('stroke', col).attr('stroke-width', 2).attr('stroke-linejoin', 'round')
+        .attr('stroke-dasharray', s.dash ? '5 4' : null).attr('d', d3.line().x(v => x(v.x)).y(v => y(v.y)));
+      const pts = g.append('g').selectAll('circle').data(s.values).join('circle').attr('cx', v => x(v.x)).attr('cy', v => y(v.y))
+        .attr('r', 4).attr('fill', col).attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+      bindTip(pts, v => [[o.yfmt(v.y), s.name], [(o.xfmt || String)(v.x), o.xlab || ''], ...(v.note ? [[v.note, '']] : [])]);
+      const last = s.values[s.values.length - 1];
+      if (!narrow) g.append('text').attr('x', x(last.x) + 10).attr('y', y(last.y) + (s.dy || 0)).attr('dy', '0.35em').attr('fill', css('--ink')).attr('class', 'lab').text(s.name);
+    });
+    if (narrow) {
+      const lg = d3.select(el).append('div').attr('class', 'legend');
+      series.forEach(s => { const it = lg.append('span'); it.append('i').style('background', css(s.color)); it.append('span').text(s.name); });
+    }
+    if (o.ylab) g.append('text').attr('x', -44).attr('y', -12).attr('fill', css('--muted')).attr('class', 'small').text(o.ylab);
+    table(el, o.tableHead || ['Series', 'x', 'Value'], series.flatMap(s => s.values.map(v => [s.name, (o.xfmt || String)(v.x), o.yfmt(v.y)])));
+  }
+
+  /* Dumbbell: per row, value a (hollow) and value b (filled) on a shared axis. */
+  function dumbbell(el, rows, o) {
+    const margin = { t: 30, r: 24, b: 36, l: Math.min(o.left || 190, (el.clientWidth || 600) * 0.42) };
+    const { g, w, h } = frame(el, rows.length * 32 + 66, margin);
+    const all = rows.flatMap(r => [r.a, r.b].concat(r.alo !== undefined ? [r.alo, r.ahi] : []));
+    const x = d3.scaleLinear().domain(o.domain || [Math.min(0, d3.min(all)), d3.max(all) * 1.08]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(rows.map(r => r.k)).range([0, h]).padding(0.3);
+    xgrid(g, x, h, 5, o.fmt);
+    const cy = r => y(r.k) + y.bandwidth() / 2;
+    g.append('g').selectAll('text').data(rows).join('text').attr('x', -10).attr('y', cy).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .attr('fill', css('--ink')).attr('class', 'lab').text(r => r.k);
+    g.append('g').selectAll('line').data(rows).join('line').attr('x1', r => x(Math.min(r.a, r.b))).attr('x2', r => x(Math.max(r.a, r.b)))
+      .attr('y1', cy).attr('y2', cy).attr('stroke', css('--neutral-mark')).attr('stroke-width', 2);
+    const ca = css(o.colorA || '--s2'), cb = css(o.colorB || '--s1');
+    const pa = g.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.a)).attr('cy', cy).attr('r', 5.5)
+      .attr('fill', css('--surface')).attr('stroke', ca).attr('stroke-width', 2.5).attr('class', 'hit');
+    const pb = g.append('g').selectAll('circle.b').data(rows).join('circle').attr('cx', r => x(r.b)).attr('cy', cy).attr('r', 5.5)
+      .attr('fill', cb).attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+    bindTip(pa, r => [[o.fmt(r.a), o.labA], [r.k, ''], ...(r.note ? [[r.note, '']] : [])]);
+    bindTip(pb, r => [[o.fmt(r.b), o.labB], [r.k, ''], ...(r.note ? [[r.note, '']] : [])]);
+    const lg = g.append('g').attr('transform', 'translate(0,-20)');
+    lg.append('circle').attr('cx', 6).attr('cy', 0).attr('r', 5).attr('fill', css('--surface')).attr('stroke', ca).attr('stroke-width', 2.5);
+    const ta = lg.append('text').attr('x', 16).attr('y', 0).attr('dy', '0.35em').attr('fill', css('--ink')).attr('class', 'small').text(o.labA);
+    let tw = o.labA.length * 7; try { tw = ta.node().getComputedTextLength() || tw; } catch (e) {}
+    const off = 16 + tw + 22;
+    lg.append('circle').attr('cx', off + 6).attr('cy', 0).attr('r', 5).attr('fill', cb);
+    lg.append('text').attr('x', off + 16).attr('y', 0).attr('dy', '0.35em').attr('fill', css('--ink')).attr('class', 'small').text(o.labB);
+    table(el, ['', o.labA, o.labB, ''], rows.map(r => [r.k, o.fmt(r.a), o.fmt(r.b), r.note || '']));
+  }
+
+  /* Coefficient plot (estimate with 95% interval) grouped by a heading per block. */
+  function coefs2(el, rows, o) {
+    const margin = { t: 10, r: 24, b: 40, l: Math.min(o.left || 240, (el.clientWidth || 600) * 0.46) };
+    const { g, w, h } = frame(el, rows.length * 30 + 56, margin);
+    const lim = o.lim || d3.max(rows, r => Math.max(Math.abs(r.lo), Math.abs(r.hi))) * 1.1;
+    const x = d3.scaleLinear().domain([-lim, lim]).range([0, w]).nice();
+    const y = d3.scaleBand().domain(rows.map((r, i) => i)).range([0, h - 10]).padding(0.25);
+    xgrid(g, x, h - 10, 6, o.fmt);
+    g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', h - 10).attr('stroke', css('--axis')).attr('stroke-width', 1.5);
+    const cy = (r, i) => y(i) + y.bandwidth() / 2;
+    g.append('g').selectAll('text').data(rows).join('text').attr('x', -10).attr('y', cy).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .attr('fill', css('--ink')).attr('class', 'lab').text(r => r.term);
+    g.append('g').selectAll('line').data(rows).join('line').attr('x1', r => x(Math.max(-lim, r.lo))).attr('x2', r => x(Math.min(lim, r.hi)))
+      .attr('y1', cy).attr('y2', cy).attr('stroke', r => css(r.color || '--s1')).attr('stroke-width', 2).attr('stroke-linecap', 'round');
+    const pts = g.append('g').selectAll('circle').data(rows).join('circle').attr('cx', r => x(r.coef)).attr('cy', cy)
+      .attr('r', 5).attr('fill', r => css(r.color || '--s1')).attr('stroke', css('--surface')).attr('stroke-width', 2).attr('class', 'hit');
+    bindTip(pts, r => [[o.fmt(r.coef), r.term], ['95% interval ' + o.fmt(r.lo) + ' to ' + o.fmt(r.hi), ''], ...(r.note ? [[r.note, '']] : [])]);
+    table(el, o.tableHead || ['Comparison', 'Estimate', '95% interval', 'Note'], rows.map(r => [r.term, o.fmt(r.coef), o.fmt(r.lo) + ' to ' + o.fmt(r.hi), r.note || '']));
+  }
+
+  Object.assign(window.Viz, { tlines, dumbbell, coefs2, showTip, hideTip });
+})();
+
+</script>
+<script>
+const DATA = {"off":[{"offence":"Impaired driving","label":"Drunk/drugged driving","zh":"不能安全駕駛 (drunk/drugged driving)","n":584390,"judges":1918,"mean_days":100.5799365209729,"tau":7.6109132723156385,"gap":8.587995979051703,"gap_pct":8.538478225486788,"icc":0.0612803274973002,"split":0.849339685881036,"p10":-9.60520992728415,"p90":11.248818510140344,"prob_icc":0.12279600175401137,"prob_tau":6.211135215680986,"prob_mean":3.5045213835348066,"fine_icc":0.25507408562862854,"fine_tau":20.919198932704774,"fine_mean":29.69319770789351,"conv_icc":0.017799743296092293,"conv_tau":0.31959714559636454,"conv_mean":99.92336906068022},{"offence":"Theft","label":"Theft","zh":"竊盜 (theft)","n":183917,"judges":2037,"mean_days":87.24104788775271,"tau":8.757016610197985,"gap":9.881235108856771,"gap_pct":11.326359951075212,"icc":0.04024631018704906,"split":0.6505978081964684,"p10":-9.275242473572293,"p90":9.505616406527944,"prob_icc":0.015761857932526824,"prob_tau":2.962610197121281,"prob_mean":6.93010638702698,"fine_icc":0.02956858181224617,"fine_tau":1.0524732227191147,"fine_mean":0.4213095128464868,"conv_icc":0.016672128275397328,"conv_tau":1.2996219238921864,"conv_mean":98.65173633955084},{"offence":"Drug use","label":"Drug use","zh":"施用毒品 (drug use)","n":193785,"judges":1900,"mean_days":148.55034484893193,"tau":10.171969148635544,"gap":11.477838075658626,"gap_pct":7.726564409750107,"icc":0.07062312823751274,"split":0.7968208835376772,"p10":-11.089964527436356,"p90":11.359550222044147,"prob_icc":0.018785994207034598,"prob_tau":0.5120938433862869,"prob_mean":0.14650276240243898,"fine_icc":null,"fine_tau":null,"fine_mean":null,"conv_icc":0.016300827437921675,"conv_tau":0.27239203046211236,"conv_mean":99.94337077726182},{"offence":"Fraud","label":"Fraud","zh":"詐欺 (fraud)","n":77980,"judges":1771,"mean_days":333.26317339205247,"tau":33.25885490085197,"gap":37.52859899157386,"gap_pct":11.260949900223457,"icc":0.0768422744357202,"split":0.8103803802409344,"p10":-32.62593946254489,"p90":33.168026462627225,"prob_icc":0.02059125796208181,"prob_tau":4.027216560805516,"prob_mean":12.337412945514133,"fine_icc":0.4040781454127153,"fine_tau":12.551654284779845,"fine_mean":4.579025110782865,"conv_icc":0.015110499722750925,"conv_tau":0.7627987057174512,"conv_mean":99.47056678278148},{"offence":"Assault","label":"Assault","zh":"傷害 (assault)","n":45351,"judges":1862,"mean_days":59.99412605873941,"tau":11.076668303944512,"gap":12.498681754998174,"gap_pct":20.833175805846206,"icc":0.07065413651487928,"split":0.6744537544145899,"p10":-11.26647799735282,"p90":11.305196347240623,"prob_icc":0.03316139135386858,"prob_tau":2.9119206610796438,"prob_mean":3.0535694643053573,"fine_icc":0.0,"fine_tau":0.0,"fine_mean":0.007691124442393478,"conv_icc":0.027674320694751217,"conv_tau":2.1693581882620663,"conv_mean":97.7472963380517},{"offence":"Negligent injury","label":"Negligent injury","zh":"過失傷害 (negligent injury)","n":76601,"judges":1902,"mean_days":66.75220373461298,"tau":9.422111373646949,"gap":10.631714184076902,"gap_pct":15.927135868570653,"icc":0.05988661364645486,"split":0.6795887491734041,"p10":-9.84842489093003,"p90":10.84490375804949,"prob_icc":0.05330452997133142,"prob_tau":5.234231151474797,"prob_mean":6.35692676820363,"fine_icc":0.0,"fine_tau":0.0,"fine_mean":0.01943068104537064,"conv_icc":0.023082813485315674,"conv_tau":1.7387634696706278,"conv_mean":98.0806069466149},{"offence":"Drug possession","label":"Drug possession","zh":"持有毒品 (drug possession)","n":24462,"judges":1536,"mean_days":96.28644501278772,"tau":10.786484304370482,"gap":12.171244175254385,"gap_pct":12.640662113590269,"icc":0.053558099205067905,"split":0.6861637505993704,"p10":-11.370180905079142,"p90":12.296613282689783,"prob_icc":0.06607460692865863,"prob_tau":3.6918858244311554,"prob_mean":2.5088296188040435,"fine_icc":0.1331714277174819,"fine_tau":5.21398187597593,"fine_mean":2.43161094224924,"conv_icc":0.04891839102705351,"conv_tau":0.9882579141553408,"conv_mean":99.54745694833801},{"offence":"Money-mule (aiding laundering)","label":"Money mule (laundering)","zh":"幫助洗錢 (money mule)","n":57421,"judges":1162,"mean_days":112.04537148227432,"tau":16.77754819101758,"gap":18.93143585368524,"gap_pct":16.89622302397401,"icc":0.09824358211045664,"split":0.8750829249600646,"p10":-16.18516039586134,"p90":13.633937293208074,"prob_icc":0.039252813165475936,"prob_tau":7.272171254366184,"prob_mean":22.052245949285577,"fine_icc":0.02650344875677116,"fine_tau":0.4515405008289149,"fine_mean":99.88494579668644,"conv_icc":0.01825142465799431,"conv_tau":0.09661777723461591,"conv_mean":99.99477961264725},{"offence":"Money-mule (aiding fraud)","label":"Money mule (fraud)","zh":"幫助詐欺 (money mule)","n":34846,"judges":1586,"mean_days":75.18097249172469,"tau":13.100111680677132,"gap":14.78189310710066,"gap_pct":19.66174766990109,"icc":0.15046506503744309,"split":0.82152877672814,"p10":-12.065514263411174,"p90":15.514467570423518,"prob_icc":0.053028518975120634,"prob_tau":7.501069744562454,"prob_mean":18.645131834265495,"fine_icc":0.1377421773464306,"fine_tau":5.120953595871965,"fine_mean":2.5118615685180017,"conv_icc":0.06466463754950584,"conv_tau":1.2011234202395142,"conv_mean":99.66108396644732},{"offence":"Money laundering","label":"Money laundering","zh":"洗錢 (money laundering)","n":12204,"judges":940,"mean_days":124.05795454545455,"tau":22.173143415691847,"gap":25.019713099287717,"gap_pct":20.16776206810709,"icc":0.10773551481379225,"split":0.6075326127413604,"p10":-11.772595611268054,"p90":13.893129434737883,"prob_icc":0.026255591808830643,"prob_tau":6.182246769626326,"prob_mean":28.717532467532468,"fine_icc":0.17953698022309886,"fine_tau":7.111582817673728,"fine_mean":60.5814189875991,"conv_icc":0.040980871715749004,"conv_tau":1.7856252515989237,"conv_mean":98.7640539031975},{"offence":"Criminal damage","label":"Criminal damage","zh":"毀損 (criminal damage)","n":13689,"judges":1315,"mean_days":45.93521167048055,"tau":7.524133309840818,"gap":8.490075277273785,"gap_pct":18.482717219587304,"icc":0.07127901716310608,"split":0.7044670080515073,"p10":-7.259595564036206,"p90":1.3316582397480385,"prob_icc":0.0473758155287217,"prob_tau":2.5237886774727865,"prob_mean":1.7305491990846682,"fine_icc":null,"fine_tau":null,"fine_mean":null,"conv_icc":0.04174089726271468,"conv_tau":2.155054430146826,"conv_mean":98.018756598969},{"offence":"Defamation / insult","label":"Defamation","zh":"妨害名譽 (defamation)","n":5899,"judges":981,"mean_days":29.52887972072358,"tau":5.6325446374958466,"gap":6.35564602668586,"gap_pct":21.5234918723497,"icc":0.12048042257675601,"split":null,"p10":null,"p90":null,"prob_icc":0.03641852117451139,"prob_tau":2.8771056324440263,"prob_mean":3.17359568390987,"fine_icc":null,"fine_tau":null,"fine_mean":null,"conv_icc":0.06055053717155228,"conv_tau":4.874030233168856,"conv_mean":91.8448562603944}],"trend":[{"name":"Covered (2023 tool)","color":"--s1","values":[{"x":2013,"y":11.582401958944004},{"x":2014,"y":12.02627647308148},{"x":2015,"y":10.804846666719317},{"x":2016,"y":10.756592308874739},{"x":2017,"y":10.599641756898189},{"x":2018,"y":10.419252733233668},{"x":2019,"y":10.634281940031553},{"x":2020,"y":10.521762135979328},{"x":2021,"y":9.463467270989911},{"x":2022,"y":10.675907140474695},{"x":2023,"y":11.249745277685212},{"x":2024,"y":12.517568464550102},{"x":2025,"y":13.11795328032671}]},{"name":"Not covered","color":"--s2","values":[{"x":2013,"y":14.444065325735176},{"x":2014,"y":16.1364301578358},{"x":2015,"y":16.675260369326608},{"x":2016,"y":14.68748800230099},{"x":2017,"y":16.264517446111114},{"x":2018,"y":17.460105689368252},{"x":2019,"y":16.596245886255343},{"x":2020,"y":18.264523685458286},{"x":2021,"y":20.10289855115681},{"x":2022,"y":17.508965824080406},{"x":2023,"y":17.825461818146646},{"x":2024,"y":17.328989165659536},{"x":2025,"y":17.542739685371977}]}],"per_off":{"Impaired driving":[{"x":2013,"y":9.841913872198402},{"x":2014,"y":9.518346340322047},{"x":2015,"y":8.657452405108794},{"x":2016,"y":8.664331051676452},{"x":2017,"y":8.274749744831238},{"x":2018,"y":7.738989644884639},{"x":2019,"y":8.067551353743465},{"x":2020,"y":7.9561490576039935},{"x":2021,"y":7.040967865992728},{"x":2022,"y":7.809543528208502},{"x":2023,"y":8.281514170924801},{"x":2024,"y":9.79315552361701},{"x":2025,"y":10.948238098689743}],"Theft":[{"x":2013,"y":14.303086051527547},{"x":2014,"y":14.900329971035346},{"x":2015,"y":15.491094739598449},{"x":2016,"y":16.50455970044283},{"x":2017,"y":15.957338668032042},{"x":2018,"y":17.918975199960315},{"x":2019,"y":16.893120230622237},{"x":2020,"y":16.181759995843176},{"x":2021,"y":17.901771900343515},{"x":2022,"y":17.746687064086558},{"x":2023,"y":17.767006700240472},{"x":2024,"y":19.2019296062123},{"x":2025,"y":19.443639561643558}],"Fraud":[{"x":2013,"y":22.720635436558048},{"x":2014,"y":29.045837633965206},{"x":2015,"y":17.351028786557702},{"x":2016,"y":13.92027145025699},{"x":2017,"y":14.441515574691646},{"x":2018,"y":9.233157866818361},{"x":2019,"y":11.993888587181104},{"x":2020,"y":9.25403446258171},{"x":2021,"y":4.228390900783398},{"x":2022,"y":8.612273007691439},{"x":2023,"y":10.708586242443076},{"x":2024,"y":11.63224693044398},{"x":2025,"y":12.093230831650782}],"Drug use":[{"x":2013,"y":7.616903236511519},{"x":2014,"y":7.821815406499198},{"x":2015,"y":7.458230710899194},{"x":2016,"y":7.614126935710451},{"x":2017,"y":7.971947219285047},{"x":2018,"y":7.523294161585947},{"x":2019,"y":8.225570504537233},{"x":2020,"y":9.03204315425718},{"x":2021,"y":7.101532309042274},{"x":2022,"y":10.227349981247013},{"x":2023,"y":10.826477124491344},{"x":2024,"y":11.935170513003236},{"x":2025,"y":10.745988683346201}]},"ap_rows":[{"k":"Drunk/drugged driving","v":1.3238110221888255,"note":"appeal rate 2%; judge SD 7.3 → 7.2 days"},{"k":"Drug use","v":2.590103898498708,"note":"appeal rate 7%; judge SD 10.0 → 9.9 days"},{"k":"Theft","v":7.21230484788803,"note":"appeal rate 6%; judge SD 8.2 → 7.9 days"},{"k":"Money mule (fraud)","v":14.26005207822707,"note":"appeal rate 13%; judge SD 13.3 → 12.3 days"},{"k":"Negligent injury","v":15.161286133858487,"note":"appeal rate 27%; judge SD 9.5 → 8.7 days"},{"k":"Fraud","v":16.648925049030627,"note":"appeal rate 17%; judge SD 19.3 → 17.7 days"},{"k":"Drug possession","v":19.708363887585655,"note":"appeal rate 6%; judge SD 12.3 → 11.0 days"},{"k":"Assault","v":20.819343542355817,"note":"appeal rate 18%; judge SD 9.1 → 8.1 days"},{"k":"Money mule (laundering)","v":40.46109125184007,"note":"appeal rate 20%; judge SD 13.2 → 10.2 days"}],"bins_ni":[{"zbin":0,"z":-17.071893789032277,"appealed":0.23873193875350443,"app_def":0.13111925814103947,"app_pros":0.132628854863058,"changed":0.0698727625620013,"delta":0.07849902954496442,"n":4637,"offence":"Negligent injury"},{"zbin":1,"z":-9.74119432001525,"appealed":0.26180720293293075,"app_def":0.14988138882898425,"app_pros":0.13241319818848393,"changed":0.07224498598231616,"delta":0.10437783049385378,"n":4637,"offence":"Negligent injury"},{"zbin":2,"z":-6.406178108478593,"appealed":0.25668679896462465,"app_def":0.15703192407247626,"app_pros":0.12122519413287317,"changed":0.07096635030198446,"delta":-0.28688524590163933,"n":4636,"offence":"Negligent injury"},{"zbin":3,"z":-3.6925926771201496,"appealed":0.2546905326719862,"app_def":0.15290058227302136,"app_pros":0.12249299115807634,"changed":0.07051973258572353,"delta":-0.640715980159586,"n":4637,"offence":"Negligent injury"},{"zbin":4,"z":-1.5821011224333414,"appealed":0.2549061893465603,"app_def":0.16131119258141038,"app_pros":0.11386672417511322,"changed":0.06620659909424197,"delta":-0.4690532671986198,"n":4637,"offence":"Negligent injury"},{"zbin":5,"z":0.5086194243461715,"appealed":0.27243313201035374,"app_def":0.17687661777394306,"app_pros":0.12014667817083693,"changed":0.07657463330457291,"delta":-0.5321397756686799,"n":4636,"offence":"Negligent injury"},{"zbin":6,"z":3.2816239131234504,"appealed":0.25706275609230106,"app_def":0.16131119258141038,"app_pros":0.11817985766659478,"changed":0.06663791244339012,"delta":-0.8844080224282942,"n":4637,"offence":"Negligent injury"},{"zbin":7,"z":6.730605871437389,"appealed":0.274374460742019,"app_def":0.1807592752372735,"app_pros":0.12230371009490941,"changed":0.06880931837791199,"delta":-1.0353753235547887,"n":4636,"offence":"Negligent injury"},{"zbin":8,"z":10.919421445953565,"appealed":0.2822945870174682,"app_def":0.19473797714039248,"app_pros":0.1140823808496873,"changed":0.07397023937890877,"delta":-1.0064697002372223,"n":4637,"offence":"Negligent injury"},{"zbin":9,"z":19.591046708376762,"appealed":0.3017036877291352,"app_def":0.22234203148587448,"app_pros":0.10825965063618719,"changed":0.09704550355833513,"delta":-2.602113435410826,"n":4637,"offence":"Negligent injury"}],"bins_fr":[{"zbin":0,"z":-36.133286128334724,"appealed":0.195906432748538,"app_def":0.13625730994152047,"app_pros":0.07426900584795322,"changed":0.10409356725146199,"delta":-1.4736842105263157,"n":1710,"offence":"Fraud"},{"zbin":1,"z":-20.1257663185346,"appealed":0.19262295081967212,"app_def":0.14754098360655737,"app_pros":0.057962529274004686,"changed":0.10187353629976581,"delta":-4.253512880562061,"n":1708,"offence":"Fraud"},{"zbin":2,"z":-13.791385057695301,"appealed":0.1556465769455822,"app_def":0.11585722644821533,"app_pros":0.05090696313633704,"changed":0.05792861322410767,"delta":-0.2521942656524283,"n":1709,"offence":"Fraud"},{"zbin":3,"z":-8.91444110562429,"appealed":0.1481264637002342,"app_def":0.11124121779859485,"app_pros":0.04625292740046839,"changed":0.06733021077283373,"delta":-1.4285714285714286,"n":1708,"offence":"Fraud"},{"zbin":4,"z":-4.820857159619364,"appealed":0.1584795321637427,"app_def":0.12105263157894737,"app_pros":0.05380116959064327,"changed":0.07660818713450293,"delta":-2.263157894736842,"n":1710,"offence":"Fraud"},{"zbin":5,"z":-0.7614383228492397,"appealed":0.155061439438268,"app_def":0.1304856641310708,"app_pros":0.03510825043885313,"changed":0.07314218841427736,"delta":-2.799882972498537,"n":1709,"offence":"Fraud"},{"zbin":6,"z":4.717972917990644,"appealed":0.15875805506736965,"app_def":0.10427650849443468,"app_pros":0.06444053895723492,"changed":0.09080257762155829,"delta":4.478617457527827,"n":1707,"offence":"Fraud"},{"zbin":7,"z":12.024905471286859,"appealed":0.17905207723815098,"app_def":0.13809245172615564,"app_pros":0.053832650672908135,"changed":0.0807489760093622,"delta":-2.867173785839672,"n":1709,"offence":"Fraud"},{"zbin":8,"z":20.592768297653556,"appealed":0.1889994148624927,"app_def":0.14511410181392628,"app_pros":0.0590988882387361,"changed":0.0871854885898186,"delta":-6.06787595084845,"n":1709,"offence":"Fraud"},{"zbin":9,"z":45.89440467058653,"appealed":0.20128730251609128,"app_def":0.1673493270918666,"app_pros":0.046811000585137506,"changed":0.09888823873610299,"delta":-9.818607372732592,"n":1709,"offence":"Fraud"}],"exp":[{"offence":"Impaired driving","tau_novice_pct":7.702466235799187,"tau_exp_pct":7.898611881013464,"n_novice":74834,"n_exp":225839,"judges_novice":578,"judges_exp":1115,"level_gap_pct":1.4404291456292961,"level_gap_se_pct":0.6796691746840346},{"offence":"Theft","tau_novice_pct":14.947173058573556,"tau_exp_pct":15.6669806624336,"n_novice":25788,"n_exp":89604,"judges_novice":606,"judges_exp":1166,"level_gap_pct":2.298955072670128,"level_gap_se_pct":1.4533435219957085},{"offence":"Drug use","tau_novice_pct":7.655072029775643,"tau_exp_pct":8.784703159554464,"n_novice":22812,"n_exp":71152,"judges_novice":548,"judges_exp":1114,"level_gap_pct":0.05436050170624096,"level_gap_se_pct":0.7230294653977277},{"offence":"Fraud","tau_novice_pct":11.28524883233412,"tau_exp_pct":9.535455683071934,"n_novice":11196,"n_exp":52468,"judges_novice":561,"judges_exp":1083,"level_gap_pct":1.3415734901799592,"level_gap_se_pct":1.262790440197544},{"offence":"Assault","tau_novice_pct":20.496387426776632,"tau_exp_pct":20.58943219152146,"n_novice":6150,"n_exp":24523,"judges_novice":561,"judges_exp":1100,"level_gap_pct":-0.3294174211376233,"level_gap_se_pct":2.1492700023714097},{"offence":"Negligent injury","tau_novice_pct":15.883123703077212,"tau_exp_pct":15.625307714029441,"n_novice":9855,"n_exp":42462,"judges_novice":575,"judges_exp":1118,"level_gap_pct":-4.191048846335499,"level_gap_se_pct":1.5134804512374138},{"offence":"Drug possession","tau_novice_pct":17.837164201896975,"tau_exp_pct":17.15138700149485,"n_novice":3238,"n_exp":11753,"judges_novice":453,"judges_exp":938,"level_gap_pct":1.3714556229825536,"level_gap_se_pct":1.9667964214723523},{"offence":"Money-mule (aiding fraud)","tau_novice_pct":16.942983923007926,"tau_exp_pct":17.99018904302156,"n_novice":4629,"n_exp":14798,"judges_novice":469,"judges_exp":985,"level_gap_pct":2.605253983146061,"level_gap_se_pct":2.035955865960728},{"offence":"Money-mule (aiding laundering)","tau_novice_pct":11.724328189976353,"tau_exp_pct":11.926809615731138,"n_novice":9512,"n_exp":42069,"judges_novice":377,"judges_exp":846,"level_gap_pct":-0.4034545531576783,"level_gap_se_pct":1.0926187958406035}],"pers":[{"r_raw":0.6859715677683398,"r_true":0.7390605951465349,"rel_a":0.9306995212016625,"rel_b":0.9256411334878951,"judges":468,"offence":"Impaired driving","early":"2013–2016","late":"2017–2020"},{"r_raw":0.6530242118047814,"r_true":0.7239835696533722,"rel_a":0.9151323548860585,"rel_b":0.8890316789333088,"judges":433,"offence":"Impaired driving","early":"2017–2020","late":"2021–2024"},{"r_raw":0.5876999684442369,"r_true":0.6460812891459097,"rel_a":0.935133889873209,"rel_b":0.8848368698261173,"judges":243,"offence":"Impaired driving","early":"2013–2016","late":"2021–2024"},{"r_raw":0.49772264774571573,"r_true":0.6358678021993541,"rel_a":0.7725624998724989,"rel_b":0.7930626788313893,"judges":250,"offence":"Theft","early":"2013–2016","late":"2017–2020"},{"r_raw":0.5020014004417589,"r_true":0.6537007091247895,"rel_a":0.7606103532210744,"rel_b":0.7753355773492392,"judges":280,"offence":"Theft","early":"2017–2020","late":"2021–2024"},{"r_raw":0.2734128512111255,"r_true":0.3539376107050436,"rel_a":0.7513298214617528,"rel_b":0.7942437226399031,"judges":147,"offence":"Theft","early":"2013–2016","late":"2021–2024"},{"r_raw":0.6743653967627541,"r_true":0.777554717468028,"rel_a":0.8586021739179368,"rel_b":0.8760656457287161,"judges":297,"offence":"Drug use","early":"2013–2016","late":"2017–2020"},{"r_raw":0.4666306996441496,"r_true":0.5303147140768896,"rel_a":0.8695523190868562,"rel_b":0.8903967030156494,"judges":135,"offence":"Drug use","early":"2017–2020","late":"2021–2024"},{"r_raw":0.45625985294082194,"r_true":0.510738848322661,"rel_a":0.8872408077359144,"rel_b":0.8994669662281825,"judges":76,"offence":"Drug use","early":"2013–2016","late":"2021–2024"}],"cross":{"Impaired driving | Theft":{"r_raw":0.2224802023270344,"r_true":0.2568747764675752,"rel_a":0.941946225625451,"rel_b":0.7963678314517457,"judges":1299},"Impaired driving | Drug use":{"r_raw":0.4065417289612597,"r_true":0.4478835193641098,"rel_a":0.9452767658330562,"rel_b":0.871607807813964,"judges":1135},"Theft | Drug use":{"r_raw":0.2960130620128882,"r_true":0.3517617421906407,"rel_a":0.8114415879736332,"rel_b":0.872704632309876,"judges":1098},"Theft | Fraud":{"r_raw":0.36675098902835523,"r_true":0.478643130118469,"rel_a":0.8254026816103679,"rel_b":0.7113003984877118,"judges":628},"Impaired driving | Fraud":{"r_raw":0.339661994408987,"r_true":0.4161753190749676,"rel_a":0.9405925509581391,"rel_b":0.7081736010733577,"judges":616}},"movers":[{"a":0.21437451811099562,"b":-0.0376438361134306},{"a":0.2864044918443396,"b":0.28625403924867915},{"a":-0.18327590246792172,"b":-0.32634004332076527},{"a":-0.04723374338952539,"b":-0.19731743429149445},{"a":0.26328036564464125,"b":0.20809551745149593},{"a":-0.06660648151323799,"b":-0.20775485166711183},{"a":0.29553233316843713,"b":0.09202947354115876},{"a":0.2890104967028392,"b":0.27397475771076474},{"a":-0.10913424901822077,"b":0.07829573274971684},{"a":0.18386829668986693,"b":0.039559466912213674},{"a":0.3512978651512456,"b":-0.1354285987655988},{"a":-0.16463709776926436,"b":-0.19689472132604477},{"a":-0.12201324466389593,"b":0.12399976038116643},{"a":-0.15730643082249213,"b":0.19210246886418525},{"a":-0.05004392063975175,"b":-0.02469756716448168},{"a":0.26951875818753596,"b":0.1492851493968217},{"a":0.01911920501421349,"b":-0.11969255946499785},{"a":-0.46344322943304467,"b":-0.56370173256569},{"a":0.17464434657063926,"b":0.719164092774422},{"a":0.21963137790686388,"b":0.19853147551290692},{"a":-0.2960655675658491,"b":-0.5031312500710551},{"a":0.2359419779765685,"b":0.02573135991691679},{"a":-0.13608405480421654,"b":0.012105581064709015},{"a":0.29526038571676394,"b":-0.015316325565824553},{"a":-0.6573829765828769,"b":-0.19118138269707527},{"a":-0.28622784656221945,"b":-0.16232469243086858},{"a":0.10580450592680438,"b":0.0668193861158973},{"a":-0.08708799209412628,"b":-0.1530583545387272},{"a":0.03721364532370611,"b":0.6065129742190798},{"a":-0.07649425190605283,"b":-0.1284466551955004},{"a":-0.20889014211827375,"b":0.14143716601493697},{"a":0.15980457437161869,"b":0.6450722343502452},{"a":-0.22744200676481796,"b":-0.21290996915713717},{"a":-0.08102327604307982,"b":0.3175832131494586},{"a":0.11657855894074386,"b":-0.20702753056527134},{"a":0.09017335874312833,"b":0.004784900340677153},{"a":-0.27696555140319995,"b":-0.16180202609206276},{"a":0.172709004969644,"b":-0.2820809803451468},{"a":-0.07094794398117332,"b":-0.012766525426736139},{"a":-0.03864445040335241,"b":-0.09771377166754784},{"a":0.10099619442585636,"b":-0.2106292455467325},{"a":0.15017483242800334,"b":-0.0627999209359151},{"a":-0.10471752675841031,"b":-0.19175305526870587},{"a":0.25190394990646564,"b":0.19240953502473004},{"a":-0.281484313957275,"b":0.26062908141993335},{"a":0.0343672458952274,"b":0.3049812429937212},{"a":0.006537917702838001,"b":0.13071669760261143},{"a":-0.23709934472041194,"b":-0.020973254842702894},{"a":-0.4588755329896039,"b":-0.9060939233896226},{"a":0.12134819895038006,"b":0.30428749823216794},{"a":-0.3347827652207965,"b":-0.12621697144902747},{"a":-0.052957382148448875,"b":0.09148077718283981},{"a":-0.19218146501871447,"b":-0.3282174744546179},{"a":-0.20097940257175492,"b":0.08937284036014558},{"a":-0.07349437072077643,"b":0.28809830222188954},{"a":0.5145822031246021,"b":0.28353278541243276},{"a":-0.157908635039041,"b":-0.17639348378781736},{"a":-0.11411695288391033,"b":0.028136504740045323},{"a":-0.009619517752089355,"b":0.4334780047429492},{"a":-0.43185952406329237,"b":-0.22731226196645649},{"a":-0.14923726727226364,"b":-0.20784003534958756},{"a":-0.08020315001485187,"b":0.15927598307846286},{"a":0.014155446865802375,"b":-0.024209896505438047},{"a":0.037384090074684746,"b":-0.04512879912873558},{"a":0.08158439120654161,"b":-0.097277008736561},{"a":-0.35361524901934255,"b":-0.2353061323259777},{"a":0.013686109156507625,"b":-0.26547599791513604},{"a":0.20870454955808718,"b":0.13829474422935284},{"a":0.18650430575281526,"b":0.11721571152044144},{"a":0.2952138258700012,"b":0.6294145731954216},{"a":0.03867358040250452,"b":-0.3498894764990429},{"a":0.026907371935352836,"b":-0.22428882269968303},{"a":-0.21029203399949314,"b":0.049436346871493286},{"a":-0.002348017202742377,"b":-0.07253584384955729},{"a":-0.20569389927446383,"b":-0.10117024276007877},{"a":-0.08066603985123874,"b":0.07098926117012533},{"a":0.1875253649252511,"b":0.053335404132869565},{"a":0.11276487181283198,"b":0.05037329079950947},{"a":0.20756074343809117,"b":0.2579670661570907},{"a":-0.06194806583089235,"b":0.18092248429331256},{"a":0.5382927372558897,"b":0.6187800937237422},{"a":-0.15334504771114718,"b":0.12474780666056338},{"a":0.10008996372185086,"b":-0.029179873389537953},{"a":-0.16207600186545065,"b":-0.042486101619991674},{"a":0.3125705103293773,"b":0.22512109975884073},{"a":-0.0010084804575145197,"b":0.17740816951795402},{"a":-0.02044379354372999,"b":-0.03956422289802798},{"a":-0.09641606491048876,"b":-0.20848954392956678},{"a":-0.2220678931870094,"b":-0.21715155293945668},{"a":0.030893154528480574,"b":-0.08024071872871744},{"a":-0.1278883964031551,"b":0.019864970076000115},{"a":-0.06631893957434593,"b":-0.2179426074700103},{"a":-0.0679600737778444,"b":-0.08218608785086469},{"a":-0.24581916092752326,"b":0.19888654733883013},{"a":-0.0018025582224981994,"b":0.10716853351763707},{"a":-0.326785428461778,"b":-0.25794372819346445},{"a":0.056438771403925246,"b":-0.040797524094714946},{"a":-0.34664412876707545,"b":-0.16563099521936311},{"a":-0.06380856808304551,"b":0.1278792104158483},{"a":0.05633542165401763,"b":-0.11273121769636114},{"a":-0.20704347815969287,"b":-0.5701709827199132},{"a":-0.034539749257114075,"b":0.12036365417118375},{"a":-0.0898288732816045,"b":0.11832770027985257},{"a":-0.06387484217625472,"b":0.09956263897881476},{"a":0.09553950437146344,"b":0.2620848197524488},{"a":-0.05542928361429659,"b":-0.013112740751380554},{"a":0.1038377079758803,"b":0.22893128734813564},{"a":-0.1950194922864808,"b":-0.11701975508920406},{"a":0.18937241028334956,"b":0.5145646613051117},{"a":-0.37953979040504343,"b":0.18424652729388352},{"a":-0.08065236844337242,"b":0.03554621004276444},{"a":-0.16323078325702375,"b":-0.1202040879870263},{"a":0.24707312689631133,"b":0.22291029665707643},{"a":-0.435447088377115,"b":-0.4103456372340358},{"a":-0.0570876936747028,"b":-0.23091861643404019},{"a":0.13345226737293195,"b":-0.1419267397674006},{"a":0.37640897570136655,"b":0.047170809092901465},{"a":0.003291056354358992,"b":-0.03508609535087229},{"a":-0.12536882957421397,"b":-0.22648746228459513},{"a":-0.09421937101734812,"b":0.12483592177652209},{"a":0.07505777420456032,"b":-0.39890326755585},{"a":0.31853091102907016,"b":0.5974335031525758},{"a":-0.06481261104122645,"b":-0.07992383628317526},{"a":-0.13936945132032977,"b":-0.2676655689702061},{"a":-0.22608983201055946,"b":-0.5918407297384772},{"a":0.47016525251224933,"b":-0.183923980817939},{"a":0.10931402348233825,"b":-0.020228049136817375},{"a":-0.23871033113743598,"b":-0.08829704440107553},{"a":-0.04650115081846043,"b":-0.05331146819394185},{"a":0.051603084499262326,"b":-0.03839415851380128},{"a":-0.15024410975374328,"b":0.11807231205472929},{"a":0.24151505184142066,"b":0.0031141000899362658},{"a":0.19223924909360654,"b":1.095389750755163},{"a":0.2047373142721202,"b":0.1529279876775204},{"a":0.0978121092207812,"b":0.44080094486624677},{"a":0.01961604483226113,"b":-0.16419278215851074},{"a":0.19226295046705483,"b":0.2454820199681715},{"a":-0.06291351263562603,"b":0.057797467829812446},{"a":-0.1916450039877941,"b":-0.07054170903470162},{"a":0.17946568160337645,"b":0.30033529978989437},{"a":0.06874718324961679,"b":-0.004190454399036867},{"a":-0.05825701928963528,"b":0.04416684285705014},{"a":0.052428264004483895,"b":0.15407448950978658},{"a":-0.29130184382301627,"b":-0.2014542561963731},{"a":-0.005748046244206365,"b":0.0379741291441156},{"a":0.152455687971081,"b":0.054591990508149654},{"a":0.17135609255879292,"b":0.08808533789170467},{"a":-0.39121604846826896,"b":0.005261308735090328},{"a":0.1052514216972753,"b":0.2614793315220187},{"a":-0.12840751613142418,"b":0.3675805100482746},{"a":-0.14624392551323176,"b":-0.07073559465027858},{"a":-0.07750949524243543,"b":-0.007368061122352844},{"a":0.2741343506636712,"b":-0.01638593781884781},{"a":-0.1924043568258381,"b":-0.3912130664183412},{"a":0.07703720205464516,"b":0.16841712201724285},{"a":-0.14387736527618172,"b":-0.20359614029586198},{"a":-0.2537826647220691,"b":-0.12576244210205673},{"a":-0.02407668710489438,"b":-0.05807643033219134},{"a":-0.46775467378390445,"b":-0.10374816607640198},{"a":-0.10936296053262086,"b":0.17748491978730607},{"a":0.4702251523765322,"b":0.920588419577279},{"a":0.14128802252561104,"b":0.25941590714305707},{"a":0.2768827578331856,"b":-0.1658997146009893},{"a":-0.07047163481240373,"b":0.07192675188098901},{"a":-0.21273891670546186,"b":-0.22415309594099148},{"a":-0.29638846494568644,"b":-0.07226434839622894},{"a":-0.16884272499607803,"b":0.11818644083103122},{"a":-0.005389169253812231,"b":-0.13001609277010465},{"a":-0.048261488968705676,"b":0.20186390933617424},{"a":0.098102513525289,"b":0.2979351010361288},{"a":0.3138128428211704,"b":0.4154357585878808},{"a":0.08730342546423096,"b":-0.07768411087099782},{"a":-0.16651632548914075,"b":-0.17032540415562689},{"a":0.07433171833268588,"b":0.057617913235808685},{"a":0.21982721718455914,"b":0.1321303924500188},{"a":-0.14730132897567533,"b":-0.06373672822343136},{"a":0.07055484686592982,"b":0.23376181360878448},{"a":-0.11265291500586905,"b":-0.05219147266425391},{"a":0.1660809443888095,"b":0.2811285052664099},{"a":0.11283802021158981,"b":-0.06450208184415833},{"a":-0.22197578376984858,"b":-0.5092450257017667},{"a":0.06110979275368416,"b":0.44148275833394807},{"a":-0.11886968185613624,"b":0.26227103657719386},{"a":-0.10333662544086565,"b":-0.21546777758662108},{"a":0.171979693572701,"b":0.2034653884613901},{"a":0.4031672388973065,"b":0.3868230216167556},{"a":0.58141466174035,"b":0.30214586509719593},{"a":0.21683919472986957,"b":0.10186528841960753},{"a":-0.36127455138270365,"b":-0.14422311309169136},{"a":-0.250829292554945,"b":-0.288613433078346},{"a":-0.14872405562489646,"b":0.48655699902769534},{"a":-0.06554942155820055,"b":-0.1049080330564693},{"a":0.08358002089178423,"b":0.03764383746774069},{"a":0.14427069296356745,"b":-0.0586058935979838},{"a":0.055728484279923864,"b":0.2314930594549001},{"a":0.049214863353191786,"b":0.1930117341093354},{"a":-0.08876127350376588,"b":-0.14390264118359572},{"a":-0.0623217718339588,"b":-0.0541537054582837},{"a":0.014473156284958866,"b":0.29547005457196357},{"a":-0.005413697747721263,"b":0.4326556769002718},{"a":0.20258325737735075,"b":0.11476308205034468},{"a":-0.2982758494914891,"b":-0.05426526794634693},{"a":-0.2024202255754395,"b":-0.8194344494093422},{"a":-0.04283822809266949,"b":-0.04739121274166611},{"a":-0.07021856115534063,"b":0.22933917012663282},{"a":0.16393388335202094,"b":0.09006602003136487},{"a":0.14012478170861228,"b":0.28777932632255293},{"a":0.10054625063633636,"b":-0.1938461627448585},{"a":0.14559935177431782,"b":0.3086928593252977},{"a":0.10033666759059341,"b":0.32005453207262513},{"a":0.1875411135050132,"b":0.18739573358585385},{"a":-0.06852378978889083,"b":0.030231081099760835},{"a":0.3132246005591895,"b":0.19002358914126594},{"a":0.1281557861224802,"b":-0.40196550231886125},{"a":0.16727375906058897,"b":-0.19178972944443776},{"a":0.01933868555021995,"b":-0.27345896386614277},{"a":-0.13905004761862694,"b":0.16982314368559995},{"a":-0.024263982113327875,"b":0.1886171380524487},{"a":0.02864551775357863,"b":0.05743339121440325},{"a":0.4181507386453937,"b":0.16515394411997575},{"a":0.08827674101194108,"b":0.07079018956206078},{"a":0.07403031403391902,"b":0.09467991774923516},{"a":0.1884643796583901,"b":0.3274078161101926},{"a":0.009957297112868042,"b":-0.03433675407571757},{"a":-0.07461170968744342,"b":0.22132489277880835},{"a":-0.03870546777599395,"b":0.24433609947987822},{"a":-0.014432224469835313,"b":0.006493958124687911},{"a":0.009091145221991838,"b":0.5440565189153964},{"a":-0.016834694633632522,"b":-0.18829313287857996},{"a":0.4624376682852161,"b":0.17148470350765518},{"a":-0.06595420296379308,"b":-0.04990374024577986},{"a":-0.014450640966098738,"b":0.01693955428995442},{"a":-0.3177967408217605,"b":-0.30102461548686876},{"a":0.19883534711683776,"b":0.25859093986603016},{"a":0.01824716773916335,"b":0.11368112813380936},{"a":-0.1263724076116767,"b":0.09979494580583546},{"a":-0.03284831631784458,"b":0.27847290233758165},{"a":-0.1248159817447684,"b":-0.27012101546013156},{"a":0.21441608681765043,"b":0.33117728515429434},{"a":0.1524613190629636,"b":-0.006524203599209134},{"a":0.3233862180502008,"b":-0.09562355643903325},{"a":0.3659747960117092,"b":0.06929491674575136},{"a":-0.06345021222442607,"b":0.06202764231667978},{"a":-0.28039750630055993,"b":-0.12091209083734769},{"a":-0.02782531842570712,"b":-0.35098081249524715},{"a":0.10512754265657538,"b":-0.09956461979042269},{"a":-0.33234184542047035,"b":0.19012766322020658},{"a":0.0057829753366310434,"b":-0.2580131592732049},{"a":-0.1075307597111006,"b":-0.2120400715926008},{"a":0.010266624042249208,"b":-0.051887806642467456},{"a":0.027954688507283585,"b":-0.2213451950095097},{"a":-0.023783648127232885,"b":-0.16491567899777812},{"a":0.1799912806553325,"b":-0.0761360987501608},{"a":0.3181707833141779,"b":-0.10596494372639907},{"a":-0.04267275216159275,"b":-0.10930081548834611},{"a":0.18639431800141248,"b":0.27348549091087876},{"a":-0.06681623454267203,"b":0.007676564807622935},{"a":0.11416185068554513,"b":-0.06986305432110335},{"a":-0.09623091149591038,"b":-0.33432211014583835},{"a":-0.0067075198943461105,"b":-0.04567005925172543},{"a":0.17198467655550004,"b":0.187100364072072},{"a":0.08229928571021443,"b":-0.15285404649357726},{"a":0.09915978619276454,"b":0.015672404269837632},{"a":-0.4341579280437629,"b":-0.000631326998137676},{"a":0.14367764843382624,"b":0.05811678888850243},{"a":0.022080284774638973,"b":-0.12000605382085314},{"a":-0.1353016213777474,"b":-0.2950002857982908},{"a":-0.174902254344074,"b":-0.05789418281381001},{"a":-0.17905361208419357,"b":-0.1915356685755513},{"a":0.2855843870360087,"b":0.0218963218248601}],"idrows":[{"term":"Drunk/drugged driving · foreign national","coef":-19.023133332895846,"lo":-20.267694426978455,"hi":-17.759145579747347,"color":"--s2","note":"4,862 foreign defendants"},{"term":"Drunk/drugged driving · woman","coef":-6.471563338432295,"lo":-7.384329342578722,"hi":-5.549801645193386,"color":"--s1","note":"6,074 women defendants"},{"term":"Theft · foreign national","coef":-8.917926833053237,"lo":-15.339070983384861,"hi":-2.0097682750336743,"color":"--s2","note":"399 foreign defendants"},{"term":"Theft · woman","coef":-27.349472469061453,"lo":-29.10060156231784,"hi":-25.555092612486607,"color":"--s1","note":"5,563 women defendants"},{"term":"Fraud · foreign national","coef":-3.314881445143214,"lo":-5.557676942215883,"hi":-1.0188245343438762,"color":"--s2","note":"887 foreign defendants"},{"term":"Fraud · woman","coef":-4.786498922944249,"lo":-6.1122156683807605,"hi":-3.442062757280262,"color":"--s1","note":"5,293 women defendants"},{"term":"Money mule (laundering) · foreign national","coef":-10.020531682973665,"lo":-12.980845725306722,"hi":-6.959510396330105,"color":"--s2","note":"1,755 foreign defendants"},{"term":"Money mule (laundering) · woman","coef":-2.113517133263254,"lo":-2.9239859172170535,"hi":-1.296281902870855,"color":"--s1","note":"10,922 women defendants"},{"term":"Money mule (fraud) · woman","coef":-13.292939324925834,"lo":-17.47675735737588,"hi":-8.897007313818195,"color":"--s1","note":"635 women defendants"},{"term":"Assault · foreign national","coef":1.1953526854872942,"lo":-9.113337841083746,"hi":12.673291788783537,"color":"--s2","note":"177 foreign defendants"},{"term":"Assault · woman","coef":-26.48595405274483,"lo":-29.888537542629933,"hi":-22.918239584274325,"color":"--s1","note":"1,006 women defendants"},{"term":"Negligent injury · foreign national","coef":-13.633466070684651,"lo":-21.568732381064315,"hi":-4.895350930644559,"color":"--s2","note":"168 foreign defendants"},{"term":"Negligent injury · woman","coef":-6.598749217686651,"lo":-8.856845092266264,"hi":-4.284708417962024,"color":"--s1","note":"3,491 women defendants"},{"term":"Drug use · woman","coef":-2.987662727636242,"lo":-4.252299171343732,"hi":-1.7063229550664305,"color":"--s1","note":"2,364 women defendants"},{"term":"Drunk/drugged driving · Indigenous division","coef":1.6300744310060677,"lo":0.9706953493852088,"hi":2.2937595221257823,"color":"--s3","note":"55,054 cases in Indigenous divisions"},{"term":"Theft · Indigenous division","coef":3.3433668205809397,"lo":1.4565773318372388,"hi":5.2652449617161645,"color":"--s3","note":"7,542 cases in Indigenous divisions"},{"term":"Drug use · Indigenous division","coef":-5.000354931277585,"lo":-5.837100691577069,"hi":-4.1561737216395445,"color":"--s3","note":"8,066 cases in Indigenous divisions"},{"term":"Fraud · Indigenous division","coef":-2.8021787524240005,"lo":-4.79810229067682,"hi":-0.7644103469321428,"color":"--s3","note":"5,299 cases in Indigenous divisions"},{"term":"Assault · Indigenous division","coef":7.297478982900585,"lo":3.3767049427149143,"hi":11.366956438258114,"color":"--s3","note":"2,903 cases in Indigenous divisions"},{"term":"Money mule (laundering) · Indigenous division","coef":-3.3387305349928176,"lo":-4.757636054870485,"hi":-1.8986863873979853,"color":"--s3","note":"3,840 cases in Indigenous divisions"}],"party_rows":[{"k":"KMT · KMT gov’t (elections 2012–16)","a":29.02278292950325,"b":37.301587301587304,"note":"141 of 378 cases; share of winners 36%"},{"k":"DPP · KMT gov’t (elections 2012–16)","a":17.055803372644807,"b":8.994708994708994,"note":"34 of 378 cases; share of winners 26%"},{"k":"Independent · KMT gov’t (elections 2012–16)","a":45.37177113595317,"b":51.85185185185185,"note":"196 of 378 cases; share of winners 36%"},{"k":"KMT · DPP gov’t (elections 2018–24)","a":19.405913319365943,"b":21.511627906976745,"note":"111 of 516 cases; share of winners 28%"},{"k":"DPP · DPP gov’t (elections 2018–24)","a":13.498409354621629,"b":8.914728682170542,"note":"46 of 516 cases; share of winners 16%"},{"k":"Independent · DPP gov’t (elections 2018–24)","a":61.35945642877498,"b":67.05426356589147,"note":"346 of 516 cases; share of winners 54%"}],"bail_year":[{"year":2013,"mean":0.17372262773722627,"size":2055},{"year":2014,"mean":0.16213086276780544,"size":1727},{"year":2015,"mean":0.21627647714604237,"size":1794},{"year":2016,"mean":0.18518518518518517,"size":2133},{"year":2017,"mean":0.19005847953216373,"size":2052},{"year":2018,"mean":0.22673733804475854,"size":1698},{"year":2019,"mean":0.24416403785488958,"size":1585},{"year":2020,"mean":0.22724379376193507,"size":1571},{"year":2021,"mean":0.2567783094098884,"size":1254},{"year":2022,"mean":0.24914675767918087,"size":1172},{"year":2023,"mean":0.26320939334637966,"size":1022},{"year":2024,"mean":0.29760319573901467,"size":1502},{"year":2025,"mean":0.2869726471951785,"size":2157},{"year":2026,"mean":0.244825124910778,"size":1401}],"tenure":[{"tenure":0,"mean_z":-0.006935505882901958,"se":0.016007067171127015,"tau_z":0.28780744645389417,"n":41454,"judges":535},{"tenure":1,"mean_z":0.0014322392082419116,"se":0.01306981583717254,"tau_z":0.2878098124467733,"n":81545,"judges":535},{"tenure":2,"mean_z":0.00282660373456891,"se":0.014658465663378242,"tau_z":0.3061480345176181,"n":44968,"judges":501},{"tenure":3,"mean_z":0.025412718546605872,"se":0.013959589657707494,"tau_z":0.30621806151555114,"n":35272,"judges":457},{"tenure":4,"mean_z":0.031374423750329436,"se":0.01655731926117997,"tau_z":0.301421008302587,"n":28756,"judges":364},{"tenure":5,"mean_z":0.025834421516471015,"se":0.02051841612547227,"tau_z":0.3197308817700808,"n":27553,"judges":288},{"tenure":6,"mean_z":0.02156161508178299,"se":0.02018040070881265,"tau_z":0.33105731504481517,"n":23321,"judges":232},{"tenure":7,"mean_z":0.048674579590275796,"se":0.023791314264370842,"tau_z":0.36687023481952075,"n":17818,"judges":186},{"tenure":8,"mean_z":-0.001692223269153955,"se":0.031904343251724275,"tau_z":0.37740881897965595,"n":13065,"judges":136},{"tenure":9,"mean_z":-0.0345440686882372,"se":0.027294384016003318,"tau_z":0.3329390860386927,"n":9570,"judges":91}],"labels":{"Impaired driving":"Drunk/drugged driving","Theft":"Theft","Drug use":"Drug use","Fraud":"Fraud","Assault":"Assault","Negligent injury":"Negligent injury","Drug possession":"Drug possession","Money-mule (aiding laundering)":"Money mule (laundering)","Money-mule (aiding fraud)":"Money mule (fraud)","Defamation / insult":"Defamation","Criminal damage":"Criminal damage","Money laundering":"Money laundering"},"zh":{"Impaired driving":"酒駕／毒駕","Theft":"竊盜","Drug use":"施用毒品","Fraud":"詐欺","Assault":"傷害","Negligent injury":"過失傷害","Drug possession":"持有毒品","Money-mule (aiding laundering)":"人頭帳戶（幫助洗錢）","Money-mule (aiding fraud)":"人頭帳戶（幫助詐欺）","Money laundering":"洗錢","Criminal damage":"毀損","Defamation / insult":"妨害名譽"},"idrows_zh":[{"term":"酒駕／毒駕 · 外籍","coef":-19.023133332895846,"lo":-20.267694426978455,"hi":-17.759145579747347,"color":"--s2","note":""},{"term":"酒駕／毒駕 · 女性","coef":-6.471563338432295,"lo":-7.384329342578722,"hi":-5.549801645193386,"color":"--s1","note":""},{"term":"竊盜 · 外籍","coef":-8.917926833053237,"lo":-15.339070983384861,"hi":-2.0097682750336743,"color":"--s2","note":""},{"term":"竊盜 · 女性","coef":-27.349472469061453,"lo":-29.10060156231784,"hi":-25.555092612486607,"color":"--s1","note":""},{"term":"詐欺 · 外籍","coef":-3.314881445143214,"lo":-5.557676942215883,"hi":-1.0188245343438762,"color":"--s2","note":""},{"term":"詐欺 · 女性","coef":-4.786498922944249,"lo":-6.1122156683807605,"hi":-3.442062757280262,"color":"--s1","note":""},{"term":"人頭帳戶（幫助洗錢） · 外籍","coef":-10.020531682973665,"lo":-12.980845725306722,"hi":-6.959510396330105,"color":"--s2","note":""},{"term":"人頭帳戶（幫助洗錢） · 女性","coef":-2.113517133263254,"lo":-2.9239859172170535,"hi":-1.296281902870855,"color":"--s1","note":""},{"term":"人頭帳戶（幫助詐欺） · 女性","coef":-13.292939324925834,"lo":-17.47675735737588,"hi":-8.897007313818195,"color":"--s1","note":""},{"term":"傷害 · 外籍","coef":1.1953526854872942,"lo":-9.113337841083746,"hi":12.673291788783537,"color":"--s2","note":""},{"term":"傷害 · 女性","coef":-26.48595405274483,"lo":-29.888537542629933,"hi":-22.918239584274325,"color":"--s1","note":""},{"term":"過失傷害 · 外籍","coef":-13.633466070684651,"lo":-21.568732381064315,"hi":-4.895350930644559,"color":"--s2","note":""},{"term":"過失傷害 · 女性","coef":-6.598749217686651,"lo":-8.856845092266264,"hi":-4.284708417962024,"color":"--s1","note":""},{"term":"施用毒品 · 女性","coef":-2.987662727636242,"lo":-4.252299171343732,"hi":-1.7063229550664305,"color":"--s1","note":""},{"term":"酒駕／毒駕 · 原住民族專庭","coef":1.6300744310060677,"lo":0.9706953493852088,"hi":2.2937595221257823,"color":"--s3","note":""},{"term":"竊盜 · 原住民族專庭","coef":3.3433668205809397,"lo":1.4565773318372388,"hi":5.2652449617161645,"color":"--s3","note":""},{"term":"施用毒品 · 原住民族專庭","coef":-5.000354931277585,"lo":-5.837100691577069,"hi":-4.1561737216395445,"color":"--s3","note":""},{"term":"詐欺 · 原住民族專庭","coef":-2.8021787524240005,"lo":-4.79810229067682,"hi":-0.7644103469321428,"color":"--s3","note":""},{"term":"傷害 · 原住民族專庭","coef":7.297478982900585,"lo":3.3767049427149143,"hi":11.366956438258114,"color":"--s3","note":""},{"term":"人頭帳戶（幫助洗錢） · 原住民族專庭","coef":-3.3387305349928176,"lo":-4.757636054870485,"hi":-1.8986863873979853,"color":"--s3","note":""}],"party_zh":[{"k":"國民黨 · 國民黨政府時期","a":29.02278292950325,"b":37.301587301587304,"note":""},{"k":"民進黨 · 國民黨政府時期","a":17.055803372644807,"b":8.994708994708994,"note":""},{"k":"無黨籍 · 國民黨政府時期","a":45.37177113595317,"b":51.85185185185185,"note":""},{"k":"國民黨 · 民進黨政府時期","a":19.405913319365943,"b":21.511627906976745,"note":""},{"k":"民進黨 · 民進黨政府時期","a":13.498409354621629,"b":8.914728682170542,"note":""},{"k":"無黨籍 · 民進黨政府時期","a":61.35945642877498,"b":67.05426356589147,"note":""}]};
+function renderAll() {
+  const V = window.Viz, D = DATA, Z = D.zh;
+  const el = (id) => document.getElementById(id);
+  const sgn = (v, d = 0) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d);
+  const off = D.off.filter(r => r.n >= 5000).slice().sort((a, b) => b.gap - a.gap);
+  V.hbars(el('z-gap'), off.map(r => ({ k: Z[r.offence] || r.label, v: r.gap, hl: r.offence === 'Fraud', label: `${r.gap.toFixed(1)} 天（${Math.round(r.gap_pct)}%）`,
+    note: `平均刑期 ${Math.round(r.mean_days)} 天 · ${r.n.toLocaleString()} 件` })), {
+    fmt: (v) => v.toFixed(1) + ' 天', left: 170, right: 104, tableHead: ['罪名', '兩位法官平均差距（佔平均刑期）', '說明'],
+  });
+  V.scatter(el('z-movers'), D.movers, {
+    fmt: (v) => v.toFixed(1), xlab: '在舊法院的寬嚴（標準化）', ylab: '在新法院的寬嚴',
+    tip: (p) => [[p.a.toFixed(2) + ' → ' + p.b.toFixed(2), '調動前 → 調動後'], ['一位法官', '']],
+    tableHead: ['法官（匿名）', '調動前', '調動後'], tableRows: (pts) => pts.map((p, i) => ['法官 ' + (i + 1), p.a.toFixed(2), p.b.toFixed(2)]),
+  });
+  V.tlines(el('z-trend'), D.trend.map((s, i) => ({ ...s, name: i === 0 ? '有涵蓋的罪名' : '未涵蓋的罪名', dy: i === 0 ? 9 : -9 })), {
+    yfmt: (v) => v.toFixed(1) + '%', xlab: '年', ydomain: [0, 20],
+    events: [{ x: 2018.97, label: '2018 量刑趨勢建議' }, { x: 2023.1, label: '2023 AI 量刑' }],
+    tableHead: ['組別', '年', '法官差距（%）'],
+  });
+  V.coefs2(el('z-identity'), D.idrows_zh, { fmt: (v) => sgn(v, 0) + '%', lim: 40, left: 220,
+    tableHead: ['比較', '刑期差距', '95% 信賴區間', ''] });
+  V.dumbbell(el('z-party'), D.party_zh, { fmt: (v) => v.toFixed(0) + '%', labA: '候選人中的比例', labB: '被起訴案件中的比例', left: 200, domain: [0, 80] });
+}
+let raf = null;
+function rerender() { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); }
+if (window.d3) renderAll();
+window.addEventListener('resize', rerender);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', rerender);
+new MutationObserver(rerender).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+</script>
