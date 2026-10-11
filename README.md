@@ -60,9 +60,371 @@ For drunk driving, 442 judges qualify; 41 are clearly above and 41 clearly below
 
 <b>Judges compared with their own court</b>
 
-Difference from the average judge of the same court for comparable cases (2022–2026; extra fines 2024–2026). Days of prison, or percentage points for probation and extra-fine rates. Dot = estimate, line = 95% interval; rank = 90% range among the court's listed judges.
+Difference from the average judge of the same court for comparable cases (2022–2026; extra fines 2024–2026). Days of prison, or percentage points for probation and extra-fine rates. Rank = 90% range among the court's listed judges.
 
-The full table is in [`data/named_judges.csv`](data/named_judges.csv); GitHub shows it as a searchable table. Columns: decision, offence, court, judge, cases, difference from the court average with its 95% interval, 90% rank range among the court's listed judges, and the flag (clearly higher / clearly lower).
+Below are only the judges flagged *clearly higher* or *clearly lower*, grouped by offence and decision; click a line to open its table. *Higher* means more of that outcome: longer prison terms, more probation or more extra fines. All 1,946 estimates, including judges who are not flagged, are in [`data/named_judges.csv`](data/named_judges.csv); GitHub shows it as a searchable table.
+
+<details>
+<summary><b>Drunk/drugged driving · prison length</b>: 41 clearly higher, 41 clearly lower, of 442 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 桃園 Taoyuan | 蔡旻穎 | 286 | +44.3 | +40.4 to +48.1 | 99th pct of 80 | clearly higher |
+| 新竹 Hsinchu | 王怡蓁 | 144 | +35.8 | +30.5 to +41.0 | 98th pct of 21 | clearly higher |
+| 臺中 Taichung | 陳培維 | 156 | +30.7 | +25.7 to +35.8 | 99th pct of 61 | clearly higher |
+| 桃園 Taoyuan | 葉宇修 | 130 | +28.0 | +22.5 to +33.5 | 94th–98th pct of 80 | clearly higher |
+| 桃園 Taoyuan | 高世軒 | 122 | +26.0 | +20.3 to +31.7 | 93rd–98th pct of 80 | clearly higher |
+| 桃園 Taoyuan | 方楷烽 | 181 | +25.7 | +21.0 to +30.4 | 93rd–98th pct of 80 | clearly higher |
+| 臺南 Tainan | 莊政達 | 120 | +23.6 | +17.8 to +29.3 | 94th–99th pct of 56 | clearly higher |
+| 桃園 Taoyuan | 郭鍵融 | 120 | +23.0 | +17.3 to +28.7 | 92nd–97th pct of 80 | clearly higher |
+| 臺南 Tainan | 周紹武 | 266 | +22.6 | +18.6 to +26.6 | 94th–99th pct of 56 | clearly higher |
+| 彰化 Changhua | 王祥豪 | 335 | +22.2 | +18.7 to +25.8 | 99th pct of 35 | clearly higher |
+| 臺南 Tainan | 林欣玲 | 312 | +21.9 | +18.2 to +25.5 | 92nd–99th pct of 56 | clearly higher |
+| 桃園 Taoyuan | 陳藝文 | 134 | +21.3 | +15.8 to +26.7 | 92nd–96th pct of 80 | clearly higher |
+| 臺南 Tainan | 林政斌 | 169 | +19.9 | +15.0 to +24.8 | 88th–99th pct of 56 | clearly higher |
+| 桃園 Taoyuan | 黃弘宇 | 188 | +18.5 | +13.9 to +23.2 | 91st–94th pct of 80 | clearly higher |
+| 基隆 Keelung | 李岳 | 135 | +18.3 | +12.9 to +23.7 | 90th pct of 5 | clearly higher |
+| 苗栗 Miaoli | 顏碩瑋 | 205 | +18.0 | +13.5 to +22.5 | 97th pct of 15 | clearly higher |
+| 臺中 Taichung | 徐煥淵 | 164 | +17.8 | +12.8 to +22.7 | 93rd–98th pct of 61 | clearly higher |
+| 臺南 Tainan | 鄧希賢 | 279 | +17.5 | +13.6 to +21.4 | 87th–94th pct of 56 | clearly higher |
+| 新北 New Taipei | 楊肅宇 | 314 | +17.4 | +13.8 to +21.1 | 92nd–97th pct of 19 | clearly higher |
+| 新竹 Hsinchu | 翁禎翊 | 128 | +17.4 | +11.9 to +23.0 | 88th–93rd pct of 21 | clearly higher |
+| 臺南 Tainan | 陳碧玉 | 259 | +17.4 | +13.4 to +21.4 | 87th–96th pct of 56 | clearly higher |
+| 嘉義 Chiayi | 陳威憲 | 161 | +17.3 | +12.3 to +22.3 | 83rd–98th pct of 26 | clearly higher |
+| 嘉義 Chiayi | 何啓榮 | 127 | +16.9 | +11.3 to +22.5 | 83rd–98th pct of 26 | clearly higher |
+| 臺中 Taichung | 湯有朋 | 148 | +16.4 | +11.2 to +21.6 | 91st–98th pct of 61 | clearly higher |
+| 臺南 Tainan | 蔡奇秀 | 201 | +16.0 | +11.5 to +20.5 | 83rd–94th pct of 56 | clearly higher |
+| 新竹 Hsinchu | 江永楨 | 133 | +15.6 | +10.1 to +21.0 | 83rd–93rd pct of 21 | clearly higher |
+| 士林 Shilin | 黃雅君 | 488 | +15.2 | +12.2 to +18.1 | 95th pct of 10 | clearly higher |
+| 花蓮 Hualien | 王龍寬 | 120 | +15.0 | +9.3 to +20.7 | 96th pct of 14 | clearly higher |
+| 臺中 Taichung | 陳建宇 | 122 | +14.0 | +8.3 to +19.7 | 84th–98th pct of 61 | clearly higher |
+| 彰化 Changhua | 巫美蕙 | 311 | +13.2 | +9.5 to +16.8 | 90th–96th pct of 35 | clearly higher |
+| 桃園 Taoyuan | 黃筱晴 | 240 | +13.1 | +8.9 to +17.2 | 84th–91st pct of 80 | clearly higher |
+| 臺中 Taichung | 王曼寧 | 135 | +13.0 | +7.5 to +18.4 | 83rd–96th pct of 61 | clearly higher |
+| 雲林 Yunlin | 梁智賢 | 125 | +12.9 | +7.3 to +18.6 | 85th–97th pct of 17 | clearly higher |
+| 彰化 Changhua | 許淞傑 | 187 | +12.0 | +7.3 to +16.7 | 90th–96th pct of 35 | clearly higher |
+| 臺中 Taichung | 吳欣哲 | 171 | +11.8 | +6.9 to +16.6 | 81st–96th pct of 61 | clearly higher |
+| 桃園 Taoyuan | 鄧瑋琪 | 225 | +11.7 | +7.4 to +16.0 | 81st–91st pct of 80 | clearly higher |
+| 臺中 Taichung | 呂超群 | 129 | +11.7 | +6.2 to +17.2 | 81st–96th pct of 61 | clearly higher |
+| 臺中 Taichung | 陳嘉宏 | 210 | +10.8 | +6.4 to +15.2 | 81st–94th pct of 61 | clearly higher |
+| 彰化 Changhua | 吳永梁 | 105 | +10.3 | +4.2 to +16.4 | 84th–96th pct of 35 | clearly higher |
+| 宜蘭 Yilan | 蕭淳元 | 103 | +10.2 | +4.1 to +16.4 | 82nd–96th pct of 14 | clearly higher |
+| 高雄 Kaohsiung | 李承曄 | 1,066 | +6.0 | +4.0 to +8.0 | 88th–98th pct of 20 | clearly higher |
+| 嘉義 Chiayi | 王品惠 | 189 | −21.1 | −25.7 to −16.4 | 2nd–6th pct of 26 | clearly lower |
+| 桃園 Taoyuan | 呂秉炎 | 121 | −20.8 | −26.5 to −15.1 | 1st–4th pct of 80 | clearly lower |
+| 臺南 Tainan | 黃毓庭 | 126 | −20.4 | −26.0 to −14.8 | 1st–6th pct of 56 | clearly lower |
+| 新竹 Hsinchu | 黃美盈 | 101 | −19.0 | −25.2 to −12.8 | 2nd–7th pct of 21 | clearly lower |
+| 新北 New Taipei | 劉安榕 | 128 | −18.8 | −24.4 to −13.3 | 3rd–8th pct of 19 | clearly lower |
+| 新北 New Taipei | 潘長生 | 1,182 | −18.7 | −20.6 to −16.8 | 3rd–8th pct of 19 | clearly lower |
+| 臺南 Tainan | 卓穎毓 | 189 | −18.4 | −23.0 to −13.7 | 1st–8th pct of 56 | clearly lower |
+| 臺中 Taichung | 李昇蓉 | 105 | −18.2 | −24.3 to −12.1 | 1st–9th pct of 61 | clearly lower |
+| 桃園 Taoyuan | 張英尉 | 221 | −17.5 | −21.8 to −13.1 | 1st–7th pct of 80 | clearly lower |
+| 苗栗 Miaoli | 紀雅惠 | 265 | −17.1 | −21.0 to −13.1 | 3rd–10th pct of 15 | clearly lower |
+| 桃園 Taoyuan | 曾煒庭 | 173 | −16.9 | −21.7 to −12.0 | 1st–8th pct of 80 | clearly lower |
+| 桃園 Taoyuan | 何信儀 | 138 | −16.7 | −22.1 to −11.4 | 1st–8th pct of 80 | clearly lower |
+| 臺中 Taichung | 張美眉 | 134 | −16.3 | −21.8 to −10.9 | 1st–12th pct of 61 | clearly lower |
+| 新竹 Hsinchu | 蔡玉琪 | 204 | −16.1 | −20.5 to −11.6 | 2nd–12th pct of 21 | clearly lower |
+| 臺中 Taichung | 彭國能 | 148 | −15.7 | −20.9 to −10.5 | 1st–12th pct of 61 | clearly lower |
+| 臺南 Tainan | 周宛瑩 | 319 | −15.5 | −19.1 to −11.9 | 3rd–13th pct of 56 | clearly lower |
+| 嘉義 Chiayi | 卓春慧 | 241 | −15.3 | −19.4 to −11.1 | 6th–17th pct of 26 | clearly lower |
+| 臺南 Tainan | 蕭雅毓 | 226 | −15.2 | −19.5 to −10.9 | 3rd–13th pct of 56 | clearly lower |
+| 臺中 Taichung | 黃佳琪 | 140 | −15.1 | −20.5 to −9.8 | 1st–14th pct of 61 | clearly lower |
+| 臺中 Taichung | 吳逸儒 | 130 | −15.1 | −20.6 to −9.6 | 1st–14th pct of 61 | clearly lower |
+| 桃園 Taoyuan | 羅杰治 | 192 | −15.0 | −19.6 to −10.3 | 2nd–12th pct of 80 | clearly lower |
+| 臺南 Tainan | 鄭燕璘 | 245 | −14.9 | −19.0 to −10.8 | 3rd–15th pct of 56 | clearly lower |
+| 嘉義 Chiayi | 郭振杰 | 190 | −14.8 | −19.5 to −10.2 | 6th–17th pct of 26 | clearly lower |
+| 臺中 Taichung | 丁智慧 | 126 | −14.8 | −20.4 to −9.2 | 1st–14th pct of 61 | clearly lower |
+| 臺中 Taichung | 戰諭威 | 142 | −14.6 | −19.9 to −9.3 | 2nd–16th pct of 61 | clearly lower |
+| 臺南 Tainan | 高如宜 | 275 | −13.9 | −17.8 to −10.0 | 4th–17th pct of 56 | clearly lower |
+| 臺東 Taitung | 姚亞儒 | 305 | −13.8 | −17.6 to −10.2 | 5th–15th pct of 10 | clearly lower |
+| 臺南 Tainan | 王惠芬 | 264 | −13.6 | −17.6 to −9.7 | 4th–17th pct of 56 | clearly lower |
+| 嘉義 Chiayi | 粘柏富 | 105 | −13.5 | −19.6 to −7.4 | 6th–17th pct of 26 | clearly lower |
+| 士林 Shilin | 張明儀 | 825 | −13.2 | −15.5 to −10.9 | 5th pct of 10 | clearly lower |
+| 嘉義 Chiayi | 官怡臻 | 167 | −13.1 | −18.1 to −8.2 | 6th–17th pct of 26 | clearly lower |
+| 雲林 Yunlin | 楊謹瑜 | 143 | −13.1 | −18.4 to −7.8 | 3rd–15th pct of 17 | clearly lower |
+| 桃園 Taoyuan | 孫立婷 | 192 | −12.4 | −17.0 to −7.8 | 4th–19th pct of 80 | clearly lower |
+| 雲林 Yunlin | 蔡宗儒 | 104 | −12.2 | −18.4 to −6.2 | 3rd–15th pct of 17 | clearly lower |
+| 彰化 Changhua | 高郁茹 | 192 | −10.8 | −15.4 to −6.1 | 1st–13th pct of 35 | clearly lower |
+| 臺東 Taitung | 林涵雯 | 196 | −10.2 | −14.8 to −5.6 | 5th–15th pct of 10 | clearly lower |
+| 宜蘭 Yilan | 陳嘉瑜 | 314 | −9.7 | −13.4 to −6.1 | 4th–18th pct of 14 | clearly lower |
+| 彰化 Changhua | 李淑惠 | 295 | −9.3 | −13.1 to −5.6 | 1st–16th pct of 35 | clearly lower |
+| 高雄 Kaohsiung | 張震 | 715 | −8.1 | −10.5 to −5.6 | 2nd–12th pct of 20 | clearly lower |
+| 高雄 Kaohsiung | 林英奇 | 426 | −8.0 | −11.1 to −4.8 | 2nd–18th pct of 20 | clearly lower |
+| 橋頭 Ciaotou | 洪柏鑫 | 519 | −7.0 | −9.9 to −4.2 | 3rd–10th pct of 15 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Drunk/drugged driving · probation rate</b>: 52 clearly higher, 4 clearly lower, of 442 judges</summary>
+
+| Court | Judge | Cases | Vs court average (points) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 新竹 Hsinchu | 馮俊郎 | 105 | +46.2 | +43.3 to +49.2 | 98th pct of 21 | clearly higher |
+| 桃園 Taoyuan | 羅杰治 | 192 | +31.7 | +29.5 to +33.9 | 98th–99th pct of 80 | clearly higher |
+| 桃園 Taoyuan | 劉得為 | 128 | +29.1 | +26.4 to +31.8 | 96th–99th pct of 80 | clearly higher |
+| 桃園 Taoyuan | 林育駿 | 251 | +29.0 | +27.1 to +30.9 | 96th–98th pct of 80 | clearly higher |
+| 基隆 Keelung | 施添寶 | 105 | +28.4 | +25.5 to +31.4 | 90th pct of 5 | clearly higher |
+| 嘉義 Chiayi | 粘柏富 | 105 | +28.1 | +25.2 to +31.1 | 98th pct of 26 | clearly higher |
+| 桃園 Taoyuan | 曾煒庭 | 173 | +27.5 | +25.2 to +29.8 | 94th–98th pct of 80 | clearly higher |
+| 桃園 Taoyuan | 莊劍郎 | 108 | +26.5 | +23.6 to +29.4 | 94th–97th pct of 80 | clearly higher |
+| 臺北 Taipei | 姚念慈 | 106 | +25.4 | +22.4 to +28.3 | 96th pct of 11 | clearly higher |
+| 彰化 Changhua | 李怡昕 | 237 | +23.3 | +21.3 to +25.3 | 99th pct of 35 | clearly higher |
+| 高雄 Kaohsiung | 李承曄 | 1,066 | +22.2 | +21.3 to +23.2 | 98th pct of 20 | clearly higher |
+| 臺南 Tainan | 鄭文祺 | 129 | +21.6 | +18.9 to +24.2 | 99th pct of 56 | clearly higher |
+| 橋頭 Ciaotou | 陳明呈 | 247 | +20.9 | +18.9 to +22.8 | 97th pct of 15 | clearly higher |
+| 桃園 Taoyuan | 謝長志 | 171 | +20.2 | +17.9 to +22.6 | 89th–93rd pct of 80 | clearly higher |
+| 桃園 Taoyuan | 陳藝文 | 134 | +19.8 | +17.2 to +22.4 | 89th–93rd pct of 80 | clearly higher |
+| 新北 New Taipei | 張誌洋 | 112 | +19.1 | +16.2 to +21.9 | 92nd–97th pct of 19 | clearly higher |
+| 桃園 Taoyuan | 何宇宸 | 277 | +18.7 | +16.8 to +20.5 | 88th–93rd pct of 80 | clearly higher |
+| 桃園 Taoyuan | 古御詩 | 163 | +18.6 | +16.2 to +21.0 | 88th–93rd pct of 80 | clearly higher |
+| 彰化 Changhua | 陳怡潔 | 312 | +18.4 | +16.6 to +20.1 | 96th pct of 35 | clearly higher |
+| 新北 New Taipei | 俞兆安 | 220 | +17.5 | +15.4 to +19.6 | 92nd–97th pct of 19 | clearly higher |
+| 桃園 Taoyuan | 林述亨 | 463 | +17.2 | +15.8 to +18.7 | 88th–91st pct of 80 | clearly higher |
+| 花蓮 Hualien | 劉孟昕 | 181 | +15.4 | +13.1 to +17.7 | 82nd–96th pct of 14 | clearly higher |
+| 花蓮 Hualien | 鍾晴 | 105 | +14.7 | +11.8 to +17.6 | 82nd–96th pct of 14 | clearly higher |
+| 宜蘭 Yilan | 游欣怡 | 133 | +14.4 | +11.8 to +17.1 | 96th pct of 14 | clearly higher |
+| 桃園 Taoyuan | 施育傑 | 106 | +13.4 | +10.4 to +16.3 | 84th–87th pct of 80 | clearly higher |
+| 花蓮 Hualien | 黃夢萱 | 100 | +13.2 | +10.2 to +16.2 | 82nd–96th pct of 14 | clearly higher |
+| 臺南 Tainan | 黃毓庭 | 126 | +11.9 | +9.2 to +14.6 | 94th–97th pct of 56 | clearly higher |
+| 桃園 Taoyuan | 郭鍵融 | 120 | +11.8 | +9.0 to +14.5 | 83rd–87th pct of 80 | clearly higher |
+| 士林 Shilin | 許凱翔 | 100 | +11.8 | +8.8 to +14.8 | 95th pct of 10 | clearly higher |
+| 彰化 Changhua | 余仕明 | 115 | +11.7 | +8.8 to +14.5 | 93rd pct of 35 | clearly higher |
+| 桃園 Taoyuan | 潘曉萱 | 277 | +10.6 | +8.7 to +12.4 | 83rd–86th pct of 80 | clearly higher |
+| 臺南 Tainan | 廖建瑋 | 204 | +10.5 | +8.3 to +12.6 | 92nd–97th pct of 56 | clearly higher |
+| 桃園 Taoyuan | 陳韋如 | 268 | +10.3 | +8.5 to +12.2 | 83rd–86th pct of 80 | clearly higher |
+| 宜蘭 Yilan | 劉致欽 | 156 | +9.9 | +7.5 to +12.3 | 89th pct of 14 | clearly higher |
+| 臺南 Tainan | 潘明彥 | 380 | +9.9 | +8.3 to +11.4 | 92nd–96th pct of 56 | clearly higher |
+| 臺南 Tainan | 王惠芬 | 264 | +8.9 | +7.0 to +10.8 | 92nd–96th pct of 56 | clearly higher |
+| 臺中 Taichung | 鄭咏欣 | 152 | +8.1 | +5.6 to +10.5 | 99th pct of 61 | clearly higher |
+| 新竹 Hsinchu | 李建慶 | 194 | +7.9 | +5.7 to +10.1 | 83rd–93rd pct of 21 | clearly higher |
+| 橋頭 Ciaotou | 李冠儀 | 689 | +7.8 | +6.7 to +9.0 | 90th pct of 15 | clearly higher |
+| 桃園 Taoyuan | 方楷烽 | 181 | +7.8 | +5.5 to +10.0 | 82nd–83rd pct of 80 | clearly higher |
+| 苗栗 Miaoli | 高御庭 | 110 | +7.6 | +4.7 to +10.4 | 97th pct of 15 | clearly higher |
+| 彰化 Changhua | 宋庭華 | 189 | +7.4 | +5.2 to +9.6 | 84th–90th pct of 35 | clearly higher |
+| 新竹 Hsinchu | 楊祐庭 | 147 | +7.1 | +4.6 to +9.6 | 83rd–93rd pct of 21 | clearly higher |
+| 新北 New Taipei | 何奕萱 | 387 | +7.1 | +5.5 to +8.6 | 87th pct of 19 | clearly higher |
+| 士林 Shilin | 葛名翔 | 664 | +7.0 | +5.8 to +8.2 | 85th pct of 10 | clearly higher |
+| 彰化 Changhua | 梁義順 | 111 | +5.9 | +3.0 to +8.8 | 81st–90th pct of 35 | clearly higher |
+| 彰化 Changhua | 黃佩穎 | 125 | +5.6 | +2.9 to +8.3 | 81st–90th pct of 35 | clearly higher |
+| 臺東 Taitung | 姚亞儒 | 305 | +5.5 | +3.7 to +7.2 | 95th pct of 10 | clearly higher |
+| 臺中 Taichung | 黃建都 | 143 | +4.7 | +2.1 to +7.2 | 94th–98th pct of 61 | clearly higher |
+| 臺中 Taichung | 黃凡瑄 | 112 | +3.9 | +1.1 to +6.8 | 89th–98th pct of 61 | clearly higher |
+| 臺南 Tainan | 茆怡文 | 179 | +3.6 | +1.3 to +5.9 | 85th–90th pct of 56 | clearly higher |
+| 臺南 Tainan | 周宛瑩 | 319 | +2.9 | +1.1 to +4.6 | 83rd–90th pct of 56 | clearly higher |
+| 橋頭 Ciaotou | 許博鈞 | 665 | −9.1 | −10.2 to −7.8 | 3rd pct of 15 | clearly lower |
+| 高雄 Kaohsiung | 賴建旭 | 967 | −5.5 | −6.5 to −4.5 | 2nd–18th pct of 20 | clearly lower |
+| 橋頭 Ciaotou | 林永村 | 422 | −5.1 | −6.6 to −3.6 | 10th pct of 15 | clearly lower |
+| 士林 Shilin | 林銘宏 | 180 | −4.8 | −7.1 to −2.6 | 5th–6th pct of 10 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Drunk/drugged driving · extra-fine rate (2024–2026)</b>: 30 clearly higher, 11 clearly lower, of 219 judges</summary>
+
+| Court | Judge | Cases | Vs court average (points) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 新北 New Taipei | 黎錦福 | 544 | +63.0 | +60.0 to +66.0 | 97th pct of 15 | clearly higher |
+| 桃園 Taoyuan | 吳宜珍 | 111 | +60.8 | +54.3 to +67.4 | 92nd–99th pct of 43 | clearly higher |
+| 桃園 Taoyuan | 林其玄 | 160 | +60.7 | +55.2 to +66.2 | 92nd–99th pct of 43 | clearly higher |
+| 桃園 Taoyuan | 李信龍 | 143 | +56.5 | +50.7 to +62.3 | 90th–99th pct of 43 | clearly higher |
+| 桃園 Taoyuan | 蔡旻穎 | 132 | +56.5 | +50.5 to +62.5 | 90th–99th pct of 43 | clearly higher |
+| 臺南 Tainan | 盧鳳田 | 189 | +52.5 | +47.4 to +57.5 | 99th pct of 38 | clearly higher |
+| 桃園 Taoyuan | 黃筱晴 | 154 | +49.7 | +44.1 to +55.2 | 87th–92nd pct of 43 | clearly higher |
+| 新北 New Taipei | 吳丁偉 | 236 | +48.8 | +44.2 to +53.3 | 90th pct of 15 | clearly higher |
+| 桃園 Taoyuan | 何信儀 | 138 | +48.5 | +42.6 to +54.4 | 87th–90th pct of 43 | clearly higher |
+| 士林 Shilin | 楊峻宇 | 590 | +45.8 | +42.9 to +48.7 | 90th pct of 5 | clearly higher |
+| 新竹 Hsinchu | 王怡蓁 | 116 | +45.2 | +38.8 to +51.6 | 95th pct of 10 | clearly higher |
+| 臺南 Tainan | 陳本良 | 103 | +42.0 | +35.1 to +48.8 | 96th pct of 38 | clearly higher |
+| 桃園 Taoyuan | 范振義 | 124 | +39.7 | +33.5 to +46.0 | 85th pct of 43 | clearly higher |
+| 新北 New Taipei | 俞兆安 | 220 | +38.5 | +33.8 to +43.2 | 83rd pct of 15 | clearly higher |
+| 高雄 Kaohsiung | 賴建旭 | 506 | +37.3 | +34.2 to +40.4 | 96th pct of 13 | clearly higher |
+| 臺東 Taitung | 陳偉達 | 230 | +31.5 | +26.9 to +36.0 | 94th pct of 9 | clearly higher |
+| 苗栗 Miaoli | 顏碩瑋 | 131 | +31.3 | +25.2 to +37.3 | 95th pct of 10 | clearly higher |
+| 彰化 Changhua | 許家偉 | 166 | +30.8 | +25.4 to +36.2 | 94th–98th pct of 23 | clearly higher |
+| 臺南 Tainan | 潘明彥 | 210 | +30.8 | +25.9 to +35.6 | 91st–93rd pct of 38 | clearly higher |
+| 臺南 Tainan | 周紹武 | 186 | +30.5 | +25.4 to +35.6 | 91st–93rd pct of 38 | clearly higher |
+| 桃園 Taoyuan | 邱筠雅 | 127 | +29.1 | +23.0 to +35.3 | 80th–83rd pct of 43 | clearly higher |
+| 彰化 Changhua | 張琇涵 | 168 | +27.5 | +22.1 to +32.9 | 89th–98th pct of 23 | clearly higher |
+| 宜蘭 Yilan | 程明慧 | 144 | +27.0 | +21.2 to +32.8 | 96th pct of 11 | clearly higher |
+| 花蓮 Hualien | 劉孟昕 | 121 | +23.9 | +17.6 to +30.2 | 90th pct of 5 | clearly higher |
+| 彰化 Changhua | 熊霈淳 | 152 | +21.4 | +15.8 to +27.0 | 80th–94th pct of 23 | clearly higher |
+| 彰化 Changhua | 林慧欣 | 170 | +20.5 | +15.2 to +25.8 | 80th–89th pct of 23 | clearly higher |
+| 彰化 Changhua | 簡仲頤 | 174 | +18.5 | +13.2 to +23.8 | 80th–89th pct of 23 | clearly higher |
+| 新竹 Hsinchu | 江宜穎 | 104 | +16.9 | +10.1 to +23.7 | 85th pct of 10 | clearly higher |
+| 臺東 Taitung | 陳昱維 | 228 | +16.7 | +12.1 to +21.3 | 83rd pct of 9 | clearly higher |
+| 屏東 Pingtung | 楊青豫 | 463 | +15.6 | +12.3 to +18.8 | 90th pct of 5 | clearly higher |
+| 高雄 Kaohsiung | 李承曄 | 607 | −53.5 | −56.4 to −50.7 | 4th pct of 13 | clearly lower |
+| 臺中 Taichung | 黃渙文 | 125 | −41.5 | −47.7 to −35.3 | 5th pct of 10 | clearly lower |
+| 桃園 Taoyuan | 高世軒 | 122 | −34.0 | −40.3 to −27.7 | 1st–13th pct of 43 | clearly lower |
+| 桃園 Taoyuan | 張明宏 | 166 | −32.8 | −38.2 to −27.4 | 1st–15th pct of 43 | clearly lower |
+| 高雄 Kaohsiung | 林軒鋒 | 598 | −32.5 | −35.4 to −29.7 | 12th pct of 13 | clearly lower |
+| 臺南 Tainan | 鄭雅文 | 341 | −25.7 | −29.5 to −21.9 | 1st–12th pct of 38 | clearly lower |
+| 高雄 Kaohsiung | 呂明燕 | 112 | −24.8 | −31.3 to −18.2 | 19th pct of 13 | clearly lower |
+| 新北 New Taipei | 楊肅宇 | 314 | −24.2 | −28.1 to −20.2 | 3rd–10th pct of 15 | clearly lower |
+| 臺南 Tainan | 林岳葳 | 274 | −23.1 | −27.3 to −18.9 | 1st–20th pct of 38 | clearly lower |
+| 新北 New Taipei | 徐子涵 | 906 | −23.1 | −25.4 to −20.7 | 3rd–10th pct of 15 | clearly lower |
+| 屏東 Pingtung | 黃紀錄 | 931 | −8.4 | −10.7 to −6.1 | 10th pct of 5 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Theft · prison length</b>: 19 clearly higher, 12 clearly lower, of 216 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 臺北 Taipei | 宋恩同 | 156 | +34.2 | +28.1 to +40.4 | 97th pct of 16 | clearly higher |
+| 基隆 Keelung | 李岳 | 143 | +33.2 | +26.8 to +39.6 | 92nd pct of 6 | clearly higher |
+| 臺南 Tainan | 張婉寧 | 106 | +28.2 | +20.9 to +35.5 | 98th pct of 23 | clearly higher |
+| 彰化 Changhua | 王祥豪 | 162 | +26.4 | +20.4 to +32.5 | 92nd–97th pct of 19 | clearly higher |
+| 臺北 Taipei | 賴鵬年 | 189 | +22.1 | +16.5 to +27.8 | 91st pct of 16 | clearly higher |
+| 彰化 Changhua | 林怡君 | 130 | +21.3 | +14.6 to +27.9 | 87th–97th pct of 19 | clearly higher |
+| 苗栗 Miaoli | 朱俊瑋 | 220 | +20.8 | +15.5 to +26.0 | 88th–96th pct of 12 | clearly higher |
+| 新竹 Hsinchu | 王怡蓁 | 105 | +20.1 | +12.7 to +27.4 | 94th pct of 9 | clearly higher |
+| 臺中 Taichung | 陳盈睿 | 141 | +18.1 | +11.7 to +24.6 | 88th–96th pct of 13 | clearly higher |
+| 苗栗 Miaoli | 顏碩瑋 | 144 | +17.2 | +10.8 to +23.6 | 88th–96th pct of 12 | clearly higher |
+| 臺中 Taichung | 王曼寧 | 109 | +16.9 | +9.7 to +24.1 | 88th–96th pct of 13 | clearly higher |
+| 桃園 Taoyuan | 陳布衣 | 169 | +16.8 | +10.8 to +22.7 | 89th–98th pct of 32 | clearly higher |
+| 士林 Shilin | 黃雅君 | 100 | +15.8 | +8.3 to +23.2 | 95th pct of 10 | clearly higher |
+| 彰化 Changhua | 陳建文 | 121 | +14.8 | +7.9 to +21.6 | 82nd–92nd pct of 19 | clearly higher |
+| 桃園 Taoyuan | 蔡旻穎 | 155 | +14.5 | +8.3 to +20.7 | 86th–98th pct of 32 | clearly higher |
+| 桃園 Taoyuan | 黃弘宇 | 104 | +14.3 | +7.0 to +21.6 | 83rd–98th pct of 32 | clearly higher |
+| 高雄 Kaohsiung | 張震 | 483 | +12.8 | +9.2 to +16.4 | 92nd–98th pct of 20 | clearly higher |
+| 桃園 Taoyuan | 曾雨明 | 319 | +12.7 | +8.3 to +17.1 | 83rd–95th pct of 32 | clearly higher |
+| 新北 New Taipei | 徐蘭萍 | 677 | +9.7 | +6.6 to +12.7 | 84th–98th pct of 22 | clearly higher |
+| 臺北 Taipei | 翁毓潔 | 134 | −20.9 | −27.5 to −14.4 | 3rd–9th pct of 16 | clearly lower |
+| 臺南 Tainan | 鄭銘仁 | 139 | −20.6 | −27.1 to −14.2 | 2nd–6th pct of 23 | clearly lower |
+| 苗栗 Miaoli | 洪振峰 | 141 | −19.2 | −25.6 to −12.8 | 4th pct of 12 | clearly lower |
+| 新北 New Taipei | 張誌洋 | 104 | −17.8 | −25.2 to −10.5 | 2nd–7th pct of 22 | clearly lower |
+| 彰化 Changhua | 李淑惠 | 140 | −16.7 | −23.2 to −10.3 | 3rd–13th pct of 19 | clearly lower |
+| 桃園 Taoyuan | 鄧瑋琪 | 107 | −15.1 | −22.4 to −7.9 | 2nd–17th pct of 32 | clearly lower |
+| 臺南 Tainan | 高如宜 | 116 | −14.5 | −21.5 to −7.5 | 2nd–11th pct of 23 | clearly lower |
+| 基隆 Keelung | 鄭虹眞 | 112 | −13.6 | −20.7 to −6.5 | 8th pct of 6 | clearly lower |
+| 新竹 Hsinchu | 楊惠芬 | 114 | −13.0 | −20.0 to −5.9 | 6th–17th pct of 9 | clearly lower |
+| 高雄 Kaohsiung | 林英奇 | 259 | −12.9 | −17.8 to −8.1 | 2nd–12th pct of 20 | clearly lower |
+| 宜蘭 Yilan | 陳嘉瑜 | 141 | −12.0 | −18.4 to −5.5 | 7th pct of 7 | clearly lower |
+| 橋頭 Ciaotou | 陳箐 | 507 | −10.1 | −13.6 to −6.5 | 4th–11th pct of 14 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Money mule (laundering) · prison length</b>: 6 clearly higher, 8 clearly lower, of 143 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 桃園 Taoyuan | 曾雨明 | 424 | +61.4 | +56.6 to +66.3 | 96th pct of 11 | clearly higher |
+| 臺中 Taichung | 徐煥淵 | 120 | +50.9 | +42.0 to +59.8 | 96th pct of 11 | clearly higher |
+| 新北 New Taipei | 黎錦福 | 231 | +21.2 | +14.7 to +27.7 | 88th–96th pct of 13 | clearly higher |
+| 彰化 Changhua | 巫美蕙 | 110 | +19.4 | +10.1 to +28.6 | 93rd pct of 7 | clearly higher |
+| 新北 New Taipei | 鄭淳予 | 117 | +17.5 | +8.6 to +26.5 | 88th–96th pct of 13 | clearly higher |
+| 高雄 Kaohsiung | 陳力揚 | 144 | +17.3 | +9.1 to +25.5 | 96th pct of 12 | clearly higher |
+| 桃園 Taoyuan | 陳彥年 | 146 | −45.7 | −53.8 to −37.6 | 4th pct of 11 | clearly lower |
+| 臺南 Tainan | 李俊彬 | 160 | −42.2 | −50.0 to −34.5 | 2nd pct of 24 | clearly lower |
+| 桃園 Taoyuan | 林慈雁 | 473 | −30.1 | −34.7 to −25.4 | 14th pct of 11 | clearly lower |
+| 臺北 Taipei | 謝欣宓 | 161 | −28.2 | −36.0 to −20.5 | 4th–12th pct of 12 | clearly lower |
+| 臺北 Taipei | 洪英花 | 124 | −26.2 | −35.0 to −17.4 | 4th–12th pct of 12 | clearly lower |
+| 高雄 Kaohsiung | 林英奇 | 171 | −22.6 | −30.2 to −15.1 | 4th pct of 12 | clearly lower |
+| 屏東 Pingtung | 蕭筠蓉 | 135 | −19.6 | −28.0 to −11.2 | 6th–19th pct of 8 | clearly lower |
+| 苗栗 Miaoli | 紀雅惠 | 133 | −16.8 | −25.2 to −8.3 | 5th–15th pct of 10 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Money mule (laundering) · probation rate</b>: 9 clearly higher, 4 clearly lower, of 143 judges</summary>
+
+| Court | Judge | Cases | Vs court average (points) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 臺北 Taipei | 洪英花 | 124 | +20.4 | +14.6 to +26.1 | 88th–96th pct of 12 | clearly higher |
+| 桃園 Taoyuan | 高上茹 | 306 | +17.9 | +14.0 to +21.7 | 96th pct of 11 | clearly higher |
+| 臺北 Taipei | 謝欣宓 | 161 | +16.6 | +11.4 to +21.7 | 88th–96th pct of 12 | clearly higher |
+| 臺南 Tainan | 陳貽明 | 102 | +12.8 | +6.6 to +19.1 | 85th–98th pct of 24 | clearly higher |
+| 高雄 Kaohsiung | 張嘉芳 | 223 | +12.1 | +7.7 to +16.6 | 96th pct of 12 | clearly higher |
+| 臺南 Tainan | 李俊彬 | 160 | +11.5 | +6.3 to +16.7 | 85th–98th pct of 24 | clearly higher |
+| 新北 New Taipei | 鄭淳予 | 117 | +9.9 | +4.0 to +15.8 | 81st–96th pct of 13 | clearly higher |
+| 新北 New Taipei | 白光華 | 150 | +9.8 | +4.5 to +15.2 | 81st–96th pct of 13 | clearly higher |
+| 苗栗 Miaoli | 紀雅惠 | 133 | +9.4 | +3.8 to +15.0 | 85th–95th pct of 10 | clearly higher |
+| 臺北 Taipei | 王星富 | 114 | −17.1 | −23.1 to −11.1 | 4th pct of 12 | clearly lower |
+| 士林 Shilin | 蘇昌澤 | 107 | −13.7 | −19.8 to −7.6 | 10th pct of 5 | clearly lower |
+| 屏東 Pingtung | 黃紀錄 | 221 | −11.6 | −16.1 to −7.2 | 6th–19th pct of 8 | clearly lower |
+| 臺南 Tainan | 郭瓊徽 | 174 | −8.2 | −13.2 to −3.2 | 2nd–19th pct of 24 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Fraud · prison length</b>: 12 clearly higher, 12 clearly lower, of 135 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 臺中 Taichung | 徐煥淵 | 211 | +99.5 | +83.1 to +115.9 | 97th pct of 19 | clearly higher |
+| 臺南 Tainan | 張郁昇 | 131 | +94.7 | +74.2 to +115.2 | 94th–98th pct of 23 | clearly higher |
+| 臺南 Tainan | 周紹武 | 122 | +87.6 | +66.4 to +108.8 | 94th–98th pct of 23 | clearly higher |
+| 桃園 Taoyuan | 林其玄 | 102 | +87.1 | +64.1 to +110.1 | 96th pct of 12 | clearly higher |
+| 臺北 Taipei | 宋恩同 | 482 | +82.4 | +71.4 to +93.4 | 97th pct of 15 | clearly higher |
+| 高雄 Kaohsiung | 許瑜容 | 235 | +74.2 | +58.6 to +89.7 | 85th–95th pct of 10 | clearly higher |
+| 臺中 Taichung | 王曼寧 | 114 | +66.6 | +44.7 to +88.4 | 92nd pct of 19 | clearly higher |
+| 彰化 Changhua | 張琇涵 | 125 | +61.9 | +41.0 to +82.9 | 90th–97th pct of 15 | clearly higher |
+| 高雄 Kaohsiung | 吳書怡 | 126 | +56.5 | +35.6 to +77.3 | 85th–95th pct of 10 | clearly higher |
+| 彰化 Changhua | 李欣恩 | 124 | +41.5 | +20.4 to +62.5 | 83rd–97th pct of 15 | clearly higher |
+| 士林 Shilin | 古御詩 | 268 | +39.8 | +25.2 to +54.4 | 86th–96th pct of 11 | clearly higher |
+| 新北 New Taipei | 黎錦福 | 283 | +37.4 | +23.2 to +51.6 | 93rd–98th pct of 22 | clearly higher |
+| 臺南 Tainan | 鄭銘仁 | 202 | −96.2 | −113.0 to −79.5 | 2nd pct of 23 | clearly lower |
+| 臺南 Tainan | 李俊彬 | 163 | −72.5 | −91.0 to −54.0 | 6th pct of 23 | clearly lower |
+| 高雄 Kaohsiung | 黃政忠 | 308 | −61.4 | −75.0 to −47.7 | 5th–15th pct of 10 | clearly lower |
+| 臺中 Taichung | 王品惠 | 124 | −60.8 | −81.8 to −39.8 | 3rd–13th pct of 19 | clearly lower |
+| 彰化 Changhua | 李怡昕 | 120 | −60.5 | −81.9 to −39.2 | 3rd–10th pct of 15 | clearly lower |
+| 桃園 Taoyuan | 郭于嘉 | 255 | −54.7 | −69.7 to −39.7 | 4th pct of 12 | clearly lower |
+| 新北 New Taipei | 吳宗航 | 136 | −53.1 | −73.3 to −33.0 | 2nd–7th pct of 22 | clearly lower |
+| 高雄 Kaohsiung | 郭振杰 | 124 | −51.3 | −72.3 to −30.2 | 5th–15th pct of 10 | clearly lower |
+| 臺北 Taipei | 翁毓潔 | 503 | −51.2 | −62.0 to −40.4 | 3rd–17th pct of 15 | clearly lower |
+| 臺南 Tainan | 林欣玲 | 193 | −47.4 | −64.5 to −30.3 | 11th–20th pct of 23 | clearly lower |
+| 新北 New Taipei | 梁家贏 | 281 | −40.0 | −54.3 to −25.8 | 2nd–11th pct of 22 | clearly lower |
+| 士林 Shilin | 黃柏仁 | 118 | −39.4 | −60.9 to −17.9 | 4th–14th pct of 11 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Fraud · extra-fine rate (2024–2026)</b>: 9 clearly higher, 0 clearly lower, of 99 judges</summary>
+
+| Court | Judge | Cases | Vs court average (points) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 臺中 Taichung | 徐煥淵 | 189 | +52.4 | +50.2 to +54.5 | 96th pct of 13 | clearly higher |
+| 臺中 Taichung | 陳盈睿 | 212 | +45.2 | +43.2 to +47.3 | 88th pct of 13 | clearly higher |
+| 臺南 Tainan | 盧鳳田 | 130 | +44.5 | +41.9 to +47.1 | 97th pct of 18 | clearly higher |
+| 彰化 Changhua | 陳怡潔 | 106 | +23.9 | +21.1 to +26.8 | 95th pct of 10 | clearly higher |
+| 新北 New Taipei | 鄭淳予 | 219 | +12.6 | +10.6 to +14.6 | 88th–96th pct of 12 | clearly higher |
+| 新北 New Taipei | 吳宗航 | 116 | +10.1 | +7.3 to +12.8 | 88th–96th pct of 12 | clearly higher |
+| 彰化 Changhua | 張琇涵 | 104 | +7.3 | +4.4 to +10.2 | 85th pct of 10 | clearly higher |
+| 臺北 Taipei | 倪霈棻 | 511 | +4.7 | +3.4 to +6.0 | 89th–96th pct of 14 | clearly higher |
+| 臺北 Taipei | 賴鵬年 | 343 | +4.4 | +2.8 to +6.0 | 89th–96th pct of 14 | clearly higher |
+
+</details>
+
+<details>
+<summary><b>Negligent injury · prison length</b>: 4 clearly higher, 1 clearly lower, of 54 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 高雄 Kaohsiung | 賴建旭 | 210 | +20.3 | +15.2 to +25.4 | 96th pct of 12 | clearly higher |
+| 新北 New Taipei | 陳明珠 | 238 | +19.2 | +14.4 to +24.1 | 97th pct of 16 | clearly higher |
+| 桃園 Taoyuan | 謝承益 | 121 | +14.2 | +7.7 to +20.8 | 92nd pct of 6 | clearly higher |
+| 新北 New Taipei | 潘長生 | 172 | +12.6 | +7.0 to +18.2 | 84th–91st pct of 16 | clearly higher |
+| 高雄 Kaohsiung | 黃政忠 | 224 | −24.9 | −29.8 to −19.9 | 4th pct of 12 | clearly lower |
+
+</details>
+
+<details>
+<summary><b>Drug use · prison length</b>: 3 clearly higher, 4 clearly lower, of 53 judges</summary>
+
+| Court | Judge | Cases | Vs court average (days) | 95% interval | Rank in court (90% range) | Flag |
+|---|---|---|---|---|---|---|
+| 桃園 Taoyuan | 曾雨明 | 134 | +18.0 | +12.9 to +23.1 | 90th pct of 5 | clearly higher |
+| 新北 New Taipei | 徐蘭萍 | 562 | +12.9 | +10.4 to +15.4 | 88th–96th pct of 12 | clearly higher |
+| 屏東 Pingtung | 黃紀錄 | 443 | +3.7 | +0.9 to +6.5 | 90th pct of 5 | clearly higher |
+| 士林 Shilin | 張明儀 | 182 | −23.7 | −28.1 to −19.4 | 7th pct of 7 | clearly lower |
+| 新北 New Taipei | 潘長生 | 750 | −22.0 | −24.2 to −19.9 | 4th pct of 12 | clearly lower |
+| 桃園 Taoyuan | 李敬之 | 135 | −17.7 | −22.7 to −12.6 | 10th pct of 5 | clearly lower |
+| 橋頭 Ciaotou | 黃逸寧 | 105 | −16.7 | −22.4 to −11.0 | 8th pct of 6 | clearly lower |
+
+</details>
 
 ### 1.4 Did sentencing tools reduce the lottery?
 
